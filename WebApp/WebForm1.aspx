@@ -4,90 +4,10 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
+    <link rel="stylesheet" href="StyleSheet.css"/>
     <title></title>
 </head>
 <body>
-    <style>
-body, html{
-    margin:0;
-    padding:0;
-    height: 100%; 
-    width: 100%;
-}
-
-
-/*Nav bar*/
-        ul {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-            background-color: blue; /*Nav bar color*/
-            position: -webkit-sticky; /* Safari */
-            /*position: sticky;
-            top: 0;*/
-        }
-
-        li {
-            float: right;
-        }
-
-            li a {
-                display: block;
-                color: white;
-                text-align: center;
-                padding: 14px 16px;
-                text-decoration: none;
-            }
-
-                li a:hover {
-                    background-color: #111;
-                }
-
-th{
-    padding:75px;
-    font-size: 50px;
-    background-color:blue;
-    width:15%;
-}
-
-.homeImg{
-    background-image:url(https://c8.alamy.com/comp/J3A6TX/messy-office-desk-J3A6TX.jpg); 
-    background-size:cover; 
-    height:350px;
-    background-repeat: no-repeat; 
-    background-position:center;
-}
-
-.nav-wrapper{
-    position: sticky;
-    top: 0;
-}
-
-.table-wrapper{
-    margin-top:150px;
-    position:center;
-    margin-left: 25px;
-    margin-right:25px;
-}
-
-table{
-        border-spacing: 50px;
-        border-collapse: separate;
-        background-color:aqua;
-}
-
-.tdInfo{
-    padding:75px;
-    font-size: 50px;
-    text-align:center;
-
-    width:15%;
-}
-
-
-
-    </style>
 
     <form id="form1" runat="server">
 
@@ -128,6 +48,42 @@ table{
                      Search
                 </td>
             </tr>
+            <tr>
+                <td >
+                    <div class="selectCourse-wrapper">
+
+                    <div class="SubjectInput">
+                        <label>Select Subject</label>
+                        <input /> 
+                        <input /> 
+                        <input /> 
+                        <input /> 
+                        <input /> 
+                        <input /> 
+                    </div>
+
+                    <div class="CourseNumInput">
+                        <label>Select Course</label>
+                        <input /> 
+                        <input /> 
+                        <input /> 
+                        <input /> 
+                        <input /> 
+                        <input /> 
+                    </div>
+
+
+
+                    </div>
+                </td>
+                 <td class="tdInfo">
+                     Select criteria
+                </td>
+                 <td class="tdInfo">
+                     <button>Search!</button>
+                </td>
+            </tr>
+
 
         </table>
             </div>
