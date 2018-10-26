@@ -18,14 +18,15 @@
 
         <div class="nav-wrapper">
             <ul>
-                <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact</a></li>
-                <li><a href="#news">News</a></li>
-                <li><a href="#home">Home</a></li>
+                <li><a href="#About">About</a></li>
+                <li><a href="#Schedule">Schedule</a></li>
+                <li><a href="#Steps">Steps</a></li>
+                <li><a href="#top">Home</a></li>
             </ul>
         </div>
         <div class="table-wrapper">
-        <table >
+        <a name ="Steps">
+        <table class="stepsTable">
             <tr>
                 <th>
                     Step 1
@@ -50,34 +51,153 @@
             </tr>
             <tr>
                 <td >
+
                     <div class="selectCourse-wrapper">
-
                     <div class="SubjectInput">
+                        <div style="text-align:center;">
                         <label>Select Subject</label>
-                        <input /> 
-                        <input /> 
-                        <input /> 
-                        <input /> 
-                        <input /> 
-                        <input /> 
+                        </div>
+                        <select class="selectClasses" id="myselect" runat="server">
+                           
+                        </select>
+                        <select class="selectClasses">
+                           
+                        </select>
+                        <select class="selectClasses">
+                          
+                        </select>
+                        <select class="selectClasses">
+                            
+                        </select>
+                        <select class="selectClasses">
+                            
+                        </select>
+                        <select class="selectClasses">
+                           
+                        </select>
+                       
                     </div>
-
+                        
                     <div class="CourseNumInput">
+                        <div style="text-align:center;">
                         <label>Select Course</label>
-                        <input /> 
-                        <input /> 
-                        <input /> 
-                        <input /> 
-                        <input /> 
-                        <input /> 
+                    </div>
+                        <select class="selectClasses">
+                           
+                        </select>
+                        <select class="selectClasses">
+                            
+                        </select>
+                        <select class="selectClasses">
+                            
+                        </select>
+                        <select class="selectClasses">
+                            
+                        </select>
+                        <select class="selectClasses">
+                            
+                        </select>
+                        <select class="selectClasses">
+                            
+                        </select>
                     </div>
 
-
-
+                    <div class="SectionInput">
+                        <div style="text-align:center;">
+                        <label>Select Section*</label>
+                        </div>
+                        <select class="selectClasses">
+                           
+                        </select>
+                        <select class="selectClasses">
+                            
+                        </select>
+                        <select class="selectClasses">
+                            
+                        </select>
+                        <select class="selectClasses">
+                            
+                        </select>
+                        <select class="selectClasses">
+                            
+                        </select>
+                        <select class="selectClasses">
+                            
+                        </select>
+                    </div>
                     </div>
                 </td>
-                 <td class="tdInfo">
-                     Select criteria
+                 <td>
+                     <div class="selectCriteria-wrapper">
+                         <div class="onlinePreferDiv">
+                         <label>Prefered Online:</label>
+                          <select class="onlinePreferCheckBox">
+                              <option>Yes</option>
+                              <option>No</option>                         
+                        </select>
+                        </div>
+
+                         <div class="timeOfDayDiv">
+                             <label>Prefered Time of Class:</label>
+                             <table class="timeOfDayTable">
+                                 <tr>
+                                     <td class="timeOfDaysTableTd">Morning</td>
+                                     <td class="timeOfDaysTableTd">Noon</td>
+                                     <td class="timeOfDaysTableTd">Evening</td>
+                                 </tr>
+                                 <tr>
+                                     <td class="timeOfDaysTableTd">
+                                         <input type="checkbox" />
+                                     </td>
+                                     <td class="timeOfDaysTableTd">
+                                         <input type="checkbox" />
+                                     </td>
+                                     <td class="timeOfDaysTableTd">
+                                         <input type="checkbox" />
+                                     </td>
+                                 </tr>
+                             </table>
+
+                         </div>
+
+                         <div class="preferDaysDiv">
+                             <label style="">Prefered Day of Class:</label>
+                             <table class="preferDaysTable">
+                                 <tr>
+                                     <td class="daysTableTd">Monday</td>
+                                     <td class="daysTableTd">Tuesday</td>
+                                     <td class="daysTableTd">Wednesday</td>
+                                     <td class="daysTableTd">Thursday</td>
+                                     <td class="daysTableTd">Friday</td>
+                                     <td class="daysTableTd">Saturday</td>
+                                     <td class="daysTableTd">Sunday</td>
+                                 </tr>
+                                 <tr>
+                                     <td class="daysTableTd">
+                                         <input type="checkbox" />
+                                     </td>
+                                     <td class="daysTableTd">
+                                         <input type="checkbox" />
+                                     </td>
+                                     <td class="daysTableTd">
+                                         <input type="checkbox" />
+                                     </td>
+                                     <td class="daysTableTd">
+                                         <input type="checkbox" />
+                                     </td>
+                                     <td class="daysTableTd">
+                                         <input type="checkbox" />
+                                     </td>
+                                     <td class="daysTableTd">
+                                         <input type="checkbox" />
+                                     </td>
+                                     <td class="daysTableTd">
+                                         <input type="checkbox" />
+                                     </td>
+                                 </tr>
+                             </table>
+                         </div>            
+                     </div>
                 </td>
                  <td class="tdInfo">
                      <button>Search!</button>
@@ -86,7 +206,13 @@
 
 
         </table>
-            </div>
+        </div>
+        <a name ="Schedule">
+        <div style="height:1000px; background-color:green;">    
+        </div>.
+        <a name ="About">
+        <div style="height:250px; background-color:red;">    
+        </div>
         
     </form>
 </body>

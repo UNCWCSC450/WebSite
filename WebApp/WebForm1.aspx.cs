@@ -11,6 +11,10 @@ namespace WebApp
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            for (int i = 0; i < 100; i++)
+            {
+                myselect.Items.Add(new ListItem(i.ToString(), i.ToString()));
+            }
 
         }
     }
