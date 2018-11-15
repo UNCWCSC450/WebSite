@@ -10,3 +10,35 @@ select {
 h5 {
     margin: 5px
 }
+
+.schedule{
+    height:100%;
+ 
+    width:80%;
+    margin: 5px;
+    margin-bottom:25px;
+}
+
+.tableDays {
+    border:double;
+    text-align:center;
+    width: 10%;
+}
+
+.tableCells {
+    width: 10%;
+    border: double;
+    text-align:center;
+    font-size:25px;
+}
+
+.tableTimeStamp {
+    width: 5%;
+    height: 75px;
+    text-align: center;
+    border: double;
+}
+
+th {
+    width: 5%;
+}
