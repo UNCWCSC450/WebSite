@@ -1,0 +1,12 @@
+﻿.selectCourse {
+    margin: 5px;
+    visibility: hidden
+}
+
+select {
+    margin: 5px;
+}
+
+h5 {
+    margin: 5px
+}

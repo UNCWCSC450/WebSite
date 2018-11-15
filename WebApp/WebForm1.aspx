@@ -4,216 +4,93 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <link rel="stylesheet" href="StyleSheet.css"/>
-    <title></title>
+    <link rel="stylesheet" href="https://bootswatch.com/4/cerulean/bootstrap.min.css"/>
+    <link href="StyleSheets/StyleSheet.css" rel="stylesheet" />
+
+    <script src="Scripts/Ajax.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+    <script src="Scripts/JavaScript.js"></script>
+
+    <title>UNC-Scheduler</title>
 </head>
 <body>
 
     <form id="form1" runat="server">
 
-        <div class="homeImg">
-            <h1>Name of Website</h1>
-            <p>Brief description right here for our website</p>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary" style="position: sticky; top: 0; z-index: 1;">
+            <a class="navbar-brand" href="#">UNC-Scheduler</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarColor01">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Schedule</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">About</a>
+                    </li>
+                </ul>
+
+            </div>
+        </nav>
+
+        <div class="jumbotron">
+            <h1 class="display-3">HELLO STUDENT</h1>
+            <p class="lead">College is stressful enough, let us make it easier!</p>
+            <hr class="my-4" />
+            <p>Click below to learn how we did it!</p>
+            <p class="lead">
+                <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+            </p>
         </div>
 
-        <div class="nav-wrapper">
-            <ul>
-                <li><a href="#About">About</a></li>
-                <li><a href="#Schedule">Schedule</a></li>
-                <li><a href="#Steps">Steps</a></li>
-                <li><a href="#top">Home</a></li>
-            </ul>
-        </div>
-        <div class="table-wrapper">
-        <a name ="Steps">
-        <table class="stepsTable">
-            <tr>
-                <th>
-                    Step 1
-                </th>
-                <th>
-                    Step 2
-                </th>
-                <th>
-                    Step 3
-                </th>
-            </tr>
-            <tr>
-                <td class="tdInfo" >
-                    Select classes
-                </td>
-                 <td class="tdInfo">
-                     Select criteria
-                </td>
-                 <td class="tdInfo">
-                     Search
-                </td>
-            </tr>
-            <tr>
-                <td >
 
-                    <div class="selectCourse-wrapper">
-                    <div class="SubjectInput">
-                        <div style="text-align:center;">
-                        <label>Select Subject</label>
+
+        <div class="main-wrapper" style="display: flex; height: 100%">
+
+            <div class="card text-white bg-primary mb-3" style="max-width: 20rem; height: 750px; z-index: 0; margin: 15px; width: 25%">
+                <div class="card-header">Header</div>
+                <div class="card-body">
+
+                    <div style="display: flex; width: 100%">
+                        <div style="display: grid; width: 30%; margin: 5px">
+                            <h5>Subject</h5>
+                            <select id="myselect1" name="myselect1" runat="server" onchange="jsfunction(this)"></select>
+                            <select id="myselect2" runat="server" onchange="jsfunction(this)"></select>
+                            <select id="myselect3" runat="server" onchange="jsfunction(this)"></select>
+                            <select id="myselect4" runat="server" onchange="jsfunction(this)"></select>
+                            <select id="myselect5" runat="server" onchange="jsfunction(this)"></select>
+                            <select id="myselect6" runat="server" onchange="jsfunction(this)"></select>
                         </div>
-                        <select class="selectClasses" id="myselect" runat="server">
-                           
-                        </select>
-                        <select class="selectClasses">
-                           
-                        </select>
-                        <select class="selectClasses">
-                          
-                        </select>
-                        <select class="selectClasses">
-                            
-                        </select>
-                        <select class="selectClasses">
-                            
-                        </select>
-                        <select class="selectClasses">
-                           
-                        </select>
-                       
-                    </div>
-                        
-                    <div class="CourseNumInput">
-                        <div style="text-align:center;">
-                        <label>Select Course</label>
-                    </div>
-                        <select class="selectClasses">
-                           
-                        </select>
-                        <select class="selectClasses">
-                            
-                        </select>
-                        <select class="selectClasses">
-                            
-                        </select>
-                        <select class="selectClasses">
-                            
-                        </select>
-                        <select class="selectClasses">
-                            
-                        </select>
-                        <select class="selectClasses">
-                            
-                        </select>
-                    </div>
-
-                    <div class="SectionInput">
-                        <div style="text-align:center;">
-                        <label>Select Section*</label>
+                        <div style="display: grid; width: 30%; margin: 5px">
+                            <h5>Course</h5>
+                            <select id="myselect11" name="myselect11" runat="server" class="selectCourse"></select>
+                            <select id="myselect22" name="myselect22" runat="server" class="selectCourse"></select>
+                            <select id="myselect33" name="myselect33" runat="server" class="selectCourse"></select>
+                            <select class="selectCourse" id="myselect44" name="myselect44"></select>
+                            <select class="selectCourse" id="myselect55" name="myselect55"></select>
+                            <select class="selectCourse" id="myselect66" name="myselect66"></select>
                         </div>
-                        <select class="selectClasses">
-                           
-                        </select>
-                        <select class="selectClasses">
-                            
-                        </select>
-                        <select class="selectClasses">
-                            
-                        </select>
-                        <select class="selectClasses">
-                            
-                        </select>
-                        <select class="selectClasses">
-                            
-                        </select>
-                        <select class="selectClasses">
-                            
-                        </select>
-                    </div>
-                    </div>
-                </td>
-                 <td>
-                     <div class="selectCriteria-wrapper">
-                         <div class="onlinePreferDiv">
-                         <label>Prefered Online:</label>
-                          <select class="onlinePreferCheckBox">
-                              <option>Yes</option>
-                              <option>No</option>                         
-                        </select>
+                        <div style="display: grid; width: 30%; margin: 5px">
+                            <h5>Section</h5>
+                            <select class="selectCourse"></select>
+                            <select class="selectCourse"></select>
+                            <select class="selectCourse"></select>
+                            <select class="selectCourse"></select>
+                            <select class="selectCourse"></select>
+                            <select class="selectCourse"></select>
                         </div>
-
-                         <div class="timeOfDayDiv">
-                             <label>Prefered Time of Class:</label>
-                             <table class="timeOfDayTable">
-                                 <tr>
-                                     <td class="timeOfDaysTableTd">Morning</td>
-                                     <td class="timeOfDaysTableTd">Noon</td>
-                                     <td class="timeOfDaysTableTd">Evening</td>
-                                 </tr>
-                                 <tr>
-                                     <td class="timeOfDaysTableTd">
-                                         <input type="checkbox" />
-                                     </td>
-                                     <td class="timeOfDaysTableTd">
-                                         <input type="checkbox" />
-                                     </td>
-                                     <td class="timeOfDaysTableTd">
-                                         <input type="checkbox" />
-                                     </td>
-                                 </tr>
-                             </table>
-
-                         </div>
-
-                         <div class="preferDaysDiv">
-                             <label style="">Prefered Day of Class:</label>
-                             <table class="preferDaysTable">
-                                 <tr>
-                                     <td class="daysTableTd">Monday</td>
-                                     <td class="daysTableTd">Tuesday</td>
-                                     <td class="daysTableTd">Wednesday</td>
-                                     <td class="daysTableTd">Thursday</td>
-                                     <td class="daysTableTd">Friday</td>
-                                     <td class="daysTableTd">Saturday</td>
-                                     <td class="daysTableTd">Sunday</td>
-                                 </tr>
-                                 <tr>
-                                     <td class="daysTableTd">
-                                         <input type="checkbox" />
-                                     </td>
-                                     <td class="daysTableTd">
-                                         <input type="checkbox" />
-                                     </td>
-                                     <td class="daysTableTd">
-                                         <input type="checkbox" />
-                                     </td>
-                                     <td class="daysTableTd">
-                                         <input type="checkbox" />
-                                     </td>
-                                     <td class="daysTableTd">
-                                         <input type="checkbox" />
-                                     </td>
-                                     <td class="daysTableTd">
-                                         <input type="checkbox" />
-                                     </td>
-                                     <td class="daysTableTd">
-                                         <input type="checkbox" />
-                                     </td>
-                                 </tr>
-                             </table>
-                         </div>            
-                     </div>
-                </td>
-                 <td class="tdInfo">
-                     <button>Search!</button>
-                </td>
-            </tr>
-
-
-        </table>
+                    </div>
+                </div>
+            </div>
         </div>
-        <a name ="Schedule">
-        <div style="height:1000px; background-color:green;">    
-        </div>.
-        <a name ="About">
-        <div style="height:250px; background-color:red;">    
-        </div>
-        
+
     </form>
+
 </body>
 </html>

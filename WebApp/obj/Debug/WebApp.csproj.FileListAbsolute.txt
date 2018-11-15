@@ -110,3 +110,7 @@ C:\Users\ctr20\Desktop\WebSite\WebApp\obj\Debug\WebApp.csproj.CoreCompileInputs.
 C:\Users\ctr20\Desktop\WebSite\WebApp\obj\Debug\WebApp.csproj.CopyComplete
 C:\Users\ctr20\Desktop\WebSite\WebApp\obj\Debug\WebApp.dll
 C:\Users\ctr20\Desktop\WebSite\WebApp\obj\Debug\WebApp.pdb
+C:\Users\ctr20\Desktop\WebSite\WebApp\bin\Google.Protobuf.dll
+C:\Users\ctr20\Desktop\WebSite\WebApp\bin\MySql.Data.dll
+C:\Users\ctr20\Desktop\WebSite\WebApp\bin\Google.Protobuf.xml
+C:\Users\ctr20\Desktop\WebSite\WebApp\bin\MySql.Data.xml
