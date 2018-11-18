@@ -13,30 +13,38 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $('select').change(function () {
+
+
                 //alert("works");
                 var elementID = this.id
-                //alert(id);
-                var optionSelected = $('#'+elementID+' option:selected').val();
-                //alert(data);
-                $.ajax({
 
-                    
-                    type: 'POST',
-                    url: "WebForm1.aspx/getCourses",                    
-                    data: "{course:'" + optionSelected + "', select:'"+elementID+"' }",
-                    contentType: "application/json; charset=utf-8",
-                    dataType: "json",                  
-                    success: function (data) {
-                        populateCourseSelect(data.d)
-                        //alert(data.d);
- 
-                    },
-                     
-                    failure: function (response) {
-                        alert("broken")
-                    }
-                });
 
+                if (elementID.length == 9) {
+                    //alert(id);
+                    var optionSelected = $('#' + elementID + ' option:selected').val();
+                    //alert(data);
+                    $.ajax({
+
+
+                        type: 'POST',
+                        url: "WebForm1.aspx/getCourses",
+                        data: "{course:'" + optionSelected + "', select:'" + elementID + "' }",
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (data) {
+                            populateCourseSelect(data.d)
+                            //alert(data.d);
+
+                        },
+
+                        failure: function (response) {
+                            alert("broken")
+                        }
+
+
+                    });
+
+                }
             })
 
             function populateCourseSelect(str) {
