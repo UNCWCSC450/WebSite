@@ -42,3 +42,10 @@ h5 {
 th {
     width: 5%;
 }
+
+.main-wrapper {
+    display: flex;
+    height: 100%;
+
+
+}

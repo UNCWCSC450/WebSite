@@ -10,6 +10,74 @@
     <script src="Scripts/Ajax.js"></script>
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
     <script src="Scripts/JavaScript.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('select').change(function () {
+                //alert("works");
+                var elementID = this.id
+                //alert(id);
+                var optionSelected = $('#'+elementID+' option:selected').val();
+                //alert(data);
+                $.ajax({
+
+                    
+                    type: 'POST',
+                    url: "WebForm1.aspx/getCourses",                    
+                    data: "{course:'" + optionSelected + "', select:'"+elementID+"' }",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",                  
+                    success: function (data) {
+                        populateCourseSelect(data.d)
+                        //alert(data.d);
+ 
+                    },
+                     
+                    failure: function (response) {
+                        alert("broken")
+                    }
+                });
+
+            })
+
+            function populateCourseSelect(str) {
+
+                var listOfCourse = str.substring(9);
+                
+                var tempSelect = str.substring(0, 9);
+                var select = tempSelect + tempSelect[8]
+
+                var num = "";
+                
+                $('#'+select+'')
+                    .empty()
+                    ;
+
+                for (var i = 0; i < listOfCourse.length; i++) {
+
+                    var tempNum = listOfCourse[i];
+
+                    if (tempNum != ",") {
+                        num += tempNum;
+
+                    } else {
+                        var x = document.getElementById(""+select+"");
+                        var option = document.createElement("option");
+                        option.text = num;
+                        x.add(option);
+                        num = "";
+                    }
+
+                }
+
+            }
+
+        });
+    </script>
+    <%--keyname: $('#myselect1 option:selected').val()--%> 
+
+
+
+   
 
     <title>UNC-Scheduler</title>
 </head>
@@ -49,18 +117,17 @@
             </p>
         </div>
 
-
-
         <div class="main-wrapper" style="display: flex; height: 100%;">
 
             <div class="card text-white bg-primary mb-3" style="max-width: 20rem; height: 750px; z-index: 0; margin: 15px; width: 25%">
                 <div class="card-header">Select Courses</div>
+
                 <div class="card-body">
 
                     <div style="display: flex; width: 100%;  border-bottom:double">
                         <div style="display: grid; width: 30%; margin: 5px">
                             <h5>Subject</h5>
-                            <select id="myselect1" name="myselect1" runat="server" onchange="jsfunction(this)"></select>
+                            <select id="myselect1" runat="server" onchange="jsfunction(this)"></select>
                             <select id="myselect2" runat="server" onchange="jsfunction(this)"></select>
                             <select id="myselect3" runat="server" onchange="jsfunction(this)"></select>
                             <select id="myselect4" runat="server" onchange="jsfunction(this)"></select>
@@ -237,6 +304,25 @@
             </div>
 
         </div>
+
+        <div class="list-group">
+  <a href="#" class="list-group-item list-group-item-action flex-column align-items-start active">
+    <div class="d-flex w-100 justify-content-between">
+      <h5 class="mb-1">List group item heading</h5>
+      <small>3 days ago</small>
+    </div>
+    <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+    <small>Donec id elit non mi porta.</small>
+  </a>
+  <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+    <div class="d-flex w-100 justify-content-between">
+      <h5 class="mb-1">List group item heading</h5>
+      <small class="text-muted">3 days ago</small>
+    </div>
+    <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+    <small class="text-muted">Donec id elit non mi porta.</small>
+  </a>
+</div>
 
     </form>
 

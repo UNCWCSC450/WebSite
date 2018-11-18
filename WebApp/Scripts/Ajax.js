@@ -20,9 +20,3 @@
         })
 }
 
-$("#myselect1").on('change', function () {
-    alert("works");
-    var val = $(this).val();
-
-    console.log(val);
-});

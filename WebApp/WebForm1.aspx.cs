@@ -47,11 +47,37 @@
 
 
         [System.Web.Services.WebMethod]
-        public static string getCourses()
+        public static string getCourses(string course, string select)
         {
+            //ArrayList CourseNums = new ArrayList();
+            string courseNums = select;
+            string queryStr = "select distinct Crse from courses.course_table where courses.course_table.Subj Like '"+course+"' order by Crse asc;" ;
+            string ConnectionStr = "server=localhost; uid=root; pwd=12345; database=Courses";
+            using (MySqlConnection connection = new MySqlConnection(ConnectionStr))
+            {
+                MySqlCommand command = new MySqlCommand(queryStr, connection);
+                connection.Open();
+                try
+                {
+                    MySqlDataReader reader = command.ExecuteReader();
 
 
-            return "works";
+                    while (reader.Read())
+                    {
+                        courseNums += reader.GetValue(0).ToString() + ",";
+
+                    }
+                }
+
+                finally
+                {
+                    // Always call Close when done reading.
+                    connection.Close();
+                }
+
+            }
+
+            return courseNums;
         }
 
 
