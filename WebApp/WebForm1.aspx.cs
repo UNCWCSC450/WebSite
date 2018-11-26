@@ -7,85 +7,25 @@
     using System.Data;
     using System.Linq;
     using System.Web.UI;
+    using IronPython.Hosting;
+    using IronPython.Modules;
+    using Microsoft.Scripting.Hosting;
 
-    /// <summary>
-    /// Defines the <see cref="_Default" />
-    /// </summary>
+   
     public partial class WebForm1 : Page
 
 
     {
 
-        /// <summary>
-        /// Defines the mappy
-        /// </summary>
         public static Dictionary<string, ArrayList> mappy = new Dictionary<string, ArrayList>();
 
-        /// <summary>
-        /// Defines the debug
-        /// Determines if schedules will be written to a text file
-        /// </summary>
         public static Boolean debug = true;
 
 
         public static string strGlobal = "before";
 
-        /// <summary>
-        /// sw writes to a textfile on the current machines desktop
-        /// Directory WILL need to change
-        /// </summary>
-        //public static StreamWriter sw = new StreamWriter(@"C:\Users\ctr20\Desktop\schedules.txt");
 
 
-        [System.Web.Services.WebMethod]
-        public static string backEndFunction()
-        {
-
-
-            return strGlobal;
-        }
-
-
-        [System.Web.Services.WebMethod]
-        public static string getCourses(string course, string select)
-        {
-            //ArrayList CourseNums = new ArrayList();
-            string courseNums = select;
-            string queryStr = "select distinct Crse from courses.course_table where courses.course_table.Subj Like '"+course+"' order by Crse asc;" ;
-            string ConnectionStr = "server=localhost; uid=root; pwd=12345; database=Courses";
-            using (MySqlConnection connection = new MySqlConnection(ConnectionStr))
-            {
-                MySqlCommand command = new MySqlCommand(queryStr, connection);
-                connection.Open();
-                try
-                {
-                    MySqlDataReader reader = command.ExecuteReader();
-
-
-                    while (reader.Read())
-                    {
-                        courseNums += reader.GetValue(0).ToString() + ",";
-
-                    }
-                }
-
-                finally
-                {
-                    // Always call Close when done reading.
-                    connection.Close();
-                }
-
-            }
-
-            return courseNums;
-        }
-
-
-        /// <summary>
-        /// The Page_Load
-        /// </summary>
-        /// <param name="sender">The sender<see cref="object"/></param>
-        /// <param name="e">The e<see cref="EventArgs"/></param>
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack)
@@ -97,7 +37,7 @@
 
 
                 string queryStr = "Select * FROM course_table;";
-                string ConnectionStr = "server=localhost; uid=root; pwd=12345; database=Courses";
+                string ConnectionStr = "server=localhost; uid=root; pwd=Deepw00d; database=Courses";
                 using (MySqlConnection connection = new MySqlConnection(ConnectionStr))
                 {
                     MySqlCommand command = new MySqlCommand(queryStr, connection);
@@ -135,6 +75,8 @@
 
 
                             }
+
+
                             else
                             {
                                 ArrayList listy = new ArrayList();
@@ -152,8 +94,8 @@
 
                 }
 
-                queryStr = "SELECT DISTINCT Subj FROM course_table ORDER BY Subj asc;";
-                ConnectionStr = "server=localhost; uid=root; pwd=12345; database=Courses";
+                queryStr = "SELECT DISTINCT subject FROM course_table ORDER BY subject asc;";
+                ConnectionStr = "server=localhost; uid=root; pwd=Deepw00d; database=Courses";
                 using (MySqlConnection connection = new MySqlConnection(ConnectionStr))
                 {
                     MySqlCommand command = new MySqlCommand(queryStr, connection);
@@ -190,386 +132,217 @@
 
                 }
 
-
+                //algorithm();
 
 
             }
         }
 
-        /// <summary>
-        /// The Button1_Click
-        /// </summary>
-        /// <param name="sender">The sender<see cref="object"/></param>
-        /// <param name="e">The e<see cref="EventArgs"/></param>
-        public void Button1_Click(object sender, EventArgs e)
+
+        [System.Web.Services.WebMethod]
+        public static string algorithm(string course1, string course2, string course3, string course4, string course5, string course6)
         {
+            ArrayList crns = new ArrayList();
+
+            int threshHold = 3;
+
+            bool foundSchedule = false;
+
+            int attempts = 0;
+            int i = 0;
 
 
-
-
-            //"MAT161", "ENG101", "CSC331"
-            //"CSC133", "CSC331", "CSC231", "ENG101" 
-            //"CSC231", "CSC133", "CSC331", "CSC231", "ENG101" 
-            //"CSC385", "CSC231", "CSC133", "CSC331", "CSC231", "ENG101" 
-            ArrayList desiredCourses = new ArrayList() { "ACG201", "ENG101" };
-            String a = testFunction(desiredCourses);
-            //sw.Close();
-        }
-
-        /// <summary>
-        /// The testFunction
-        /// </summary>
-        /// <param name="desiredCourses">The desiredCourses<see cref="ArrayList"/></param>
-        /// <returns>The <see cref="string"/></returns>
-        private string testFunction(ArrayList desiredCourses)
-        {
-
-            ArrayList sectionsDesiredCourses = new ArrayList();
-
-            foreach (string courseStr in desiredCourses)
+            while (!foundSchedule)
             {
-                ArrayList courseList = new ArrayList();
-                mappy.TryGetValue(courseStr, out courseList);
-                sectionsDesiredCourses.Add(courseList);
-            }
+                string [] result = getRandomSchedule(course1, course2, course3, course4, course5, course6, threshHold);
 
-            strGlobal = "Number of courses: " + sectionsDesiredCourses.Count;
-
-            BitArray course1BitArray = null;
-            BitArray course2BitArray = null;
-            BitArray course3BitArray = null;
-            BitArray course4BitArray = null;
-            BitArray course5BitArray = null;
-            BitArray course6BitArray = null;
-
-            int counter = 0;
-            string concatStr = "";
-            int numberOfDesiredCourses = desiredCourses.Count;
-
-            if (numberOfDesiredCourses >= 1)
-            {
-                ArrayList course1List = (ArrayList)sectionsDesiredCourses[0];
-                for (int i = 0; i < course1List.Count; i++) //Grab first course
+                if (result[0] != "")
                 {
-                    Course tempCourse = (Course)course1List[i];
-                    String courseBits1 = tempCourse.getBitArray();
-                    course1BitArray = new BitArray(courseBits1.Select(c => c == '1').ToArray());
-
-                    int j = 0;
-                    int k = 0;
-                    int m = 0;
-                    int n = 0;
-                    int h = 0;
-
-                    if (desiredCourses.Count >= 2)
+                    for(int j = 0; j < result.Length; j++)
                     {
-                        ArrayList course2List = (ArrayList)sectionsDesiredCourses[1];
-                        for (j = 0; j < course2List.Count; j++) //Grab second course
+                        crns.Add(result[j]);
+                    }
+                    foundSchedule = true;
+                }
+
+                if (attempts % 500 == 0 && attempts != 0)
+                {
+                    threshHold += 1;
+                }
+
+                attempts += 1;
+
+                i++;
+            }
+
+            // NEED TO RETURN MAYBE THE CRN'S OR SOMETHING IDK YET
+            string crnConCat = "";
+
+            for (i = 0; i < crns.Count; i++)
+            {
+                if(i == crns.Count - 1)
+                {
+                    crnConCat += crns[i];
+                } else
+                {
+                    crnConCat += crns[i] + ",";
+                }
+            }
+
+            return crnConCat;
+        }
+
+
+        public static int RandomNumber(int min, int max)
+        {
+            Random random = new Random();
+            return random.Next(min, max);
+        }
+
+
+        public static string[] getRandomSchedule(string c1,string c2, string c3, string c4, string c5, string c6, int threshold)
+        {
+            ArrayList courses = new ArrayList(); // need a way to undo this operation of adding to a arraylist
+
+            courses.Add(c1);
+            courses.Add(c2);
+            courses.Add(c3);
+            courses.Add(c4);
+
+            if(c5 != "")
+            {
+                courses.Add(c5);
+            }
+            if(c6 != "")
+            {
+                courses.Add(c6);
+            }
+            
+
+
+            string[] returnArray = new string[courses.Count];
+            string[] crnArray = new string[courses.Count];
+            string[] bitArrays = new string[courses.Count];
+            string concatBitArrayStr = "";
+
+            Course[] randomArray = new Course[courses.Count]; // array of random Courses
+            //BitArray[] courseBitArraysArray = new BitArray[courses.Count]; // array of BitArrays
+            BitArray courseBitArray = null; // will be a course BitArray
+            String courseBits = null; // string of a course BitArray
+
+            int i = 0;
+            foreach (string courseStr in courses)
+            {
+                ArrayList courseList = new ArrayList();  // will hold Course objects for each course
+
+                mappy.TryGetValue(courseStr, out courseList); // get the arraylist of course objects for each course
+
+                int sectionNum = courseList.Count; // get the number of course sections 
+
+                int randomNum = RandomNumber(0, sectionNum); // gets a random number between 0 and # of sections 
+
+                randomArray[i] = (Course)courseList[randomNum]; // get a random course from the course list 
+
+                crnArray[i] = randomArray[i].getCRN();
+
+
+
+                courseBits = randomArray[i].getBitArray(); // get that courses bit array
+
+                if(courseBits.Length < 160)
+                {
+                    courseBits = new string('0', 168); // if the bitarray is null, set it to online (all 0's)
+                }
+
+                concatBitArrayStr += courseBits;
+
+                courseBitArray = new BitArray(courseBits.Select(c => c == '1').ToArray()); // convert string to bitarray
+
+                bitArrays[i] = courseBits;
+
+                //courseBitArraysArray[i] = courseBitArray; // assign the bitarray to a index
+
+                i++;
+            }
+
+
+            bool noConflict = checkConflict(bitArrays); // check the conflicts between the bitarray list [01010101,11110000,00011010011,0100010]
+
+
+            if (noConflict) // if there is no conflict, we need to score the schedule. 
+            {
+
+                /* Test stuff */
+                //noConflict = checkConflict(bitArrays);
+
+
+                /* End Test */
+
+
+                int score = scoreSchedule(concatBitArrayStr);  // score the non conflicted schedule
+                    
+
+                if (score < threshold) // if the score is good enough, return the CRNs
+                {
+                    return crnArray;
+                }
+                else // else set the crn array = ""
+                {
+                    for(i = 0; i < crnArray.Length; i++)
+                    {
+                        crnArray[i] = "";
+                    }
+                }
+            }
+            else // there was a conflict, so we set the crns to ""
+            {
+                for (i = 0; i < crnArray.Length; i++)
+                {
+                    crnArray[i] = "";
+                }
+            }
+
+
+            return crnArray; // will eventually return the CRNs?
+
+
+        }
+
+
+        private static bool checkConflict(string[] courseBitArray) // given a list of 4-6 bit arrays
+        {
+            for (int i = 0; i < courseBitArray.Length; i++) 
+            {
+                for (int j = 0; j < courseBitArray.Length; j++)
+                {
+                    if (i != j)
+                    {
+                        bool conflict = comparebits(courseBitArray[i], courseBitArray[j]); // will be true if there is a conflict 
+
+                        if (conflict)
                         {
-                            Course tempCourse2 = (Course)course2List[j];
-                            String courseBits2 = tempCourse2.getBitArray();
-                            course2BitArray = new BitArray(courseBits2.Select(c => c == '1').ToArray());
-                            bool testBool;
-
-                            try
-                            {
-                                BitArray compareBits = course1BitArray.And(course2BitArray);
-                                testBool = iterateBitArray(compareBits);
-                            }
-                            catch (Exception e)
-                            {
-                                testBool = false;
-                            }
-
-
-                            if (testBool)
-                            {
-                                //MessageBox.Show("Conflict between: " + tempCourse.getCRN() + "," + tempCourse2.getCRN());
-                                continue;
-                            }
-
-                            if (desiredCourses.Count == 2 && debug) //for debugging purposes
-                            {
-                                counter++;
-                                concatStr = tempCourse.getCRN() + "," + tempCourse2.getCRN() + ",";
-                                //sw.WriteLine(counter + ": " + concatStr);
-                            }
-
-                            if (desiredCourses.Count >= 3)
-                            {
-                                ArrayList course3List = (ArrayList)sectionsDesiredCourses[2];
-                                for (k = 0; k < course3List.Count; k++) //grab third course
-                                {
-                                    Course tempCourse3 = (Course)course3List[k];
-                                    String courseBits3 = tempCourse3.getBitArray();
-                                    course3BitArray = new BitArray(courseBits3.Select(c => c == '1').ToArray());
-                                    Boolean testBool2;
-
-                                    try
-                                    {
-                                        BitArray compareBits2 = course2BitArray.And(course3BitArray);
-                                        testBool = iterateBitArray(compareBits2);
-
-
-                                    }
-                                    catch (Exception e)
-                                    {
-                                        testBool = false;
-                                    }
-
-                                    try
-                                    {
-                                        BitArray compareBits3 = course3BitArray.And(course1BitArray);
-                                        testBool2 = iterateBitArray(compareBits3);
-                                    }
-                                    catch (Exception e)
-                                    {
-                                        testBool2 = false;
-                                    }
-
-                                    if (testBool || testBool2)
-                                    {
-                                        //MessageBox.Show("Conflict between: " + tempCourse.getCRN() + "," + tempCourse2.getCRN() + "," + tempCourse3.getCRN());
-                                        continue;
-                                    }
-
-                                    if (desiredCourses.Count == 3 && debug) //for debugging purposes
-                                    {
-                                        counter++;
-                                        concatStr = tempCourse.getCRN() + "," + tempCourse2.getCRN() +
-                                            "," + tempCourse3.getCRN() + "," + ";";
-                                        //sw.WriteLine(counter + ": " + concatStr);
-                                    }
-
-                                    if (desiredCourses.Count >= 4)
-                                    {
-                                        ArrayList course4List = (ArrayList)sectionsDesiredCourses[3];
-
-                                        for (m = 0; m < course4List.Count; m++) //grab third course
-                                        {
-                                            Course tempCourse4 = (Course)course4List[m];
-                                            String courseBits4 = tempCourse4.getBitArray();
-                                            course4BitArray = new BitArray(courseBits4.Select(c => c == '1').ToArray());
-                                            Boolean testBool3;
-
-                                            try
-                                            {
-                                                BitArray compareBits2 = course1BitArray.And(course4BitArray);
-                                                testBool = iterateBitArray(compareBits2);
-
-
-                                            }
-                                            catch (Exception e)
-                                            {
-                                                testBool = false;
-                                            }
-
-                                            try
-                                            {
-                                                BitArray compareBits3 = course2BitArray.And(course4BitArray);
-                                                testBool2 = iterateBitArray(compareBits3);
-                                            }
-                                            catch (Exception e)
-                                            {
-                                                testBool2 = false;
-                                            }
-
-                                            try
-                                            {
-                                                BitArray compareBits3 = course3BitArray.And(course4BitArray);
-                                                testBool3 = iterateBitArray(compareBits3);
-                                            }
-                                            catch (Exception e)
-                                            {
-                                                testBool3 = false;
-                                            }
-
-                                            if (testBool || testBool2 || testBool3)
-                                            {
-                                                //MessageBox.Show("Conflict between: " + tempCourse.getCRN() + "," + tempCourse2.getCRN() + "," + tempCourse3.getCRN());
-                                                continue;
-                                            }
-
-
-
-                                            if (desiredCourses.Count == 4 && debug) //for debugging purposes
-                                            {
-                                                counter++;
-                                                concatStr = tempCourse.getCRN() + "," + tempCourse2.getCRN() +
-                                                    "," + tempCourse3.getCRN() + "," + tempCourse4.getCRN() + ";";
-                                                //sw.WriteLine(counter + ": " + concatStr);
-                                            }
-                                            if (desiredCourses.Count >= 5)
-                                            {
-                                                ArrayList course5List = (ArrayList)sectionsDesiredCourses[4];
-                                                for (n = 0; n < course5List.Count; n++) //grab third course
-                                                {
-                                                    Course tempCourse5 = (Course)course5List[n];
-                                                    String courseBits5 = tempCourse5.getBitArray();
-                                                    course5BitArray = new BitArray(courseBits5.Select(c => c == '1').ToArray());
-                                                    Boolean testBool4;
-
-                                                    try
-                                                    {
-                                                        BitArray compareBits2 = course1BitArray.And(course5BitArray);
-                                                        testBool = iterateBitArray(compareBits2);
-
-
-                                                    }
-                                                    catch (Exception e)
-                                                    {
-                                                        testBool = false;
-                                                    }
-
-                                                    try
-                                                    {
-                                                        BitArray compareBits3 = course2BitArray.And(course5BitArray);
-                                                        testBool2 = iterateBitArray(compareBits3);
-                                                    }
-                                                    catch (Exception e)
-                                                    {
-                                                        testBool2 = false;
-                                                    }
-
-                                                    try
-                                                    {
-                                                        BitArray compareBits3 = course3BitArray.And(course5BitArray);
-                                                        testBool3 = iterateBitArray(compareBits3);
-                                                    }
-                                                    catch (Exception e)
-                                                    {
-                                                        testBool3 = false;
-                                                    }
-
-                                                    try
-                                                    {
-                                                        BitArray compareBits4 = course4BitArray.And(course5BitArray);
-                                                        testBool4 = iterateBitArray(compareBits4);
-                                                    }
-                                                    catch (Exception e)
-                                                    {
-                                                        testBool4 = false;
-                                                    }
-
-                                                    if (testBool || testBool2 || testBool3 || testBool4)
-                                                    {
-                                                        //MessageBox.Show("Conflict between: " + tempCourse.getCRN() + "," + tempCourse2.getCRN() + "," + tempCourse3.getCRN());
-                                                        continue;
-                                                    }
-
-                                                    if (desiredCourses.Count == 5 && debug) //for debugging purposes
-                                                    {
-                                                        counter++;
-                                                        concatStr = tempCourse.getCRN() + "," + tempCourse2.getCRN() +
-                                                            "," + tempCourse3.getCRN() + "," + tempCourse4.getCRN() +
-                                                            "," + tempCourse5.getCRN() + ";";
-                                                        //sw.WriteLine(counter + ": " + concatStr);
-                                                    }
-
-
-
-
-                                                    if (desiredCourses.Count >= 6)
-                                                    {
-                                                        ArrayList course6List = (ArrayList)sectionsDesiredCourses[5];
-
-                                                        for (h = 0; h < course6List.Count; h++) //grab third course
-                                                        {
-                                                            Course tempCourse6 = (Course)course6List[h];
-                                                            String courseBits6 = tempCourse6.getBitArray();
-                                                            course6BitArray = new BitArray(courseBits6.Select(c => c == '1').ToArray());
-                                                            Boolean testBool5;
-
-                                                            try
-                                                            {
-                                                                BitArray compareBits2 = course1BitArray.And(course5BitArray);
-                                                                testBool = iterateBitArray(compareBits2);
-
-
-                                                            }
-                                                            catch (Exception e)
-                                                            {
-                                                                testBool = false;
-                                                            }
-
-                                                            try
-                                                            {
-                                                                BitArray compareBits3 = course2BitArray.And(course5BitArray);
-                                                                testBool2 = iterateBitArray(compareBits3);
-                                                            }
-                                                            catch (Exception e)
-                                                            {
-                                                                testBool2 = false;
-                                                            }
-
-                                                            try
-                                                            {
-                                                                BitArray compareBits3 = course3BitArray.And(course5BitArray);
-                                                                testBool3 = iterateBitArray(compareBits3);
-                                                            }
-                                                            catch (Exception e)
-                                                            {
-                                                                testBool3 = false;
-                                                            }
-
-                                                            try
-                                                            {
-                                                                BitArray compareBits4 = course4BitArray.And(course5BitArray);
-                                                                testBool4 = iterateBitArray(compareBits4);
-                                                            }
-                                                            catch (Exception e)
-                                                            {
-                                                                testBool4 = false;
-                                                            }
-
-                                                            try
-                                                            {
-                                                                BitArray compareBits5 = course5BitArray.And(course6BitArray);
-                                                                testBool5 = iterateBitArray(compareBits5);
-                                                            }
-                                                            catch (Exception e)
-                                                            {
-                                                                testBool5 = false;
-                                                            }
-
-                                                            if (testBool || testBool2 || testBool3 || testBool4 || testBool5)
-                                                            {
-                                                                //MessageBox.Show("Conflict between: " + tempCourse.getCRN() + "," + tempCourse2.getCRN() + "," + tempCourse3.getCRN());
-                                                                continue;
-                                                            }
-
-                                                            if (desiredCourses.Count == 6 && debug) //for debugging purposes
-                                                            {
-                                                                counter++;
-                                                                concatStr = tempCourse.getCRN() + "," + tempCourse2.getCRN() +
-                                                                    "," + tempCourse3.getCRN() + "," + tempCourse4.getCRN() +
-                                                                    "," + tempCourse5.getCRN() + "," + tempCourse6.getCRN() + ";";
-                                                                //sw.WriteLine(counter + ": " + concatStr);
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            }
-
-                                        }
-                                    }
-
-                                }
-                            }
+                            return false;
                         }
                     }
                 }
             }
-            return concatStr;
+
+
+            return true;
+
         }
 
-        /// <summary>
-        /// The iterateBitArray
-        /// </summary>
-        /// <param name="bits">The bits<see cref="BitArray"/></param>
-        /// <returns>The <see cref="bool"/></returns>
-        public bool iterateBitArray(BitArray bits)
+
+        public static bool iterateBitArray(BitArray bits) // returns true if there is a conflict
         {
+            string testString = "";
+            for (int i = 0; i < bits.Count; i++)
+            {
+                testString += bits[i];
+            }
+
+
+
             for (int i = 0; i < bits.Count; i++)
             {
                 if (bits[i])
@@ -579,5 +352,199 @@
             }
             return false;
         }
+
+
+        private static bool comparebits(string v1, string v2) // returns true if there is a conflict 
+        {
+            for(int i = 0; i < v1.Length; i++)
+            {
+                if(v1[i].ToString() == "1")
+                {
+                    if (v1[i] == v2[i])
+                    {
+                        return true;
+                    }
+                }
+            }
+
+
+            return false;
+        }
+
+
+        private static int scoreSchedule(string concatBitArrayStr)
+        {
+            int gaps = 0;
+            int lastOne = 0;
+            bool counting = false;
+            char tempChar;
+
+            for (int i = 0; i < concatBitArrayStr.Length; i++)
+            {
+                if (i % 24 == 0)
+                {
+                    counting = false;
+                    lastOne = i;
+                }
+
+                tempChar = concatBitArrayStr[i];
+
+                if (tempChar.ToString() == "1")
+                {
+                    if ((i - lastOne) > 1)
+                    {
+                        if (counting)
+                        {
+                            gaps += i - lastOne - 1;
+                        }
+                    }
+                    counting = true;
+                    lastOne = i;
+                }
+            }
+
+
+            return gaps;
+        }
+
+
+        [System.Web.Services.WebMethod]
+        public static string getTimes(string crn)
+        {
+            string strTimes = "";
+            string queryStr = $"Select time FROM course_table where CRN={crn};";
+            string ConnectionStr = "server=localhost; uid=root; pwd=Deepw00d; database=Courses";
+            using (MySqlConnection connection = new MySqlConnection(ConnectionStr))
+            {
+                MySqlCommand command = new MySqlCommand(queryStr, connection);
+                connection.Open();
+                try
+                {
+                    MySqlDataReader reader = command.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        strTimes = reader.GetValue(0).ToString();
+                    }
+
+                }
+                finally
+                {
+                    // Always call Close when done reading.
+                    connection.Close();
+                }
+            }
+            return strTimes;
+        }
+
+
+        [System.Web.Services.WebMethod]
+        public static string getCourses(string course, string select)
+        {
+            string courseNums = select;
+            string queryStr = "select distinct coursenum from courses.course_table where courses.course_table.Subject Like '" + course + "' order by coursenum asc;";
+            string ConnectionStr = "server=localhost; uid=root; pwd=Deepw00d; database=Courses";
+            using (MySqlConnection connection = new MySqlConnection(ConnectionStr))
+            {
+                MySqlCommand command = new MySqlCommand(queryStr, connection);
+                connection.Open();
+                try
+                {
+                    MySqlDataReader reader = command.ExecuteReader();
+
+
+                    while (reader.Read())
+                    {
+                        courseNums += reader.GetValue(0).ToString() + ",";
+
+                    }
+                }
+
+                finally
+                {
+                    // Always call Close when done reading.
+                    connection.Close();
+                }
+
+            }
+
+            return courseNums;
+        }
+
+
+
+
+
+
+
+
+
+        // This is all test code for dakota
+        // Algorithm:
+        // On button click, send a dictionary of "CSC131" like usual with the datatype a string array in the format
+        // {"CRN,BitArray"}
+
+
+        // this will be a webmethod that gets called by ajax. 
+        //public void pythonTestFunction()
+        //{
+        //    string res;
+        //    ArrayList tempList = new ArrayList();
+        //    Dictionary<string, ArrayList> newHashMap = new Dictionary<string, ArrayList>();
+
+
+
+        //    string csc131 = "CSC131";
+        //    string bio201 = "BIO201";
+        //    string mat101 = "MAT101";
+        //    string csc231 = "CSC231";
+
+        //    var engine = Python.CreateEngine();
+
+        //    ICollection<string> Paths = engine.GetSearchPaths();
+
+        //    var libs = new[] {
+        //    "C:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\Common7\\IDE\\Extensions\\Microsoft\\Python Tools for Visual Studio\\2.2",
+        //    "C:\\Program Files (x86)\\IronPython 2.7\\Lib",
+        //    "C:\\Program Files (x86)\\IronPython 2.7\\DLLs",
+        //    "C:\\Program Files (x86)\\IronPython 2.7",
+        //    "C:\\Program Files (x86)\\IronPython 2.7\\lib\\site-packages"
+        //    };
+
+        //    engine.SetSearchPaths(libs);
+
+        //    dynamic py = engine.ExecuteFile(@"C:\EclipseJava\PyConsoleApp\test.py");
+
+        //    dynamic calc = py.TestClass();
+
+        //    string[] strArray = new string[] { csc131, bio201, mat101, csc231 };
+
+        //    string concatString = "";
+        //    ArrayList concatArray = new ArrayList();
+        //    string concatStr = "";
+        //    for (int i = 0; i < strArray.Length; i++)
+        //    {
+        //        mappy.TryGetValue(strArray[i], out tempList);
+        //        for(int k = 0; k < tempList.Count; k++)
+        //        {
+        //            Course tempCourse = (Course)tempList[k];
+        //            concatStr = tempCourse.getCRN() +","+ tempCourse.getBitArray() + ";";
+        //        }
+        //        tempList.Add(concatStr);
+        //        newHashMap.Add(strArray[i], tempList);
+        //    }
+
+
+
+
+        //    res = calc.testDictionary(newHashMap);
+
+        //    string test = "";
+        //}
+
+
+
+
+
     }
 }

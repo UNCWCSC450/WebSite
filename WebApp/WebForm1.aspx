@@ -10,12 +10,12 @@
 
     <link rel="stylesheet" href="https://bootswatch.com/4/cerulean/bootstrap.min.css" />
     <link href="StyleSheets/StyleSheet.css" rel="stylesheet" />
+    
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
-    <script src="Scripts/Ajax.js"></script>
+<%--    <script src="Scripts/Ajax.js"></script>--%>
+    <script src="Scripts/CodyHouse.js"></script>
     <script src="Scripts/JavaScript.js"></script>
 
-    <script src="Scripts/CodyHouse.js"></script>
-    
 
     <form id="form1" runat="server">
 
@@ -76,12 +76,12 @@
                         </div>
                         <div style="display: grid; width: 30%; margin: 5px">
                             <h5>Course</h5>
-                            <select id="myselect11" name="myselect11" runat="server" class="selectCourse" size="2"></select>
-                            <select id="myselect22" name="myselect22" runat="server" class="selectCourse" size="2"></select>
-                            <select id="myselect33" name="myselect33" runat="server" class="selectCourse" size="2"></select>
-                            <select id="myselect44" name="myselect44" runat="server" class="selectCourse" size="2"></select>
-                            <select id="myselect55" name="myselect55" runat="server" class="selectCourse" size="2"></select>
-                            <select id="myselect66" name="myselect66" runat="server" class="selectCourse" size="2"></select>
+                            <select id="myselect11" name="myselect11" runat="server" class="selectCourse" onchange="jsfunction(this)" size="2"></select>
+                            <select id="myselect22" name="myselect22" runat="server" class="selectCourse" onchange="jsfunction(this)" size="2"></select>
+                            <select id="myselect33" name="myselect33" runat="server" class="selectCourse" onchange="jsfunction(this)" size="2"></select>
+                            <select id="myselect44" name="myselect44" runat="server" class="selectCourse" onchange="jsfunction(this)" size="2"></select>
+                            <select id="myselect55" name="myselect55" runat="server" class="selectCourse" onchange="jsfunction(this)" size="2"></select>
+                            <select id="myselect66" name="myselect66" runat="server" class="selectCourse" onchange="jsfunction(this)" size="2"></select>
                         </div>
                         <div style="display: grid; width: 30%; margin: 5px">
                             <h5>Section</h5>
@@ -172,157 +172,22 @@
 
                     </div>
 
-                    <div id="searchBtn" style="margin-top:15px; height:100%;" >
-                        <input type="button" style="width:100%;"" value="Search"/>
+                    <div style="margin-top:15px; height:100%;" >
+                        <button id="searchBtn" style="width:100%;" onclick="searchFunction(); return false;">Search</button>
                     </div>
+
+
+<%--                   <input type="button" id="searchBtn" style="width:100%;" onchange="searchFunction()" value="Search"/>--%>
+
+
+
 
                 </div>
             </div>
 
                 <link href="StyleSheets/CodyHouse.css" rel="stylesheet" />
             <div class="schedule" >
-            <%--<table style="height: 100%; width: 100%; visibility:hidden;" >
-                    <tr>
-                        <th></th>
-                        <td class="tableDays">Monday</td>
-                        <td class="tableDays">Tuesday</td>
-                        <td class="tableDays">Wednesday</td>
-                        <td class="tableDays">Thursday</td>
-                        <td class="tableDays">Friday</td>
-                        <td class="tableDays">Saturday</td>
-                        <td class="tableDays">Sunday</td>
-                    </tr>
-                    <tr>
-                        <td class="tableTimeStamp">8</td>
-                        <td class="tableCells"></td>
-                        <td class="tableCells"></td>
-                        <td class="tableCells"></td>
-                        <td class="tableCells"></td>
-                        <td class="tableCells"></td>
-                        <td class="tableCells"></td>
-                        <td class="tableCells"></td>
-                    </tr>
-                    <tr>
-                        <td class="tableTimeStamp">9</td>
-                        <td class="tableCells"></td>
-                        <td class="tableCells"></td>
-                        <td class="tableCells"></td>
-                        <td class="tableCells"></td>
-                        <td class="tableCells"></td>
-                        <td class="tableCells"></td>
-                        <td class="tableCells"></td>
-                    </tr>
-                    <tr>
-                        <td class="tableTimeStamp">10</td>
-                        <td class="tableCells" style="background-color:orange"><p>CSC434</p></td>
-                        <td class="tableCells"></td>
-                        <td class="tableCells" style="background-color:orange"><p>CSC434</p></td>
-                        <td class="tableCells"></td>
-                        <td class="tableCells"></td>
-                        <td class="tableCells"></td>
-                        <td class="tableCells"></td>
-                    </tr>
-                    <tr>
-                        <td class="tableTimeStamp">11</td>
-                        <td class="tableCells" style="background: -webkit-linear-gradient(bottom, white 75%, orange 25%);"></td>
-                        <td class="tableCells"></td>
-                        <td class="tableCells" style="background: -webkit-linear-gradient(bottom, white 75%, orange 25%);"></td>
-                        <td class="tableCells"></td>
-                        <td class="tableCells"></td>
-                        <td class="tableCells"></td>
-                        <td class="tableCells"></td>
-                    </tr>
-                    <tr>
-                        <td class="tableTimeStamp">12</td>
-                        <td class="tableCells" style="background: -webkit-linear-gradient(top, red 90%, white 10%);"><p>CSC450</p></td>
-                        <td class="tableCells"></td>
-                        <td class="tableCells" style="background: -webkit-linear-gradient(top, red 90%, white 10%);"><p>CSC450</p></td>
-                        <td class="tableCells"></td>
-                        <td class="tableCells" style="background: -webkit-linear-gradient(top, red 90%, white 10%);"><p>CSC450</p></td>
-                        <td class="tableCells"></td>
-                        <td class="tableCells"></td>
-                    </tr>
-                    <tr>
-                        <td class="tableTimeStamp">1</td>
-                        <td class="tableCells" ></td>
-                        <td class="tableCells"></td>
-                        <td class="tableCells"></td>
-                        <td class="tableCells"></td>
-                        <td class="tableCells"></td>
-                        <td class="tableCells"></td>
-                        <td class="tableCells"></td>
-                    </tr>
-                    <tr>
-                        <td class="tableTimeStamp">2</td>
-                        <td class="tableCells"></td>
-                        <td class="tableCells" style="background-color:green"><p>CSC455</p></td>
-                        <td class="tableCells"></td>
-                        <td class="tableCells"style="background-color:green"><p>CSC455</p></td>
-                        <td class="tableCells"></td>
-                        <td class="tableCells"></td>
-                        <td class="tableCells"></td>
-                    </tr>
-                    <tr>
-                        <td class="tableTimeStamp">3</td>
-                        <td class="tableCells"></td>
-                        <td class="tableCells" style="background: -webkit-linear-gradient(bottom, white 75%, green 25%);"></td>
-                        <td class="tableCells"></td>
-                        <td class="tableCells" style="background: -webkit-linear-gradient(bottom, white 75%, green 25%);"></td>
-                        <td class="tableCells"></td>
-                        <td class="tableCells"></td>
-                        <td class="tableCells"></td>
-                    </tr>
-                    <tr>
-                        <td class="tableTimeStamp">4</td>
-                        <td class="tableCells"></td>
-                        <td class="tableCells"></td>
-                        <td class="tableCells"></td>
-                        <td class="tableCells"></td>
-                        <td class="tableCells"></td>
-                        <td class="tableCells"></td>
-                        <td class="tableCells"></td>
-                    </tr>
-                    <tr>
-                        <td class="tableTimeStamp">5</td>
-                        <td class="tableCells"></td>
-                        <td class="tableCells"></td>
-                        <td class="tableCells"></td>
-                        <td class="tableCells"></td>
-                        <td class="tableCells"></td>
-                        <td class="tableCells"></td>
-                        <td class="tableCells"></td>
-                    </tr>
-                    <tr>
-                        <td class="tableTimeStamp">6</td>
-                        <td class="tableCells"></td>
-                        <td class="tableCells"></td>
-                        <td class="tableCells"></td>
-                        <td class="tableCells"></td>
-                        <td class="tableCells"></td>
-                        <td class="tableCells"></td>
-                        <td class="tableCells"></td>
-                    </tr>
-                    <tr>
-                        <td class="tableTimeStamp">7</td>
-                        <td class="tableCells"></td>
-                        <td class="tableCells"></td>
-                        <td class="tableCells"></td>
-                        <td class="tableCells"></td>
-                        <td class="tableCells"></td>
-                        <td class="tableCells"></td>
-                        <td class="tableCells"></td>
-                    </tr>
-                    <tr>
-                        <td class="tableTimeStamp">8</td>
-                        <td class="tableCells"></td>
-                        <td class="tableCells"></td>
-                        <td class="tableCells"></td>
-                        <td class="tableCells"></td>
-                        <td class="tableCells"></td>
-                        <td class="tableCells"></td>
-                        <td class="tableCells"></td>
-                    </tr>
-                </table>--%>
+
 
 
 
