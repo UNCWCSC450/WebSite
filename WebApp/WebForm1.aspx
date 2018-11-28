@@ -15,6 +15,92 @@
 <%--    <script src="Scripts/Ajax.js"></script>--%>
     <script src="Scripts/CodyHouse.js"></script>
     <script src="Scripts/JavaScript.js"></script>
+    <style type="text/css">
+        .schedule-wrapper {
+    margin-left: 50px;
+    display: flex;
+}
+
+.time {
+    margin-top: 50px;
+    vertical-align: middle;
+}
+
+.dayGroup {
+    position: relative;
+    margin-left: 40px;
+    width: 150px;
+    text-align: center;
+    font-weight: bold;
+    font: inherit;
+    font-size: 2.0rem;
+    /*background-color:red*/
+}
+
+.item {
+    /*margin-top: 175px;*/
+    top: 120px;
+    left: 0px;
+    position: absolute;
+    padding-top: 10px;
+    display: inline-block;
+    vertical-align: middle;
+    height: 100px;
+    width: 100%;
+    border: 1px solid;
+    border-color: black;
+    box-shadow: 5px 5px 20px #888888;
+    background-color: #d181ff;
+    border-radius: 20px;
+    font-weight: bold;
+    font: inherit;
+    font-size: 1.4rem;
+    color: white;
+}
+
+    .item:hover {
+        opacity: .9;
+        cursor: pointer;
+    }
+
+.item2 {
+    top: 300px;
+    left: 0px;
+    position: absolute;
+    padding-top: 10px;
+    display: inline-block;
+    vertical-align: middle;
+    height: 100px;
+    width: 100%;
+    border: 1px solid;
+    border-color: black;
+    box-shadow: 5px 5px 20px #888888;
+    background-color: orangered;
+    border-radius: 20px;
+    font-weight: bold;
+    font: inherit;
+    font-size: 1.4rem;
+    color: white;
+}
+
+    .item2:hover {
+        opacity: .9;
+        cursor: pointer;
+    }
+
+.line {
+    position: absolute;
+    height: 1px;
+    margin-top: -10px;
+    content: "";
+    width: 70%;
+    display: block;
+    border-bottom: double;
+    left: 475px;
+    opacity: .25;
+    z-index: -1;
+}
+    </style>
 
 
     <form id="form1" runat="server">
@@ -185,137 +271,51 @@
                 </div>
             </div>
 
-                <link href="StyleSheets/CodyHouse.css" rel="stylesheet" />
             <div class="schedule" >
 
 
 
 
-                
-                <div class="cd-schedule loading">
-    <div class="timeline">
-        <ul>
-            <li><span>08:00</span></li>
-            <li><span>08:30</span></li>
-            <li><span>09:00</span></li>
-            <li><span>09:30</span></li>
-            <li><span>10:00</span></li>
-            <li><span>10:30</span></li>
-            <li><span>11:00</span></li>
-            <li><span>11:30</span></li>
-            <li><span>12:00</span></li>
-            <li><span>12:30</span></li>
-            <li><span>13:00</span></li>
-            <li><span>13:30</span></li>
-            <li><span>14:00</span></li>
-            <li><span>14:30</span></li>
-            <li><span>15:00</span></li>
-            <li><span>15:30</span></li>
-            <li><span>16:00</span></li>
-            <li><span>16:30</span></li>
-            <li><span>17:00</span></li>
-            <li><span>17:30</span></li>
-            <li><span>18:00</span></li>
-        </ul>
-    </div>
-    <!-- .timeline -->
 
-    <div class="events">
-        <ul>
-            <li class="events-group">
-                <div class="top-info"><span>Monday</span></div>
+                <div class="schedule-wrapper">
+                    <div class="timeGroup">
+                        <div class="time"></div>
+                        <div class="time">8:00<span class="line"></span></div>
+                        <div class="time">9:00<span class="line"></span></div>
+                        <div class="time">10:00<span class="line"></span></div>
+                        <div class="time">11:00<span class="line"></span></div>
+                        <div class="time">12:00<span class="line"></span></div>
+                        <div class="time">1:00<span class="line"></span></div>
+                        <div class="time">2:00<span class="line"></span></div>
+                        <div class="time">3:00<span class="line"></span></div>
+                        <div class="time">4:00<span class="line"></span></div>
+                        <div class="time">5:00<span class="line"></span></div>
+                        <div class="time">6:00<span class="line"></span></div>
+                        <div class="time">7:00<span class="line"></span></div>
+                        <div class="time">8:00<span class="line"></span></div>
+                    </div>
 
-            </li>
+                    <div class="dayGroup">
+                        Monday
+            <!--<a class="item" href="#">CSC 450</a>-->
+                        <div class="item">CSC 450</div>
+                        <div class="item2">CSC 315</div>
+                    </div>
+                    <div class="dayGroup">
+                        Tuesday
+                        <div class="item2">CSC 315</div>
+                    </div>
+                    <div class="dayGroup">
+                        Wednesday
+            <div class="item">CSC 450</div>
+                        <div class="item2">CSC 315</div>
+                    </div>
+                    <div class="dayGroup">Thursday</div>
+                    <div class="dayGroup">Friday</div>
+                    <div class="dayGroup">Saturday</div>
+                    <div class="dayGroup">Sunday</div>
 
-            <li class="events-group">
-                <div class="top-info"><span>Tuesday</span></div>
-
-                <ul>
-                    <li class="single-event" data-start="9:30" data-end="10:45" data-content="event-rowing-workout" data-event="event-4">
-                        <a href="#0">
-                            <em class="event-name">CSC 450</em>
-                        </a>
-                    </li>
-
-                    <li class="single-event" data-start="12:30" data-end="13:45" data-content="event-restorative-yoga" data-event="event-2">
-                        <a href="#0">
-                            <em class="event-name">CSC 315</em>
-                        </a>
-                    </li>
-
-                    <li class="single-event" data-start="14:00" data-end="15:15" data-content="event-rowing-workout" data-event="event-3">
-                        <a href="#0">
-                            <em class="event-name">CSC 380</em>
-                        </a>
-                    </li>
-
-                </ul>
-            </li>
-
-            <li class="events-group">
-                <div class="top-info"><span>Wednesday</span></div>
-
-                <ul>
-
-                </ul>
-            </li>
-
-            <li class="events-group">
-                <div class="top-info"><span>Thursday</span></div>
-
-                <ul>
-                            <li class="single-event" data-start="9:30" data-end="10:45" data-content="event-rowing-workout" data-event="event-1">
-                        <a href="#0">
-                            <em class="event-name">CSC 450</em>
-                        </a>
-                    </li>
-
-                    <li class="single-event" data-start="12:30" data-end="13:45" data-content="event-restorative-yoga" data-event="event-2">
-                        <a href="#0">
-                            <em class="event-name">CSC 315</em>
-                        </a>
-                    </li>
-
-                    <li class="single-event" data-start="14:00" data-end="15:15" data-content="event-rowing-workout" data-event="event-3">
-                        <a href="#0">
-                            <em class="event-name">CSC 380</em>
-                        </a>
-                    </li>
-
-                </ul>
-            </li>
-
-            <li class="events-group">
-                <div class="top-info"><span>Friday</span></div>
-
-                <ul>
-
-                </ul>
-            </li>
-        </ul>
-    </div>
-
-    <div class="event-modal">
-        <header class="header">
-            <div class="content">
-                <span class="event-date"></span>
-                <h3 class="event-name"></h3>
-            </div>
-
-            <div class="header-bg"></div>
-        </header>
-
-        <div class="body">
-            <div class="event-info"></div>
-            <div class="body-bg"></div>
-        </div>
-
-        <a href="#0" class="close">Close</a>
-    </div>
-
-    <div class="cover-layer"></div>
                 </div>
-                <!-- .cd-schedule -->
 
 
 

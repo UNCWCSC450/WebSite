@@ -64,3 +64,85 @@ input[type=range] {
         margin-top: -14px; /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
         /*box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;*/ /* Add cool effects to your sliders! */
     }
+
+.schedule-wrapper {
+    margin-left: 50px;
+    display: flex;
+}
+
+.time {
+    margin-top: 50px;
+    vertical-align: middle;
+}
+
+.dayGroup {
+    position: relative;
+    margin-left: 50px;
+    width: 100px;
+    text-align: center;
+    /*background-color:red*/
+}
+
+.item {
+    /*margin-top: 175px;*/
+    top: 120px;
+    left: 0px;
+    position: absolute;
+    padding-top: 10px;
+    display: inline-block;
+    vertical-align: middle;
+    height: 100px;
+    width: 100px;
+    border: 1px solid;
+    border-color: black;
+    box-shadow: 5px 5px 20px #888888;
+    background-color: #d181ff;
+    border-radius: 20px;
+    font-weight: bold;
+    font: inherit;
+    font-size: 1.4rem;
+    color: white;
+}
+
+    .item:hover {
+        opacity: .9;
+        cursor: pointer;
+    }
+
+.item2 {
+    top: 300px;
+    left: 0px;
+    position: absolute;
+    padding-top: 10px;
+    display: inline-block;
+    vertical-align: middle;
+    height: 100px;
+    width: 100px;
+    border: 1px solid;
+    border-color: black;
+    box-shadow: 5px 5px 20px #888888;
+    background-color: orangered;
+    border-radius: 20px;
+    font-weight: bold;
+    font: inherit;
+    font-size: 1.4rem;
+    color: white;
+}
+
+    .item2:hover {
+        opacity: .9;
+        cursor: pointer;
+    }
+
+.line {
+    position: absolute;
+    height: 1px;
+    margin-top: -10px;
+    content: "";
+    width: 55%;
+    display: block;
+    border-bottom: double;
+    left: 100px;
+    opacity: .25;
+    z-index: -1;
+}

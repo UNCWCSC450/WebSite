@@ -37,7 +37,7 @@
 
 
                 string queryStr = "Select * FROM course_table;";
-                string ConnectionStr = "server=localhost; uid=root; pwd=Deepw00d; database=Courses";
+                string ConnectionStr = "server=localhost; uid=root; pwd=12345; database=Courses";
                 using (MySqlConnection connection = new MySqlConnection(ConnectionStr))
                 {
                     MySqlCommand command = new MySqlCommand(queryStr, connection);
@@ -94,8 +94,8 @@
 
                 }
 
-                queryStr = "SELECT DISTINCT subject FROM course_table ORDER BY subject asc;";
-                ConnectionStr = "server=localhost; uid=root; pwd=Deepw00d; database=Courses";
+                queryStr = "SELECT DISTINCT subj FROM course_table ORDER BY subj asc;";
+                ConnectionStr = "server=localhost; uid=root; pwd=12345; database=Courses";
                 using (MySqlConnection connection = new MySqlConnection(ConnectionStr))
                 {
                     MySqlCommand command = new MySqlCommand(queryStr, connection);
@@ -413,7 +413,7 @@
         {
             string strTimes = "";
             string queryStr = $"Select time FROM course_table where CRN={crn};";
-            string ConnectionStr = "server=localhost; uid=root; pwd=Deepw00d; database=Courses";
+            string ConnectionStr = "server=localhost; uid=root; pwd=12345; database=Courses";
             using (MySqlConnection connection = new MySqlConnection(ConnectionStr))
             {
                 MySqlCommand command = new MySqlCommand(queryStr, connection);
@@ -442,8 +442,8 @@
         public static string getCourses(string course, string select)
         {
             string courseNums = select;
-            string queryStr = "select distinct coursenum from courses.course_table where courses.course_table.Subject Like '" + course + "' order by coursenum asc;";
-            string ConnectionStr = "server=localhost; uid=root; pwd=Deepw00d; database=Courses";
+            string queryStr = "select distinct crse from courses.course_table where courses.course_table.Subj Like '" + course + "' order by crse asc;";
+            string ConnectionStr = "server=localhost; uid=root; pwd=12345; database=Courses";
             using (MySqlConnection connection = new MySqlConnection(ConnectionStr))
             {
                 MySqlCommand command = new MySqlCommand(queryStr, connection);
