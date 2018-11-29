@@ -411,8 +411,8 @@
         [System.Web.Services.WebMethod]
         public static string getTimes(string crn)
         {
-            string strTimes = "";
-            string queryStr = $"Select time FROM course_table where CRN={crn};";
+            string strTimeDay = "";
+            string queryStr = $"Select courses.course_table.Days, time FROM course_table where CRN={crn};";
             string ConnectionStr = "server=localhost; uid=root; pwd=12345; database=Courses";
             using (MySqlConnection connection = new MySqlConnection(ConnectionStr))
             {
@@ -424,7 +424,10 @@
 
                     while (reader.Read())
                     {
-                        strTimes = reader.GetValue(0).ToString();
+                        strTimeDay = reader.GetValue(0).ToString();
+                        strTimeDay += ",";
+                        strTimeDay += reader.GetValue(1).ToString();
+
                     }
 
                 }
@@ -434,7 +437,7 @@
                     connection.Close();
                 }
             }
-            return strTimes;
+            return strTimeDay;
         }
 
 

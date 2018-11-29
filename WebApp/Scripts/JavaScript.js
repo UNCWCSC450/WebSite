@@ -365,7 +365,7 @@ function getTimes(crn) {
 function displayTime(crn, time) {
     // here is where we need to use the jquery to actually display the time and information on the front end. 
     // will need the days as well 
-    alert("CRN" + crn);
+    //alert("CRN" + crn);
     alert("time" + time);
 
 
