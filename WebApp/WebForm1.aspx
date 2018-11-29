@@ -360,16 +360,31 @@ function parseCRNs(crnString) {
 
             });
 
+            $(document).on('click', 'a[href^="#"]', function (event) {
+                event.preventDefault();
+
+                $('html, body').animate({
+                    scrollTop: $($.attr(this, 'href')).offset().top - 40
+                }, 500);
+            });
+
+
         });
 
 
         function sendCourses() {
+            if ($('#preferedOnline').prop('checked')) {
+                var pref = "T";        
+            } else {
+                var pref = "F";
+            }
+
+            alert("Pref = " + pref);
             $.ajax({
 
                 type: 'POST',
                 url: "WebForm1.aspx/algorithm",
-                data: "{course1:'" + course1.concatStr + "', course2:'" + course2.concatStr + "', course3:'" + course3.concatStr + "', course4:'" + course4.concatStr + "', course5:'" + course5.concatStr + "', course6:'" + course6.concatStr + "'}",
-                contentType: "application/json; charset=utf-8",
+                data: "{course1:'" + course1.concatStr + "', course2:'" + course2.concatStr + "', course3:'" + course3.concatStr + "', course4:'" + course4.concatStr + "', course5:'" + course5.concatStr + "', course6:'" + course6.concatStr + "', prefOnline:'" + pref + "'}",                contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (data) {
                     parseCRNs(data.d);
@@ -763,7 +778,7 @@ function parseCRNs(crnString) {
                         <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Schedule</a>
+                        <a class="nav-link" id="scheduleLink" href="#main">Schedule</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">About</a>
@@ -780,7 +795,7 @@ function parseCRNs(crnString) {
             <p>Click below to learn how we did it!</p>
             <p class="lead">
                 <%--<a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>--%>
-                <button id="btn1">Learn More</button>
+                <button id="learnMoreBtn" runat="server" onserverclick="learnMoreBtn_Click">Learn More</button>
 
             </p>
         </div>
@@ -829,7 +844,7 @@ function parseCRNs(crnString) {
 
 
                         <div style="display:inline-flex">
-                            <p style="margin-right:0">Prefered Online</p>
+                            <p style="margin-right:0">Consider Online</p>
                             <input id="preferedOnline" style="text-align:center; vertical-align:middle; margin-left:10px; margin-top:5px" type="checkbox" checked="checked" />
                         </div>
 

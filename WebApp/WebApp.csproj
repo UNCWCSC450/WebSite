@@ -99,10 +99,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="LearnMore.aspx" />
+    <Content Include="Resources\cd-icon-location.svg" />
+    <Content Include="Resources\cd-icon-movie.svg" />
+    <Content Include="Resources\cd-icon-picture.svg" />
     <Content Include="Scripts\Ajax.js" />
     <Content Include="Scripts\CodyHouse.js" />
     <Content Include="Scripts\JavaScript.js" />
+    <Content Include="Scripts\main.js" />
     <Content Include="StyleSheets\CodyHouse.css" />
+    <Content Include="StyleSheets\demo.css" />
+    <Content Include="StyleSheets\reset.css" />
+    <Content Include="StyleSheets\style.css" />
     <Content Include="StyleSheets\StyleSheet.css" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -111,6 +119,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\Course.cs" />
+    <Compile Include="LearnMore.aspx.cs">
+      <DependentUpon>LearnMore.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="LearnMore.aspx.designer.cs">
+      <DependentUpon>LearnMore.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Site1.Master.cs">
       <DependentUpon>Site1.Master</DependentUpon>

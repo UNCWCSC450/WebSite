@@ -140,9 +140,17 @@
 
 
         [System.Web.Services.WebMethod]
-        public static string algorithm(string course1, string course2, string course3, string course4, string course5, string course6)
+        public static string algorithm(string course1, string course2, string course3, string course4, string course5, string course6, string prefOnline)
         {
             ArrayList crns = new ArrayList();
+
+            bool considerOnline = false;
+
+            if (prefOnline == "T")
+            {
+                considerOnline = true;
+            }
+
 
             int threshHold = 3;
 
@@ -154,7 +162,7 @@
 
             while (!foundSchedule)
             {
-                string [] result = getRandomSchedule(course1, course2, course3, course4, course5, course6, threshHold);
+                string [] result = getRandomSchedule(course1, course2, course3, course4, course5, course6, threshHold, considerOnline);
 
                 if (result[0] != "")
                 {
@@ -200,7 +208,7 @@
         }
 
 
-        public static string[] getRandomSchedule(string c1,string c2, string c3, string c4, string c5, string c6, int threshold)
+        public static string[] getRandomSchedule(string c1,string c2, string c3, string c4, string c5, string c6, int threshold, bool considerOnline)
         {
             ArrayList courses = new ArrayList(); // need a way to undo this operation of adding to a arraylist
 
@@ -249,9 +257,13 @@
 
                 courseBits = randomArray[i].getBitArray(); // get that courses bit array
 
-                if(courseBits.Length < 160)
+                if (courseBits.Length < 160 && considerOnline)
                 {
                     courseBits = new string('0', 168); // if the bitarray is null, set it to online (all 0's)
+                }
+                if (courseBits.Length < 160 && considerOnline == false)
+                {
+                    courseBits = new string('1', 168); // if the bitarray is null, set it to online (all 0's)
                 }
 
                 concatBitArrayStr += courseBits;
@@ -445,8 +457,8 @@
         public static string getCourses(string course, string select)
         {
             string courseNums = select;
-            string queryStr = "select distinct crse from courses.course_table where courses.course_table.Subj Like '" + course + "' order by crse asc;";
-            string ConnectionStr = "server=localhost; uid=root; pwd=12345; database=Courses";
+            string queryStr = "select distinct crse from courses.course_table where courses.course_table.subj Like '" + course + "' order by crse asc;";
+            string ConnectionStr = "server=localhost; uid=root; pwd=Deepw00d; database=Courses";
             using (MySqlConnection connection = new MySqlConnection(ConnectionStr))
             {
                 MySqlCommand command = new MySqlCommand(queryStr, connection);
@@ -477,7 +489,13 @@
 
 
 
+        protected void learnMoreBtn_Click(object sender, EventArgs e)
+        {
 
+            Response.Redirect("LearnMore.aspx");
+            //or
+            Server.Transfer("LearnMore.aspx");
+        }
 
 
 
