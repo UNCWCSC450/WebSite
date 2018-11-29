@@ -425,10 +425,13 @@ function parseCRNs(crnString) {
 
 
                 if (day.includes("*")) {
+                    alert("DEBUGGING: " + crn);
                     var differentTimes = times.split("*")
                     for (var i = 0; i < day.length; i++) {
                         var tempDay = day.charAt(i);
-                        var tempTime = differentTimes[timeCounter]
+                        alert("timeCOUNTER: " + timeCOUNTER)
+                        alert("Current tempDay: " + tempDay)
+                        var tempTime = differentTimes[timeCOUNTER]
                         tempcrn = crn + idCOUNTER
                         if (tempDay != "*") {
                             var newDiv = document.createElement("div");
@@ -447,7 +450,6 @@ function parseCRNs(crnString) {
 
                                 var duration = endTime - startTime;
                                 var helper = startTime;
-                                alert(helper);
 
                                 //alert("1: " + startTime);
                                 if (startTime >= 1300) {
@@ -460,68 +462,11 @@ function parseCRNs(crnString) {
                                 else
                                     startTime = startTime.toString().substring(0, 1)
 
-                                var tempTop = 60;
-
-                                if (startTime < 8) {
-                                    var temp = helper.toString().substring(0, 2)
-
-                                    temp = temp - 8
-
-                                    tempTop = 100 * temp
-
-                                }
+                               var tempTop = 60;
 
 
 
-
-                                $('#' + tempcrn).css('top', '' + tempTop + '');
-                                idCOUNTER = idCOUNTER + 1;
-                            } else {
-
-
-                                timeCounter = timeCounter + 1
-
-                            }
-                        }
-                    }
-                }
-                for (var i = 0; i < day.length; i++) {
-                    var tempDay = day.charAt(i);
-                    tempcrn = crn + idCOUNTER
-
-                    var newDiv = document.createElement("div");
-                    newDiv.setAttribute("id", tempcrn);
-                    newDiv.setAttribute("class", "item");
-                    $('#' + tempDay).prepend(newDiv);
-                    document.getElementById(tempcrn).innerHTML = crn
-
-                    if (time != "TBA") {
-                        var x = times.split("-")
-                        var startTime = x[0];
-                        var endTime = x[1];
-
-                        startTime = timeConvertor(startTime);
-                        endTime = timeConvertor(endTime);
-
-                        var duration = endTime - startTime;
-                        var helper = startTime;
-
-                        //alert("1: " + startTime);
-                        if (startTime >= 1300) {
-                            startTime = startTime - 1200
-                        }
-                        //alert("2: " + startTime);
-
-                        if (startTime.length == 4)
-                            startTime = startTime.toString().substring(0, 2);
-                        else
-                            startTime = startTime.toString().substring(0, 1);
-
-                        var tempTop = 60;
-
-
-
-                        //if (startTime != 8) {
+                            //if (startTime != 8) {
                             var temp = helper.toString().substring(0, 2);
                             var temp2 = helper.toString().substring(2, 4);
 
@@ -530,20 +475,88 @@ function parseCRNs(crnString) {
 
                             temp = temp - 8;
 
-                            tempTop = (100 * temp)+ tempTop;
+                            tempTop = (100 * temp) + tempTop;
                             tempTop = tempTop + temp2;
 
-                        //}
+                            //}
+
+
+
+                                alert("Placing div at day:" + tempDay + "with Top: "+ tempTop)
+                                $('#' + tempcrn).css('top', '' + tempTop + '');
+                                idCOUNTER = idCOUNTER + 1;
+                            }
 
 
 
 
-                        $('#' + tempcrn).css('top', '' + tempTop + 'px');
-                        $('#' + tempcrn).css('height', '' + duration + 'px');
-                        idCOUNTER = idCOUNTER + 1;
+                        } else {
+                            alert("Increment timeCOUNTER");
+                            timeCOUNTER = timeCOUNTER + 1
+                        }
+                    }
+                } else {
+                    alert("hit: " + crn);
+                    for (var i = 0; i < day.length; i++) {
+                        var tempDay = day.charAt(i);
+                        tempcrn = crn + idCOUNTER
+
+                        var newDiv = document.createElement("div");
+                        newDiv.setAttribute("id", tempcrn);
+                        newDiv.setAttribute("class", "item");
+                        $('#' + tempDay).prepend(newDiv);
+                        document.getElementById(tempcrn).innerHTML = crn
+
+                        if (time != "TBA") {
+                            var x = times.split("-")
+                            var startTime = x[0];
+                            var endTime = x[1];
+
+                            startTime = timeConvertor(startTime);
+                            endTime = timeConvertor(endTime);
+
+                            var duration = endTime - startTime;
+                            var helper = startTime;
+
+                            //alert("1: " + startTime);
+                            if (startTime >= 1300) {
+                                startTime = startTime - 1200
+                            }
+                            //alert("2: " + startTime);
+
+                            if (startTime.length == 4)
+                                startTime = startTime.toString().substring(0, 2);
+                            else
+                                startTime = startTime.toString().substring(0, 1);
+
+                            var tempTop = 60;
+
+
+
+                            //if (startTime != 8) {
+                            var temp = helper.toString().substring(0, 2);
+                            var temp2 = helper.toString().substring(2, 4);
+
+                            temp2 = temp2 / 60;
+                            temp2 = temp2 * 100;
+
+                            temp = temp - 8;
+
+                            tempTop = (100 * temp) + tempTop;
+                            tempTop = tempTop + temp2;
+
+                            //}
+
+
+
+
+                            $('#' + tempcrn).css('top', '' + tempTop + 'px');
+                            $('#' + tempcrn).css('height', '' + duration + 'px');
+                            idCOUNTER = idCOUNTER + 1;
+
+                        }
 
                     }
-
                 }
                 //if (time != "TBA") {
                 //    var x = times.split("-")
@@ -959,7 +972,7 @@ function parseCRNs(crnString) {
         </div>
 
 
-   <%--     <div class="list-group">
+<%--        <div class="list-group">
   <a href="#" class="list-group-item list-group-item-action flex-column align-items-start active">
     <div class="d-flex w-100 justify-content-between">
       <h5 class="mb-1">List group item heading</h5>
