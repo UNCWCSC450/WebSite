@@ -458,7 +458,7 @@
         {
             string courseNums = select;
             string queryStr = "select distinct crse from courses.course_table where courses.course_table.subj Like '" + course + "' order by crse asc;";
-            string ConnectionStr = "server=localhost; uid=root; pwd=Deepw00d; database=Courses";
+            string ConnectionStr = "server=localhost; uid=root; pwd=12345; database=Courses";
             using (MySqlConnection connection = new MySqlConnection(ConnectionStr))
             {
                 MySqlCommand command = new MySqlCommand(queryStr, connection);

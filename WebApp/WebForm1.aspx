@@ -239,13 +239,15 @@ function searchFunction() {
         return false; // will need to throw an error message to the user that they must select at least four courses
     }
 
-    document.getElementById("M").innerHTML = "Monday"
-    document.getElementById("T").innerHTML = "Tuesday"
-    document.getElementById("W").innerHTML = "Wednesday"
-    document.getElementById("R").innerHTML = "Thursday"
-    document.getElementById("F").innerHTML = "Friday"
-    document.getElementById("S").innerHTML = "Saturday"
-    document.getElementById("U").innerHTML = "Sunday"
+    document.getElementById("M").innerHTML = "Mon"
+    document.getElementById("T").innerHTML = "Tues"
+    document.getElementById("W").innerHTML = "Wed"
+    document.getElementById("R").innerHTML = "Thur"
+    document.getElementById("F").innerHTML = "Fri"
+    document.getElementById("S").innerHTML = "Sat"
+    document.getElementById("U").innerHTML = "Sun"
+    document.getElementById("onlineCourseContainer").innerHTML = ""
+    
 
     sendCourses();  
 }
@@ -379,7 +381,7 @@ function parseCRNs(crnString) {
                 var pref = "F";
             }
 
-            alert("Pref = " + pref);
+            //alert("Pref = " + pref);
             $.ajax({
 
                 type: 'POST',
@@ -440,20 +442,21 @@ function parseCRNs(crnString) {
 
 
                 if (day.includes("*")) {
-                    alert("DEBUGGING: " + crn);
+                    //alert("DEBUGGING: " + crn);
                     var differentTimes = times.split("*")
                     for (var i = 0; i < day.length; i++) {
                         var tempDay = day.charAt(i);
-                        alert("timeCOUNTER: " + timeCOUNTER)
-                        alert("Current tempDay: " + tempDay)
+                        //alert("timeCOUNTER: " + timeCOUNTER)
+                        //alert("idCOUNTER: " + idCOUNTER)
+                        //alert("Current tempDay: " + tempDay)
                         var tempTime = differentTimes[timeCOUNTER]
                         tempcrn = crn + idCOUNTER
                         if (tempDay != "*") {
                             var newDiv = document.createElement("div");
                             newDiv.setAttribute("id", tempcrn);
-                            newDiv.setAttribute("class", "item");
+                            newDiv.setAttribute("class", "courseItem");
                             $('#' + tempDay).prepend(newDiv);
-                            document.getElementById(tempcrn).innerHTML = crn
+                            document.getElementById(tempcrn).innerHTML = "<p>" + crn + "</p>"
 
                             if (tempTime != "TBA") {
                                 var x = tempTime.split("-")
@@ -466,7 +469,7 @@ function parseCRNs(crnString) {
                                 var duration = endTime - startTime;
                                 var helper = startTime;
 
-                                //alert("1: " + startTime);
+                                //alert("Start time for "+tempDay +" is "+ startTime);
                                 if (startTime >= 1300) {
                                     startTime = startTime - 1200
                                 }
@@ -477,28 +480,28 @@ function parseCRNs(crnString) {
                                 else
                                     startTime = startTime.toString().substring(0, 1)
 
-                               var tempTop = 60;
+                                var tempTop = 60;
 
 
 
-                            //if (startTime != 8) {
-                            var temp = helper.toString().substring(0, 2);
-                            var temp2 = helper.toString().substring(2, 4);
+                                //if (startTime != 8) {
+                                var temp = helper.toString().substring(0, 2);
+                                var temp2 = helper.toString().substring(2, 4);
 
-                            temp2 = temp2 / 60;
-                            temp2 = temp2 * 100;
+                                temp = temp - 8;
+                                temp2 = temp2 * 1
+                                tempTop = (60 * temp) + tempTop;
+                                //alert(crn + "'s top is: " + tempTop)
+                                tempTop = tempTop + temp2;
 
-                            temp = temp - 8;
+                                duration = duration * .7;
 
-                            tempTop = (100 * temp) + tempTop;
-                            tempTop = tempTop + temp2;
-
-                            //}
+                                //}
 
 
 
-                                alert("Placing div at day:" + tempDay + "with Top: "+ tempTop)
-                                $('#' + tempcrn).css('top', '' + tempTop + '');
+                                $('#' + tempcrn).css('top', '' + tempTop + 'px');
+                                $('#' + tempcrn).css('height', '' + duration + 'px');
                                 idCOUNTER = idCOUNTER + 1;
                             }
 
@@ -506,21 +509,21 @@ function parseCRNs(crnString) {
 
 
                         } else {
-                            alert("Increment timeCOUNTER");
+
                             timeCOUNTER = timeCOUNTER + 1
                         }
                     }
                 } else {
-                    alert("hit: " + crn);
+                    //alert("hit: " + crn);
                     for (var i = 0; i < day.length; i++) {
                         var tempDay = day.charAt(i);
                         tempcrn = crn + idCOUNTER
 
                         var newDiv = document.createElement("div");
                         newDiv.setAttribute("id", tempcrn);
-                        newDiv.setAttribute("class", "item");
+                        newDiv.setAttribute("class", "courseItem");
                         $('#' + tempDay).prepend(newDiv);
-                        document.getElementById(tempcrn).innerHTML = crn
+                        document.getElementById(tempcrn).innerHTML = "<p>" + crn + "</p>";
 
                         if (time != "TBA") {
                             var x = times.split("-")
@@ -552,19 +555,24 @@ function parseCRNs(crnString) {
                             var temp = helper.toString().substring(0, 2);
                             var temp2 = helper.toString().substring(2, 4);
 
-                            temp2 = temp2 / 60;
-                            temp2 = temp2 * 100;
-
                             temp = temp - 8;
-
-                            tempTop = (100 * temp) + tempTop;
+                            temp2 = temp2 * 1
+                            tempTop = (60 * temp) + tempTop;
+                            //alert(crn + "'s top is: " + tempTop)
                             tempTop = tempTop + temp2;
 
+
+                            if (duration > 60) 
+                                duration = duration * .63;
+ 
+                                
+
+                            //
                             //}
 
 
 
-
+                            
                             $('#' + tempcrn).css('top', '' + tempTop + 'px');
                             $('#' + tempcrn).css('height', '' + duration + 'px');
                             idCOUNTER = idCOUNTER + 1;
@@ -604,6 +612,14 @@ function parseCRNs(crnString) {
                 //    alert("Start point: " + startTime)
                 //    alert("Duration: " + duration);
 
+            } else {
+                //alert(crn + " is ONLINE")
+
+                var newDiv = document.createElement("div");
+                newDiv.setAttribute("id", crn);
+                newDiv.setAttribute("class", "courseItem2");
+                $('#onlineCourseContainer').prepend(newDiv);
+                document.getElementById(crn).innerHTML = crn
             }
 
             //var differentTimeDay = false;
@@ -680,87 +696,102 @@ function parseCRNs(crnString) {
             margin-left: 50px;
             height:100%;
             display: flex;
+            width:50%;
+
+
         }
 
 .time {
     /*margin-top: 50px;*/
-    height:50px;
+    height:60px;
     vertical-align: middle;
+
+}
+
+.timeGroup{
+    margin-top:50px;
 }
 
 .dayGroup {
     position: relative;
-    margin-left: 40px;
-    width: 150px;
+    margin-left: 50px;
+    width: 15%;
+
     text-align: center;
     font-weight: bold;
     font: inherit;
     font-size: 2.0rem;
 
+
 }
 
-.item {
-    /*margin-top: 175px;*/
-    top: 120px;
-    left: 0px;
-    position: absolute;
-    padding-top: 10px;
-    display: inline-block;
-    vertical-align: middle;
-    height: 100px;
-    width: 100%;
-    border: 1px solid;
-    border-color: black;
-    box-shadow: 5px 5px 20px #888888;
-    background-color: #d181ff;
-    border-radius: 20px;
-    font-weight: bold;
-    font: inherit;
-    font-size: 1.4rem;
-    color: white;
-}
+        .courseItem {
+            /*margin-top: 175px;*/
+            /*top: 120px;*/
+            position: absolute;
+            padding-top: 10px;
+            display: flex;
+            height: 100px;
+            width: 100%;
+            border: 1px solid;
+            border-color: black;
+            box-shadow: 5px 5px 20px #888888;
+            background-color: #74a2ff;
+            border-radius: 20px;
+            font-weight: bold;
+            font: inherit;
+            font-size: 1rem;
+            color: white;
 
-    .item:hover {
-        opacity: .9;
-        cursor: pointer;
-    }
 
-.item2 {
-    top: 300px;
-    left: 0px;
-    position: absolute;
-    padding-top: 10px;
-    display: inline-block;
-    vertical-align: middle;
-    height: 100px;
-    width: 100%;
-    border: 1px solid;
-    border-color: black;
-    box-shadow: 5px 5px 20px #888888;
-    background-color: orangered;
-    border-radius: 20px;
-    font-weight: bold;
-    font: inherit;
-    font-size: 1.4rem;
-    color: white;
-}
+        }
 
-    .item2:hover {
-        opacity: .9;
-        cursor: pointer;
-    }
+            .courseItem p {
+                margin: auto; 
+                text-align: center;
+            }
 
-.line {
-    position: absolute;
-    height: 1px;
-    content: "";
-    width: 70%;
-    display: block;
-    border-bottom: double;
-    left: 475px;
-    opacity: .25;
-    z-index: -1;
-}
+            .courseItem:hover {
+                opacity: .9;
+                cursor: pointer;
+            }
+
+        .courseItem2 {
+            padding-top: 10px;
+            display: inline-block;
+            vertical-align: middle;
+            height: 75px;
+            width: 100px;
+            margin:15px;
+            border: 1px solid;
+            border-color: black;
+            box-shadow: 5px 5px 20px #888888;
+            background-color: #74a2ff;
+            border-radius: 20px;
+            font-weight: bold;
+            font: inherit;
+            font-size: 1rem;
+            color: white;
+
+        }
+
+            .courseItem2:hover {
+                opacity: .9;
+                cursor: pointer;
+            }
+
+        .line {
+            position: absolute;
+            height: 1px;
+            content: "";
+            width: 40%;
+            display: block;
+            border-bottom: double;
+            left: 25%;
+            opacity: .25;
+            z-index: -1;
+            margin-top: -10px
+        }
     </style>
 
 
@@ -800,18 +831,18 @@ function parseCRNs(crnString) {
             </p>
         </div>
 
-        <div id="main" class="main-wrapper" style="display: flex;">
+        <div id="main" class="main-wrapper" style="display: flex;height:80%">
 
 
-            <div class="card text-white bg-primary mb-3" style="max-width: 20rem; height: 1000px; z-index: 0; margin: 15px; width: 500px">
+            <div class="card text-white bg-primary mb-3" style="max-width: 20rem; height: 100%; z-index: 0; margin: 15px; width: 25%">
                 <div class="card-header">Select Courses</div>
 
                 <div class="card-body">
 
-                    <div id="courseSelection" style="display: flex; width: 100%;  border-bottom:double"> 
+                    <div id="courseSelection" style="display: flex; width: 100%; border-bottom: double">
                         <div style="display: grid; width: 30%; margin: 5px">
                             <h5>Subject</h5>
-<%--                            <div style="position:relative">
+                            <%--                            <div style="position:relative">
                             <input id="myInput" type="text" name="myCountry" placeholder="Subject" style="width:100%"/>
                             </div>--%>
                             <select id="myselect1" runat="server" onchange="jsfunction(this)" size="2"></select>
@@ -840,51 +871,58 @@ function parseCRNs(crnString) {
                             <select class="selectCourse"></select>
                         </div>
                     </div>
-                    <div id="courseCriteria" style="display:block; width: 100%; border-bottom: double; margin-top:5px">
+                    <div id="courseCriteria" style="display: block; width: 100%; border-bottom: double; margin-top: 5px">
 
 
-                        <div style="display:inline-flex">
-                            <p style="margin-right:0">Consider Online</p>
-                            <input id="preferedOnline" style="text-align:center; vertical-align:middle; margin-left:10px; margin-top:5px" type="checkbox" checked="checked" />
+                        <div style="display: inline-flex">
+                            <p style="margin-right: 0">Consider Online</p>
+                            <input id="preferedOnline" style="text-align: center; vertical-align: middle; margin-left: 10px; margin-top: 5px" type="checkbox" checked="checked" />
                         </div>
 
-                        <div style="display: inline-flex; width:100%; border-top:double;">
+                        <div style="display: inline-flex; width: 100%; border-top: double;">
                             <p style="margin-right: 0">Want Prefered Days</p>
-                            <input id="wantPreferedDays" style="text-align: center; vertical-align: middle; margin-left: 10px; margin-top: 5px" type="checkbox" onchange="showCriteria(this)"/>
+                            <input id="wantPreferedDays" style="text-align: center; vertical-align: middle; margin-left: 10px; margin-top: 5px" type="checkbox" onchange="showCriteria(this)" />
                         </div>
 
 
-                        <div id="preferedDays" class="preferedDays-wrapper" style="width:100%; margin-bottom:5px; visibility:hidden;">
-                            <table style="width:100%">
+                        <div id="preferedDays" class="preferedDays-wrapper" style="width: 100%; margin-bottom: 5px; visibility: hidden;">
+                            <table style="width: 100%">
                                 <tr>
-                                    <td style="text-align:center; width:1%">Mon</td>
-                                    <td style="text-align:center; width:15%">Tues</td>
-                                    <td style="text-align:center; width:15%">Wed</td>
-                                    <td style="text-align:center; width:15%">Th</td>
-                                    <td style="text-align:center; width:15%">Fri</td>
-                                    <td style="text-align:center; width:15%">Sat</td>
-                                    <td style="text-align:center; width:15%"">Sun</td>
+                                    <td style="text-align: center; width: 1%">Mon</td>
+                                    <td style="text-align: center; width: 15%">Tues</td>
+                                    <td style="text-align: center; width: 15%">Wed</td>
+                                    <td style="text-align: center; width: 15%">Th</td>
+                                    <td style="text-align: center; width: 15%">Fri</td>
+                                    <td style="text-align: center; width: 15%">Sat</td>
+                                    <td style="text-align: center; width: 15%">Sun</td>
                                 </tr>
                                 <tr>
-                                    <td style="text-align:center"><input type="checkbox" /></td>
-                                    <td style="text-align:center"><input type="checkbox" /></td>
-                                    <td style="text-align:center"><input type="checkbox" /></td>
-                                    <td style="text-align:center"><input type="checkbox" /></td>
-                                    <td style="text-align:center"><input type="checkbox" /></td>
-                                    <td style="text-align:center"><input type="checkbox" /></td>
-                                    <td style="text-align:center"><input type="checkbox" /></td>
+                                    <td style="text-align: center">
+                                        <input type="checkbox" /></td>
+                                    <td style="text-align: center">
+                                        <input type="checkbox" /></td>
+                                    <td style="text-align: center">
+                                        <input type="checkbox" /></td>
+                                    <td style="text-align: center">
+                                        <input type="checkbox" /></td>
+                                    <td style="text-align: center">
+                                        <input type="checkbox" /></td>
+                                    <td style="text-align: center">
+                                        <input type="checkbox" /></td>
+                                    <td style="text-align: center">
+                                        <input type="checkbox" /></td>
                                 </tr>
                             </table>
                         </div>
 
-                        <div style="display:inline-flex; width:100%; border-top:double">
+                        <div style="display: inline-flex; width: 100%; border-top: double">
                             <p style="margin-right: 0">Want Prefered Times</p>
                             <input id="wantPreferedTimes" style="text-align: center; vertical-align: middle; margin-left: 10px; margin-top: 5px" type="checkbox" onchange="showCriteria(this)" />
                         </div>
 
 
-                        <div id="preferedTime" style="margin-top:5px; margin-bottom:5px; visibility:hidden" >
-                            <table style="width:100%">
+                        <div id="preferedTime" style="margin-top: 5px; margin-bottom: 5px; visibility: hidden">
+                            <table style="width: 100%">
 
                                 <tr>
                                     <td></td>
@@ -902,16 +940,18 @@ function parseCRNs(crnString) {
                                     <td>7</td>
                                     <td>8</td>
                                 </tr>
-                                <tr style="height:50px;">
-                                    <td >MWF</td>
-                                    <td colspan="12"><input type="range" style="width:100%"/></td>
+                                <tr style="height: 50px;">
+                                    <td>MWF</td>
+                                    <td colspan="12">
+                                        <input type="range" style="width: 100%" /></td>
                                 </tr>
                                 <tr>
                                     <td>TR</td>
-                                    <td colspan="12"><input type="range" style="width:100%"/></td>
+                                    <td colspan="12">
+                                        <input type="range" style="width: 100%" /></td>
                                 </tr>
                             </table>
-<%--                            <input type="range" style="width:100%"/>
+                            <%--                            <input type="range" style="width:100%"/>
                             <input type="range" />--%>
                         </div>
 
@@ -919,28 +959,20 @@ function parseCRNs(crnString) {
 
                     </div>
 
-                    <div style="margin-top:15px; height:100%;" >
-                        <button id="searchBtn" style="width:100%;" onclick="searchFunction(); return false;">Search</button>
+                    <div style="margin-top: 15px; height: 100%;">
+                        <button id="searchBtn" style="width: 100%;" onclick="searchFunction(); return false;">Search</button>
                     </div>
 
 
-<%--                   <input type="button" id="searchBtn" style="width:100%;" onchange="searchFunction()" value="Search"/>--%>
-
-
-
-
+                    <%--                   <input type="button" id="searchBtn" style="width:100%;" onchange="searchFunction()" value="Search"/>--%>
                 </div>
             </div>
 
-            <div class="schedule" >
+            <div class="schedule" style="height: 100%; width: 50%;">
 
-
-
-
-
-                <div class="schedule-wrapper" >
+                <div class="schedule-wrapper">
                     <div class="timeGroup">
-    <%--                    <div class="time"></div>--%>
+                        <%--                    <div class="time"></div>--%>
                         <div class="time">8:00<span class="line"></span></div>
                         <div class="time">9:00<span class="line"></span></div>
                         <div class="time">10:00<span class="line"></span></div>
@@ -956,38 +988,38 @@ function parseCRNs(crnString) {
                         <div class="time">8:00<span class="line"></span></div>
                     </div>
 
-                    <div class="dayGroup" id="M">
-                        Monday
-            <!--<a class="item" href="#">CSC 450</a>-->
-                        <div class="item" style="top:260px; height:200px;">CSC 450</div>
-
- 
+                    <div class="dayGroup" id="M">Mon
+                        <div class="courseItem"><p>CSC 450</p></div>
                     </div>
-                    <div class="dayGroup" id="T">
-                        Tuesday
-                        <div class="item">CSC 450</div>
-    
+                    <div class="dayGroup" id="T">Tues<div class="courseItem">CSC 450</div>
                     </div>
-                    <div class="dayGroup" id="W">
-                        Wednesday
-
-
-                    </div>
-                    <div class="dayGroup" id="R">Thursday</div>
-                    <div class="dayGroup" id ="F">Friday</div>
-                    <div class="dayGroup" id ="S">Saturday</div>
-                    <div class="dayGroup" id="U">Sunday</div>
+                    <div class="dayGroup" id="W">Wed</div>
+                    <div class="dayGroup" id="R">Thur</div>
+                    <div class="dayGroup" id="F">Fri</div>
+                    <div class="dayGroup" id="S">Sat</div>
+                    <div class="dayGroup" id="U">Sun</div>
 
                 </div>
 
+            </div>
 
+            <div class="extra-wrapper" style="height: 100%; width: 25%; margin: 15px">
+                <h5 style="text-align: center">ONLINE COURSES</h5>
+                <div id="onlineCourseContainer" style="text-align:center">
+                    <div class="courseItem2" style="">
+                        <p>CSC 450</p>
+                    </div>
 
+                    <div class="courseItem2" style="">
+                        <p>CSC 450</p>
+                    </div>
+                </div>
             </div>
 
         </div>
 
 
-<%--        <div class="list-group">
+        <%--        <div class="list-group">
   <a href="#" class="list-group-item list-group-item-action flex-column align-items-start active">
     <div class="d-flex w-100 justify-content-between">
       <h5 class="mb-1">List group item heading</h5>
