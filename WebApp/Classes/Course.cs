@@ -7,45 +7,45 @@ namespace WebApp
 {
     public class Course
     {
-        //public string CRN { get { return CRN; } set { CRN = value; } }
-        //public string Subject { get { return Subject; } set { Subject = value; } }
-        //public string Crse { get { return Crse; } set { Crse = value; } }
-        //public string Sec { get { return Sec; } set { Sec = value; } }
-        //public string Cmp { get { return Cmp; } set { Cmp = value; } }
-        //public string Cred { get { return Cred; } set { Cred = value; } }
-        //public string Title { get { return Title; } set { Title = value; } }
-        //public string Days { get { return Days; } set { Days = value; } }
-        //public string Time { get { return Time; } set { Time = value; } }
-        //public string SeatsRem { get { return SeatsRem; } set { SeatsRem = value; } }
-        //public string WLCAP { get { return WLCAP; } set { WLCAP = value; } }
-        //public string WLACT { get { return WLACT; } set { WLACT = value; } }
-        //public string WLREM { get { return WLREM; } set { WLREM = value; } }
-        //public string RsrvdRem { get { return RsrvdRem; } set { RsrvdRem = value; } }
-        //public string Instructor { get { return Instructor; } set { Instructor = value; } }
-        //public string Dates { get { return Dates; } set { Dates = value; } }
-        //public string Session { get { return Session; } set { Session = value; } }
-        //public string Location { get { return Location; } set { Location = value; } }
-        //public string BitArray { get { return BitArray; } set { BitArray = value; } }
+        public string CRN { get; set; }
+        public string Subject { get; set; }
+        public string Crse { get; set; }
+        public string Sec { get; set; }
+        public string Cmp { get; set; }
+        public string Cred { get; set; }
+        public string Title { get; set; }
+        public string Days { get; set; }
+        public string Time { get; set; }
+        public string SeatsRem { get; set; }
+        public string WLCAP { get; set; }
+        public string WLACT { get; set; }
+        public string WLREM { get; set; }
+        public string RsrvdRem { get; set; }
+        public string Instructor { get; set; }
+        public string Dates { get; set; }
+        public string Session { get; set; }
+        public string Location { get; set; }
+        public string BitArray { get; set; }
 
-        private string CRN;
-        private string Subject;
-        private string Crse;
-        private string Sec;
-        private string Cmp;
-        private string Cred;
-        private string Title;
-        private string Days;
-        private string Time;
-        private string SeatsRem;
-        private string WLCAP;
-        private string WLACT;
-        private string WLREM;
-        private string RsrvdRem;
-        private string Instructor;
-        private string Dates;
-        private string Session;
-        private string Location;
-        private string BitArray;
+        //private string CRN;
+        //private string Subject;
+        //private string Crse;
+        //private string Sec;
+        //private string Cmp;
+        //private string Cred;
+        //private string Title;
+        //private string Days;
+        //private string Time;
+        //private string SeatsRem;
+        //private string WLCAP;
+        //private string WLACT;
+        //private string WLREM;
+        //private string RsrvdRem;
+        //private string Instructor;
+        //private string Dates;
+        //private string Session;
+        //private string Location;
+        //private string BitArray;
 
 
         public Course(object CRN, object Subject, object Crse, object Sec, object Cmp, object Cred, object Title, object Days, object Time,

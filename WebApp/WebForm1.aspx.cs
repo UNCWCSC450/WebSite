@@ -452,6 +452,40 @@
             return strTimeDay;
         }
 
+        [System.Web.Services.WebMethod]
+        public static Course DisplayCourse(string crn)
+        {
+            crn = crn.Substring(0, 5);
+            Course tempCourse = null;
+            string queryStr = $"Select * FROM course_table where CRN={crn};";
+            string ConnectionStr = "server=localhost; uid=root; pwd=12345; database=Courses";
+            using (MySqlConnection connection = new MySqlConnection(ConnectionStr))
+            {
+                MySqlCommand command = new MySqlCommand(queryStr, connection);
+                connection.Open();
+                try
+                {
+                    MySqlDataReader reader = command.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        tempCourse = new Course(reader.GetValue(0), reader.GetValue(1), reader.GetValue(2), reader.GetValue(3), reader.GetValue(4),
+                                                                     reader.GetValue(5), reader.GetValue(6), reader.GetValue(7), reader.GetValue(8), reader.GetValue(9),
+                                                                     reader.GetValue(10), reader.GetValue(11), reader.GetValue(12), reader.GetValue(13), reader.GetValue(14),
+                                                                     reader.GetValue(15), reader.GetValue(16), reader.GetValue(17), reader.GetValue(18));
+
+                    }
+
+                }
+                finally
+                {
+                    // Always call Close when done reading.
+                    connection.Close();
+                }
+            }
+            return tempCourse;
+        }
+
 
         [System.Web.Services.WebMethod]
         public static string getCourses(string course, string select)

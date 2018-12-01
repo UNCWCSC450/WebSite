@@ -241,11 +241,11 @@ function searchFunction() {
 
     document.getElementById("M").innerHTML = "Mon"
     document.getElementById("T").innerHTML = "Tues"
-    document.getElementById("W").innerHTML = "Wed"
-    document.getElementById("R").innerHTML = "Thur"
-    document.getElementById("F").innerHTML = "Fri"
-    document.getElementById("S").innerHTML = "Sat"
-    document.getElementById("U").innerHTML = "Sun"
+    document.getElementById("W").innerHTML = "&nbsp;Wed&nbsp;"
+    document.getElementById("R").innerHTML = "&nbsp;Thur&nbsp;"
+    document.getElementById("F").innerHTML = "&nbsp;&nbsp;Fri&nbsp;&nbsp;"
+    document.getElementById("S").innerHTML = "&nbsp;&nbsp;Sat&nbsp;&nbsp;"
+    document.getElementById("U").innerHTML = "&nbsp;&nbsp;Sun&nbsp;&nbsp;"
     document.getElementById("onlineCourseContainer").innerHTML = ""
     
 
@@ -313,7 +313,8 @@ function parseCRNs(crnString) {
                 }
             })
 
-            
+
+
 
             function populateCourseSelect(str) {
 
@@ -371,7 +372,205 @@ function parseCRNs(crnString) {
             });
 
 
+
+            $("#M").on('click', '.courseItem', function (event) {
+
+                
+                $.ajax({
+
+
+                    type: 'POST',
+                    url: "WebForm1.aspx/DisplayCourse",
+                    data: "{crn:'" + this.id + "' }",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: OnSuccess,
+
+                    failure: function (response) {
+                        alert("broken")
+                    }
+
+
+                });
+            });
+
+            $("#T").on('click', '.courseItem', function (event) {
+
+                $.ajax({
+
+
+                    type: 'POST',
+                    url: "WebForm1.aspx/DisplayCourse",
+                    data: "{crn:'" + this.id + "' }",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: OnSuccess,
+
+                    failure: function (response) {
+                        alert("broken")
+                    }
+
+
+                });
+            });
+
+            $("#W").on('click', '.courseItem', function (event) {
+
+                
+                $.ajax({
+
+
+                    type: 'POST',
+                    url: "WebForm1.aspx/DisplayCourse",
+                    data: "{crn:'" + this.id + "' }",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: OnSuccess,
+
+                    failure: function (response) {
+                        alert("broken")
+                    }
+
+
+                });
+            });
+
+            $("#R").on('click', '.courseItem', function (event) {
+
+                
+                $.ajax({
+
+
+                    type: 'POST',
+                    url: "WebForm1.aspx/DisplayCourse",
+                    data: "{crn:'" + this.id + "' }",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: OnSuccess,
+
+                    failure: function (response) {
+                        alert("broken")
+                    }
+
+
+                });
+            });
+
+            $("#F").on('click', '.courseItem', function (event) {
+
+                
+                $.ajax({
+
+
+                    type: 'POST',
+                    url: "WebForm1.aspx/DisplayCourse",
+                    data: "{crn:'" + this.id + "' }",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: OnSuccess,
+
+                    failure: function (response) {
+                        alert("broken")
+                    }
+
+
+                });
+            });
+
+            $("#S").on('click', '.courseItem', function (event) {
+
+                
+                $.ajax({
+
+
+                    type: 'POST',
+                    url: "WebForm1.aspx/DisplayCourse",
+                    data: "{crn:'" + this.id + "' }",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: OnSuccess,
+
+                    failure: function (response) {
+                        alert("broken")
+                    }
+
+
+                });
+            });
+
+            $("#U").on('click', '.courseItem', function (event) {
+
+               
+                $.ajax({
+
+
+                    type: 'POST',
+                    url: "WebForm1.aspx/DisplayCourse",
+                    data: "{crn:'" + this.id + "' }",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: OnSuccess,
+
+                    failure: function (response) {
+                        alert("broken")
+                    }
+
+
+                });
+            });
+
+
+            $("#onlineCourseContainer").on('click', '.courseItem2', function (event) {
+
+                
+                $.ajax({
+
+
+                    type: 'POST',
+                    url: "WebForm1.aspx/DisplayCourse",
+                    data: "{crn:'" + this.id + "' }",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: OnSuccess,
+
+                    failure: function (response) {
+                        alert("broken")
+                    }
+
+
+                });
+            });
+
+
         });
+
+        function OnSuccess(response) {
+            var course = response.d;
+            document.getElementById("title").innerHTML = course.Title;
+            document.getElementById("subj").innerHTML = course.Subject;
+            document.getElementById("crse").innerHTML = course.Crse;
+            document.getElementById("sec").innerHTML = course.Sec;
+            document.getElementById("crn").innerHTML = course.CRN;
+
+            var x = course.Time;
+            if (x.includes("*")) {
+                var tempDays = course.Days;
+                var tempLocation = course.Location;
+                var tempTimes = course.Time;
+
+                tempDays = tempDays.replace(/\*/g, "<br>");
+                tempLocation = tempLocation.replace(/\*/g, "<br>");
+                tempTimes = tempTimes.replace(/\*/g, "<br>");
+
+                document.getElementById("days").innerHTML = tempDays;
+                document.getElementById("location").innerHTML = tempLocation;
+                document.getElementById("times").innerHTML = tempTime;
+            } else {
+                document.getElementById("days").innerHTML = course.Days;
+                document.getElementById("location").innerHTML = course.Location;
+                document.getElementById("times").innerHTML = course.Time;
+            }
+        }
 
 
         function sendCourses() {
@@ -716,11 +915,11 @@ function parseCRNs(crnString) {
     position: relative;
     margin-left: 50px;
     width: 15%;
-
     text-align: center;
     font-weight: bold;
     font: inherit;
     font-size: 2.0rem;
+
 
 
 }
@@ -784,13 +983,14 @@ function parseCRNs(crnString) {
             position: absolute;
             height: 1px;
             content: "";
-            width: 40%;
+            width: 42%;
             display: block;
             border-bottom: double;
             left: 25%;
             opacity: .25;
             z-index: -1;
-            margin-top: -10px
+            margin-top: -10px;
+            margin-left:15px;
         }
     </style>
 
@@ -993,25 +1193,92 @@ function parseCRNs(crnString) {
                     </div>
                     <div class="dayGroup" id="T">Tues<div class="courseItem">CSC 450</div>
                     </div>
-                    <div class="dayGroup" id="W">Wed</div>
-                    <div class="dayGroup" id="R">Thur</div>
-                    <div class="dayGroup" id="F">Fri</div>
-                    <div class="dayGroup" id="S">Sat</div>
-                    <div class="dayGroup" id="U">Sun</div>
+                    <div class="dayGroup" id="W">&nbsp;Wed&nbsp;</div>
+                    <div class="dayGroup" id="R">&nbsp;Thur&nbsp;</div>
+                    <div class="dayGroup" id="F" >&nbsp;&nbsp;Fri&nbsp;&nbsp;</div>
+                    <div class="dayGroup" id="S">&nbsp;&nbsp;Sat&nbsp;&nbsp;</div>
+                    <div class="dayGroup" id="U">&nbsp;&nbsp;Sun&nbsp;&nbsp;</div>
 
                 </div>
 
             </div>
 
-            <div class="extra-wrapper" style="height: 100%; width: 25%; margin: 15px">
-                <h5 style="text-align: center">ONLINE COURSES</h5>
-                <div id="onlineCourseContainer" style="text-align:center">
+            <div class="extra-wrapper" style="height: 100% ; width: 25%; margin: 15px">
+                 <h5 style="text-align: center">ONLINE COURSES</h5>
+                <div id="onlineCourseContainer" style="text-align:center; height: 150px !important;">
+                   
                     <div class="courseItem2" style="">
                         <p>CSC 450</p>
                     </div>
 
                     <div class="courseItem2" style="">
                         <p>CSC 450</p>
+                    </div>
+                </div>
+
+                <div id="courseInformation" style="width:100%;height:100%; margin-top:15px; border:inset">
+                    <div class="info-wrapper" style="">
+   <%--                     <div id="title" style="width:100%; text-align:center; font-size:25px;">Computer Science</div>
+                        <div style="width:100%; text-align:center; display:flex; margin-top:15px;">
+                            <div id="subj" style="width:100%; text-align:right; font-size:20px">CSC</div>
+                            <div id="crse" style="width:100%; text-align:center; font-size:20px">131</div>
+                            <div id="sec" style="width:100%; text-align:left;font-size:20px">1</div>
+                        </div>
+                        <div id="crn" style="width:100%; text-align:center; margin-top:15px; font-size:20px">11111</div>
+                        <div id="location" style="width:100%; text-align:center; margin-top:25px; font-size:20px">CI 2006</div>
+                        <div style="display:flex; margin-top:15px">
+                        <div id="days" style="width:50%; text-align:center; margin-top:10px; font-size:20px">TR <br />M<br />T</div>
+                        <div id="times" style="width:50%; text-align:center; margin-top:10px; font-size:20px">08:00 am-09:20 am<br />08:00 am-09:20 am<br />08:00 am-09:20 am</div>
+                            </div>--%>
+                        <table style="width: 100%">
+                            <tr>
+                                <th style="text-align: center;" colspan="3">Title</th>
+                            </tr>
+                            <tr>
+                                <td id="title" style="text-align: center;" colspan="3"></td>
+                            </tr>
+                            <tr style="height: 20px !important;"> <%--adds in blank row--%>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <th style="text-align: center;">Subject</th>
+                                <th style="text-align: center;">Course</th>
+                                <th style="text-align: center;">Section</th>
+                            </tr>
+                            <tr>
+                                <td id="subj" style="text-align: center;"></td>
+                                <td id="crse" style="text-align: center;"></td>
+                                <td id="sec" style="text-align: center;"></td>
+                            </tr>
+                            <tr style="height: 20px !important;">
+                                <%--adds in blank row--%>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <th style="text-align: center;" colspan="3">CRN</th>
+                            </tr>
+                            <tr>
+                                <td id="crn" style="text-align: center;" colspan="3"></td>
+                            </tr>
+                            <tr style="height: 20px !important;">
+                                <%--adds in blank row--%>
+                                <td></td>
+                            </tr>
+                            <tr style="height: 20px !important;">
+                                <%--adds in blank row--%>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <th style="text-align: center;">Days</th>
+                                <th style="text-align: center;">Times</th>
+                                <th style="text-align: center;" >Location</th>
+                            </tr>
+                            <tr>
+                                <td id="days" style="text-align: center;"></td>
+                                <td id="times" style="text-align: center;"></td>
+                                <td id="location" style="text-align: center;"></td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
             </div>
