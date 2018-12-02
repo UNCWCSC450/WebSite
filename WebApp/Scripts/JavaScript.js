@@ -1,190 +1,4 @@
-﻿// Course Objects to handle each selection 
-var course1 = {
-    subject: "",
-    course: "",
-    concatStr: ""
-};
-var course2 = {
-    subject: "",
-    course: "",
-    concatStr: ""
-};
-var course3 = {
-    subject: "",
-    course: "",
-    concatStr: ""
-};
-var course4 = {
-    subject: "",
-    course: "",
-    concatStr: ""
-};
-var course5 = {
-    subject: "",
-    course: "",
-    concatStr: ""
-};
-var course6 = {
-    subject: "",
-    course: "",
-    concatStr: ""
-};
-
-
-
-
-
-function jsfunction(control) {
-
-        switch (control.id) {
-
-            case "myselect1":
-                var subjectSelected = $(myselect1).val();
-                course1.subject = "";
-                course1.course = "";
-                course1.concatStr = "";
-
-                if (subjectSelected == "...") {
-                    course1.subject = "";
-                    course11.concatStr = "";
-
-                    document.getElementById("myselect11").style.visibility = "hidden";
-                    break;
-                } else {
-                    course1.subject = subjectSelected;
-                    document.getElementById("myselect11").style.visibility = "visible";
-                    break;
-                }
-
-                
-            case "myselect2":
-                var subjectSelected = $(myselect2).val();
-                course2.subject = "";
-                course2.course = "";
-                course2.concatStr = "";
-
-                if (subjectSelected == "...") {
-                    course2.subject = "";
-                    course12.concatStr = "";
-
-
-                    document.getElementById("myselect22").style.visibility = "hidden";
-                    break;
-                } else {
-                    course2.subject = subjectSelected;
-                    document.getElementById("myselect22").style.visibility = "visible";
-                    break;
-                }
-
-            case "myselect3":
-                var subjectSelected = $(myselect3).val();
-                course3.subject = "";
-                course3.course = "";
-                course3.concatStr = "";
-
-                if (subjectSelected == "...") {
-                    course3.subject = "";
-                    course13.concatStr = "";
-
-                    document.getElementById("myselect33").style.visibility = "hidden";
-                    break;
-                } else {
-                    course3.subject = subjectSelected;
-                    document.getElementById("myselect33").style.visibility = "visible";
-                    break;
-                }
-
-            case "myselect4":
-                var subjectSelected = $(myselect4).val()
-                course4.subject = "";
-                course4.course = "";
-                course4.concatStr = "";
-
-
-
-
-                if (subjectSelected == "...") {
-                    document.getElementById("myselect44").style.visibility = "hidden";
-                    break;
-                } else {
-                    course4.subject = subjectSelected;
-                    document.getElementById("myselect44").style.visibility = "visible";
-                    break;
-                }
-
-            case "myselect5":
-                var subjectSelected = $(myselect5).val();
-                course5.subject = "";
-                course5.course = "";
-                course5.concatStr = "";
-
-                if (subjectSelected == "...") {
-                    document.getElementById("myselect55").style.visibility = "hidden";
-                    break;
-                } else {
-                    course5.subject = subjectSelected;
-                    document.getElementById("myselect55").style.visibility = "visible";
-                    break;
-                }
-
-            case "myselect6":
-                var subjectSelected = $(myselect6).val();
-                course6.subject = "";
-                course6.course = "";
-                course6.concatStr = "";
-
-                if (subjectSelected == "...") {
-                    document.getElementById("myselect66").style.visibility = "hidden";
-                    break;
-                } else {
-                    course6.subject = subjectSelected;
-                    document.getElementById("myselect66").style.visibility = "visible";
-                    break;
-                }
-
-
-
-            case "myselect11":
-                var courseSelected = $(myselect11).val()
-                course1.course = courseSelected;
-                course1.concatStr = course1.subject + course1.course;
-                break;
-
-            case "myselect22":
-                var courseSelected = $(myselect22).val()
-                course2.course = courseSelected;
-                course2.concatStr = course2.subject + course2.course;
-                break;
-
-            case "myselect33":
-                var courseSelected = $(myselect33).val()
-                course3.course = courseSelected;
-                course3.concatStr = course3.subject + course3.course;
-                break;
-
-            case "myselect44":
-                var courseSelected = $(myselect44).val()
-                course4.course = courseSelected;
-                course4.concatStr = course4.subject + course4.course;
-                break;
-
-            case "myselect55":
-                var courseSelected = $(myselect55).val()
-                course5.course = courseSelected;
-                course5.concatStr = course5.subject + course5.course;
-                break;
-
-            case "myselect66":
-                var courseSelected = $(myselect66).val()
-                course6.course = courseSelected;
-                course6.concatStr = course6.subject + course6.course;
-                break;
-        }
-
-}
-
-
-function showCriteria(element) {
+﻿function showCriteria(element) {
     var id = element.id;
     var checked = document.getElementById(id).checked;
 
@@ -205,38 +19,80 @@ function showCriteria(element) {
 
 function searchFunction() {
 
-
-    if (course1.concatStr.length < 6) {
-        return false; // will need to throw an error message to the user that they must select at least four courses
+    var x = $("#selectedCourses > div").length
+    if (x < 4) { // check if there are already 6 courses
+        document.getElementById("searchErr").style.visibility = "visible"
+        return
     }
 
-    if (course2.concatStr.length < 6) {
-        return false; // will need to throw an error message to the user that they must select at least four courses and both criteria
-    }
+    document.getElementById("searchErr").style.visibility = "hidden"
 
-    if (course3.concatStr.length < 6) {
-        return false; // will need to throw an error message to the user that they must select at least four courses
-    }
+    document.getElementById("M").innerHTML = "Mon"
+    document.getElementById("T").innerHTML = "Tues"
+    document.getElementById("W").innerHTML = "&nbsp;Wed&nbsp;"
+    document.getElementById("R").innerHTML = "&nbsp;Thur&nbsp;"
+    document.getElementById("F").innerHTML = "&nbsp;&nbsp;Fri&nbsp;&nbsp;"
+    document.getElementById("S").innerHTML = "&nbsp;&nbsp;Sat&nbsp;&nbsp;"
+    document.getElementById("U").innerHTML = "&nbsp;&nbsp;Sun&nbsp;&nbsp;"
+    document.getElementById("onlineCourseContainer").innerHTML = ""
 
-    if (course4.concatStr.length < 6) {
-        return false; // will need to throw an error message to the user that they must select at least four courses
-    }
 
-
-    sendCourses();  
+    sendCourses();
 }
 
 function parseCRNs(crnString) {
-    crnArray = crnString.split(",");   
+    crnArray = crnString.split(",");
 
 
     // Iterate over the CRN's 
     for (var i = 0; i < crnArray.length; i++) {
         getTimes(crnArray[i]); // probably need to return more than times from this
+
+
     }
 
-   
+
 }
+
+function addClass() {
+    var subj = document.getElementById("subjInput").value
+    var crse = document.getElementById("crseInput").value
+    var sec = document.getElementById("secInput").value
+
+    if (sec != "") { // format section number
+        if (sec.length == 1)
+            sec = "00" + sec
+        else if (sec.length == 2)
+            sec = "0" + sec
+    }
+
+    var x = $("#selectedCourses > div").length
+    if (x < 6) { // check if there are already 6 courses
+        if (subj == "" || crse == "")
+            document.getElementById("addErr").style.visibility = "visible"
+        else {
+            document.getElementById("addErr").style.visibility = "hidden"
+            desiredClass = subj + crse;
+
+            var newDiv = document.createElement("div");
+
+
+
+
+
+            //add p element to div
+            newDiv.setAttribute("id", desiredClass);
+
+            $('#selectedCourses').append(newDiv);
+            $('#' + desiredClass).css('display', 'flex')
+            document.getElementById(desiredClass).innerHTML = '<p class="desiredCourse">' + subj + " " + crse + " " + " " + sec + '</p>' + '<button type="button" class="close">&times;</button>'
+
+        }
+    }
+    //document.getElementById("tooManyErr").style.visibility = "visible"
+
+}
+
 
 
 
@@ -250,82 +106,377 @@ function parseCRNs(crnString) {
 
 $(document).ready(function () {
 
-    $('select').change(function () {
+    $("#selectedCourses").on('click', '.close', function (event) {
+        $(this).closest('div').remove();
+    });
+
+    $.ajax({
 
 
-        //alert("works");
-        var elementID = this.id
+        type: 'POST',
+        url: "WebForm1.aspx/getSubjects",
+        data: "{}",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: populateSubjects,
 
-
-        if (elementID.length == 9) {
-            //alert(id);
-            var optionSelected = $('#' + elementID + ' option:selected').val();
-            //alert(data);
-            $.ajax({
-
-
-                type: 'POST',
-                url: "WebForm1.aspx/getCourses",
-                data: "{course:'" + optionSelected + "', select:'" + elementID + "' }",
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (data) {
-                    populateCourseSelect(data.d)
-                    //alert(data.d);
-
-                },
-
-                failure: function (response) {
-                    alert("broken")
-                }
-
-
-            });
-
+        failure: function (response) {
+            alert("broken")
         }
-    })
 
-    function populateCourseSelect(str) {
 
-        var listOfCourse = str.substring(9);
+    });
 
-        var tempSelect = str.substring(0, 9);
-        var select = tempSelect + tempSelect[8]
+    $("#crseInput").click(function () {
+        var elementID = this.id
+        var input = $('#subjInput').val();
+        $.ajax({
 
-        var num = "";
 
-        $('#' + select + '')
-            .empty()
-            ;
+            type: 'POST',
+            url: "WebForm1.aspx/getCourses",
+            data: "{course:'" + input + "'}",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                populateCrseInput(data.d)
+                //alert(data.d);
 
-        for (var i = 0; i < listOfCourse.length; i++) {
+            },
 
-            var tempNum = listOfCourse[i];
-
-            if (tempNum != ",") {
-                num += tempNum;
-
-            } else {
-                var x = document.getElementById("" + select + "");
-                var option = document.createElement("option");
-                option.text = num;
-                x.add(option);
-                num = "";
+            failure: function (response) {
+                alert("broken")
             }
 
+
+        });
+    });
+
+    $("#secInput").click(function () {
+        alert("in")
+        var subj = $('#subjInput').val();
+        var crse = $('#crseInput').val();
+        $.ajax({
+
+
+            type: 'POST',
+            url: "WebForm1.aspx/getSections",
+            data: "{course:'" + crse + "', subject:'" + subj + "' }",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                populateSecInput(data.d)
+                //alert(data.d);
+
+            },
+
+            failure: function (response) {
+                alert("broken")
+            }
+
+
+        });
+    });
+
+
+
+
+
+
+    function populateSecInput(str) {
+        var x = str.split(",");
+        var secs = [];
+
+
+        for (var i = 0; i < x.length; i++) {
+
+            secs.unshift(x[i])
+
         }
+        autocomplete(document.getElementById("secInput"), secs);
+    }
+
+    function populateCrseInput(str) {
+
+        var x = str.split(",");
+        var crses = [];
+
+
+        for (var i = 0; i < x.length; i++) {
+
+            crses.unshift(x[i])
+
+        }
+        autocomplete(document.getElementById("crseInput"), crses);
 
     }
 
+    function populateSubjects(response) {
+        /*An array containing all the country names in the world:*/
+        var str = response.d;
+        var subjects = [];
+        var x = str.split(",")
+
+        for (i = 0; i < x.length; i++) {
+
+
+            subjects.unshift(x[i])
+        }
+
+        /*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
+        autocomplete(document.getElementById("subjInput"), subjects);
+    }
+
+
+
+
+
+
+    $("#btn1").click(function (e) {
+
+
+        var newItem = '<div class="item2">CSC 315</div>';
+        newItem.id = "first";
+
+        $("#testc").prepend(newItem);
+        var item = document.getElementById("first").id;
+        alert(item);
+        $('#first').css('color', 'blue');
+        e.preventDefault();
+
+    });
+
+    $(document).on('click', 'a[href^="#"]', function (event) {
+        event.preventDefault();
+
+        $('html, body').animate({
+            scrollTop: $($.attr(this, 'href')).offset().top - 40
+        }, 500);
+    });
+
+
+
+    $("#M").on('click', '.courseItem', function (event) {
+
+
+        $.ajax({
+
+
+            type: 'POST',
+            url: "WebForm1.aspx/DisplayCourse",
+            data: "{crn:'" + this.id + "' }",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: OnSuccess,
+
+            failure: function (response) {
+                alert("broken")
+            }
+
+
+        });
+    });
+
+    $("#T").on('click', '.courseItem', function (event) {
+
+        $.ajax({
+
+
+            type: 'POST',
+            url: "WebForm1.aspx/DisplayCourse",
+            data: "{crn:'" + this.id + "' }",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: OnSuccess,
+
+            failure: function (response) {
+                alert("broken")
+            }
+
+
+        });
+    });
+
+    $("#W").on('click', '.courseItem', function (event) {
+
+
+        $.ajax({
+
+
+            type: 'POST',
+            url: "WebForm1.aspx/DisplayCourse",
+            data: "{crn:'" + this.id + "'}",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: OnSuccess,
+
+            failure: function (response) {
+                alert("broken")
+            }
+
+
+        });
+    });
+
+    $("#R").on('click', '.courseItem', function (event) {
+
+
+        $.ajax({
+
+
+            type: 'POST',
+            url: "WebForm1.aspx/DisplayCourse",
+            data: "{crn:'" + this.id + "' }",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: OnSuccess,
+
+            failure: function (response) {
+                alert("broken")
+            }
+
+
+        });
+    });
+
+    $("#F").on('click', '.courseItem', function (event) {
+
+
+        $.ajax({
+
+
+            type: 'POST',
+            url: "WebForm1.aspx/DisplayCourse",
+            data: "{crn:'" + this.id + "' }",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: OnSuccess,
+
+            failure: function (response) {
+                alert("broken")
+            }
+
+
+        });
+    });
+
+    $("#S").on('click', '.courseItem', function (event) {
+
+
+        $.ajax({
+
+
+            type: 'POST',
+            url: "WebForm1.aspx/DisplayCourse",
+            data: "{crn:'" + this.id + "' }",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: OnSuccess,
+
+            failure: function (response) {
+                alert("broken")
+            }
+
+
+        });
+    });
+
+    $("#U").on('click', '.courseItem', function (event) {
+
+
+        $.ajax({
+
+
+            type: 'POST',
+            url: "WebForm1.aspx/DisplayCourse",
+            data: "{crn:'" + this.id + "' }",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: OnSuccess,
+
+            failure: function (response) {
+                alert("broken")
+            }
+
+
+        });
+    });
+
+
+    $("#onlineCourseContainer").on('click', '.courseItem2', function (event) {
+
+
+        $.ajax({
+
+
+            type: 'POST',
+            url: "WebForm1.aspx/DisplayCourse",
+            data: "{crn:'" + this.id + "' }",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: OnSuccess,
+
+            failure: function (response) {
+                alert("broken")
+            }
+
+
+        });
+    });
+
+
+
 });
+
+function OnSuccess(response) {
+    var course = response.d;
+    document.getElementById("title").innerHTML = course.Title;
+    document.getElementById("subj").innerHTML = course.Subject;
+    document.getElementById("crse").innerHTML = course.Crse;
+    document.getElementById("sec").innerHTML = course.Sec;
+    document.getElementById("crn").innerHTML = course.CRN;
+
+
+    var x = course.Time;
+    if (x.includes("*")) {
+        var tempDays = course.Days;
+        var tempLocation = course.Location;
+        var tempTimes = course.Time;
+        tempDays = tempDays.replace(/\*/g, "<br>");
+        tempLocation = tempLocation.replace(/\*/g, "<br>");
+        tempTimes = tempTimes.replace(/\*/g, "<br>");
+
+        document.getElementById("days").innerHTML = tempDays;
+        document.getElementById("location").innerHTML = tempLocation;
+        document.getElementById("times").innerHTML = tempTimes;
+    } else {
+        document.getElementById("days").innerHTML = course.Days;
+        document.getElementById("location").innerHTML = course.Location;
+        document.getElementById("times").innerHTML = course.Time;
+    }
+}
 
 
 function sendCourses() {
+    if ($('#preferedOnline').prop('checked')) {
+        var pref = "T";
+    } else {
+        var pref = "F";
+    }
+
+
+    var courseList = "";
+    $(".desiredCourse").each(function () {
+        courseList += this.innerHTML + ","
+    });
+
+
+
     $.ajax({
 
         type: 'POST',
         url: "WebForm1.aspx/algorithm",
-        data: "{course1:'" + course1.concatStr + "', course2:'" + course2.concatStr + "', course3:'" + course3.concatStr + "', course4:'" + course4.concatStr + "', course5:'" + course5.concatStr + "', course6:'" + course6.concatStr + "'}",
+        data: "{courses:'" + courseList + "', prefOnline:'" + pref + "'}",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (data) {
@@ -366,15 +517,263 @@ function displayTime(crn, time) {
     // here is where we need to use the jquery to actually display the time and information on the front end. 
     // will need the days as well 
     //alert("CRN" + crn);
-    alert("time" + time);
+    //alert("time" + time);
+    var timeDay = time.split(",");
+
+
+    var day = timeDay[0];
+    var times = timeDay[1];
+
+    if (day.length == 1 && day != "M" && day != "T" && day != "W" && day != "R" && day != "F" && day != "S" && day != "U") //Determines if class is online
+        day = "ONLINE"
+
+    if (day != "ONLINE") {
+        var idCOUNTER = 0;
+        var timeCOUNTER = 0;
+
+
+        if (day.includes("*")) {
+            //alert("DEBUGGING: " + crn);
+            var differentTimes = times.split("*")
+            for (var i = 0; i < day.length; i++) {
+                var tempDay = day.charAt(i);
+                //alert("timeCOUNTER: " + timeCOUNTER)
+                //alert("idCOUNTER: " + idCOUNTER)
+                //alert("Current tempDay: " + tempDay)
+                var tempTime = differentTimes[timeCOUNTER]
+                tempcrn = crn + idCOUNTER
+                if (tempDay != "*") {
+                    var newDiv = document.createElement("div");
+                    newDiv.setAttribute("id", tempcrn);
+                    newDiv.setAttribute("class", "courseItem");
+                    $('#' + tempDay).prepend(newDiv);
+                    document.getElementById(tempcrn).innerHTML = "<p>" + crn + "</p>"
+
+                    if (tempTime != "TBA") {
+                        var x = tempTime.split("-")
+                        var startTime = x[0];
+                        var endTime = x[1];
+
+                        startTime = timeConvertor(startTime);
+                        endTime = timeConvertor(endTime);
+
+                        var duration = endTime - startTime;
+                        var helper = startTime;
+
+                        //alert("Start time for "+tempDay +" is "+ startTime);
+                        if (startTime >= 1300) {
+                            startTime = startTime - 1200
+                        }
+                        //alert("2: " + startTime);
+
+                        if (startTime.length == 4)
+                            startTime = startTime.toString().substring(0, 2)
+                        else
+                            startTime = startTime.toString().substring(0, 1)
+
+                        var tempTop = 60;
+
+
+
+                        //if (startTime != 8) {
+                        var temp = helper.toString().substring(0, 2);
+                        var temp2 = helper.toString().substring(2, 4);
+
+                        temp = temp - 8;
+                        temp2 = temp2 * 1
+                        tempTop = (60 * temp) + tempTop;
+                        //alert(crn + "'s top is: " + tempTop)
+                        tempTop = tempTop + temp2;
+
+                        duration = duration * .7;
+
+                        //}
+
+
+
+                        $('#' + tempcrn).css('top', '' + tempTop + 'px');
+                        $('#' + tempcrn).css('height', '' + duration + 'px');
+                        idCOUNTER = idCOUNTER + 1;
+                    }
+
+
+
+
+                } else {
+
+                    timeCOUNTER = timeCOUNTER + 1
+                }
+            }
+        } else {
+            //alert("hit: " + crn);
+            for (var i = 0; i < day.length; i++) {
+                var tempDay = day.charAt(i);
+                tempcrn = crn + idCOUNTER
+
+                var newDiv = document.createElement("div");
+                newDiv.setAttribute("id", tempcrn);
+                newDiv.setAttribute("class", "courseItem");
+                $('#' + tempDay).prepend(newDiv);
+                document.getElementById(tempcrn).innerHTML = "<p>" + crn + "</p>";
+
+                if (time != "TBA") {
+                    var x = times.split("-")
+                    var startTime = x[0];
+                    var endTime = x[1];
+
+                    startTime = timeConvertor(startTime);
+                    endTime = timeConvertor(endTime);
+
+                    var duration = endTime - startTime;
+                    var helper = startTime;
+
+                    //alert("1: " + startTime);
+                    if (startTime >= 1300) {
+                        startTime = startTime - 1200
+                    }
+                    //alert("2: " + startTime);
+
+                    if (startTime.length == 4)
+                        startTime = startTime.toString().substring(0, 2);
+                    else
+                        startTime = startTime.toString().substring(0, 1);
+
+                    var tempTop = 60;
+
+
+
+                    //if (startTime != 8) {
+                    var temp = helper.toString().substring(0, 2);
+                    var temp2 = helper.toString().substring(2, 4);
+
+                    temp = temp - 8;
+                    temp2 = temp2 * 1
+                    tempTop = (60 * temp) + tempTop;
+                    //alert(crn + "'s top is: " + tempTop)
+                    tempTop = tempTop + temp2;
+
+
+                    if (duration > 60)
+                        duration = duration * .63;
+
+
+
+                    //
+                    //}
+
+
+
+
+                    $('#' + tempcrn).css('top', '' + tempTop + 'px');
+                    $('#' + tempcrn).css('height', '' + duration + 'px');
+                    idCOUNTER = idCOUNTER + 1;
+
+                }
+
+            }
+        }
+        //if (time != "TBA") {
+        //    var x = times.split("-")
+        //    var startTime = x[0];
+        //    var endTime = x[1];
+
+        //    startTime = timeConvertor(startTime);
+        //    endTime = timeConvertor(endTime);
+
+        //    var duration = endTime - startTime;
+
+        //    alert("1: " + startTime);
+        //    if (startTime >= 1300) {
+        //        startTime = startTime - 1200
+        //    }
+        //    alert("2: " + startTime);
+
+        //    if (startTime.length == 4)
+        //        startTime = startTime.toString().substring(0, 2)
+        //    else
+        //        startTime = startTime.toString().substring(0, 1)
+
+
+        //    alert(times);
+
+
+
+
+
+        //    alert("Start point: " + startTime)
+        //    alert("Duration: " + duration);
+
+    } else {
+        //alert(crn + " is ONLINE")
+
+        var newDiv = document.createElement("div");
+        newDiv.setAttribute("id", crn);
+        newDiv.setAttribute("class", "courseItem2");
+        $('#onlineCourseContainer').prepend(newDiv);
+        document.getElementById(crn).innerHTML = crn
+    }
+
+    //var differentTimeDay = false;
+
+    //if (times.includes("*")) {
+    //    differentTimes = times.split("*")
+
+    //    var index = 0;
+
+    //    for (var i = 0; i < day.length; i++) {
+    //        var currentTime = differentTimes[index];
+    //        var startTime = currentTime.substring(0, 8);
+    //        var endTime = currentTime.substring(10, 17);
+    //        tempDay = day.charAt(i);
+    //        tempcrn = crn + idCOUNTER
+    //        if (tempDay != "*") {
+    //            tempStart = startTime.chaAt(0)
+    //            if (!(startTime.includes("00"))) {
+    //               tempStart = tempStart + ".5"
+    //            }
+    //            tempEnd 
+
+
+    //        } else {
+    //            index = index + 1
+
+    //        }
+
+    //    }
+
+
+
+
+
+
+    //}
+
+    //alert(day);
+
+
 
 
 }
 
+function timeConvertor(time) {
+    var pm = false;
+    var min = time.substring(3, 5);
+    if (time.includes("pm"))
+        pm = true
+
+    //if (time.includes("00"))
+    //    min = "00"
+    //else
+    //    min = "30"
 
 
+    if (pm && !(time.includes("12"))) {
+        var hour = 12 + parseInt(time.substring(0, 2), 10)
 
+    } else {
+        var hour = time.substring(0, 2)
+    }
 
-
-
-
+    time = hour.toString() + min.toString();
+    return time
+}

@@ -103,7 +103,7 @@
     <Content Include="Resources\cd-icon-location.svg" />
     <Content Include="Resources\cd-icon-movie.svg" />
     <Content Include="Resources\cd-icon-picture.svg" />
-    <Content Include="Scripts\Ajax.js" />
+    <Content Include="Scripts\AutoComplete.js" />
     <Content Include="Scripts\CodyHouse.js" />
     <Content Include="Scripts\JavaScript.js" />
     <Content Include="Scripts\main.js" />
@@ -112,6 +112,7 @@
     <Content Include="StyleSheets\reset.css" />
     <Content Include="StyleSheets\style.css" />
     <Content Include="StyleSheets\StyleSheet.css" />
+    <Content Include="StyleSheets\test.css" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

@@ -8,995 +8,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=8"/>
 </head>
 <body>
-
+    
     <link rel="stylesheet" href="https://bootswatch.com/4/cerulean/bootstrap.min.css" />
-    <link href="StyleSheets/StyleSheet.css" rel="stylesheet" />
-    
+    <link href="StyleSheets/StyleSheet.css" rel="stylesheet" type="text/css"/>
+    <link href="StyleSheets/test.css" rel="stylesheet" />
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+    <script src="Scripts/JavaScript.js"></script>
+
 <%--    <script src="Scripts/Ajax.js"></script>--%>
-    <script>
-        // Course Objects to handle each selection 
-var course1 = {
-    subject: "",
-    course: "",
-    concatStr: ""
-};
-var course2 = {
-    subject: "",
-    course: "",
-    concatStr: ""
-};
-var course3 = {
-    subject: "",
-    course: "",
-    concatStr: ""
-};
-var course4 = {
-    subject: "",
-    course: "",
-    concatStr: ""
-};
-var course5 = {
-    subject: "",
-    course: "",
-    concatStr: ""
-};
-var course6 = {
-    subject: "",
-    course: "",
-    concatStr: ""
-};
 
-
-
-
-
-function jsfunction(control) {
-
-        switch (control.id) {
-
-            case "myselect1":
-                var subjectSelected = $(myselect1).val();
-                course1.subject = "";
-                course1.course = "";
-                course1.concatStr = "";
-
-                if (subjectSelected == "...") {
-                    course1.subject = "";
-                    course11.concatStr = "";
-
-                    document.getElementById("myselect11").style.visibility = "hidden";
-                    break;
-                } else {
-                    course1.subject = subjectSelected;
-                    document.getElementById("myselect11").style.visibility = "visible";
-                    break;
-                }
-
-                
-            case "myselect2":
-                var subjectSelected = $(myselect2).val();
-                course2.subject = "";
-                course2.course = "";
-                course2.concatStr = "";
-
-                if (subjectSelected == "...") {
-                    course2.subject = "";
-                    course12.concatStr = "";
-
-
-                    document.getElementById("myselect22").style.visibility = "hidden";
-                    break;
-                } else {
-                    course2.subject = subjectSelected;
-                    document.getElementById("myselect22").style.visibility = "visible";
-                    break;
-                }
-
-            case "myselect3":
-                var subjectSelected = $(myselect3).val();
-                course3.subject = "";
-                course3.course = "";
-                course3.concatStr = "";
-
-                if (subjectSelected == "...") {
-                    course3.subject = "";
-                    course13.concatStr = "";
-
-                    document.getElementById("myselect33").style.visibility = "hidden";
-                    break;
-                } else {
-                    course3.subject = subjectSelected;
-                    document.getElementById("myselect33").style.visibility = "visible";
-                    break;
-                }
-
-            case "myselect4":
-                var subjectSelected = $(myselect4).val()
-                course4.subject = "";
-                course4.course = "";
-                course4.concatStr = "";
-
-
-
-
-                if (subjectSelected == "...") {
-                    document.getElementById("myselect44").style.visibility = "hidden";
-                    break;
-                } else {
-                    course4.subject = subjectSelected;
-                    document.getElementById("myselect44").style.visibility = "visible";
-                    break;
-                }
-
-            case "myselect5":
-                var subjectSelected = $(myselect5).val();
-                course5.subject = "";
-                course5.course = "";
-                course5.concatStr = "";
-
-                if (subjectSelected == "...") {
-                    document.getElementById("myselect55").style.visibility = "hidden";
-                    break;
-                } else {
-                    course5.subject = subjectSelected;
-                    document.getElementById("myselect55").style.visibility = "visible";
-                    break;
-                }
-
-            case "myselect6":
-                var subjectSelected = $(myselect6).val();
-                course6.subject = "";
-                course6.course = "";
-                course6.concatStr = "";
-
-                if (subjectSelected == "...") {
-                    document.getElementById("myselect66").style.visibility = "hidden";
-                    break;
-                } else {
-                    course6.subject = subjectSelected;
-                    document.getElementById("myselect66").style.visibility = "visible";
-                    break;
-                }
-
-
-
-            case "myselect11":
-                var courseSelected = $(myselect11).val()
-                course1.course = courseSelected;
-                course1.concatStr = course1.subject + course1.course;
-                break;
-
-            case "myselect22":
-                var courseSelected = $(myselect22).val()
-                course2.course = courseSelected;
-                course2.concatStr = course2.subject + course2.course;
-                break;
-
-            case "myselect33":
-                var courseSelected = $(myselect33).val()
-                course3.course = courseSelected;
-                course3.concatStr = course3.subject + course3.course;
-                break;
-
-            case "myselect44":
-                var courseSelected = $(myselect44).val()
-                course4.course = courseSelected;
-                course4.concatStr = course4.subject + course4.course;
-                break;
-
-            case "myselect55":
-                var courseSelected = $(myselect55).val()
-                course5.course = courseSelected;
-                course5.concatStr = course5.subject + course5.course;
-                break;
-
-            case "myselect66":
-                var courseSelected = $(myselect66).val()
-                course6.course = courseSelected;
-                course6.concatStr = course6.subject + course6.course;
-                break;
-        }
-
-}
-
-
-function showCriteria(element) {
-    var id = element.id;
-    var checked = document.getElementById(id).checked;
-
-    if (id == "wantPreferedDays")
-
-        if (checked)
-            document.getElementById("preferedDays").style.visibility = "visible";
-        else
-            document.getElementById("preferedDays").style.visibility = "hidden";
-
-    if (id == "wantPreferedTimes")
-        if (checked)
-            document.getElementById("preferedTime").style.visibility = "visible";
-        else
-            document.getElementById("preferedTime").style.visibility = "hidden";
-}
-
-
-function searchFunction() {
-
-
-    if (course1.concatStr.length < 6) {
-        return false; // will need to throw an error message to the user that they must select at least four courses
-    }
-
-    if (course2.concatStr.length < 6) {
-        return false; // will need to throw an error message to the user that they must select at least four courses and both criteria
-    }
-
-    if (course3.concatStr.length < 6) {
-        return false; // will need to throw an error message to the user that they must select at least four courses
-    }
-
-    if (course4.concatStr.length < 6) {
-        return false; // will need to throw an error message to the user that they must select at least four courses
-    }
-
-    document.getElementById("M").innerHTML = "Mon"
-    document.getElementById("T").innerHTML = "Tues"
-    document.getElementById("W").innerHTML = "&nbsp;Wed&nbsp;"
-    document.getElementById("R").innerHTML = "&nbsp;Thur&nbsp;"
-    document.getElementById("F").innerHTML = "&nbsp;&nbsp;Fri&nbsp;&nbsp;"
-    document.getElementById("S").innerHTML = "&nbsp;&nbsp;Sat&nbsp;&nbsp;"
-    document.getElementById("U").innerHTML = "&nbsp;&nbsp;Sun&nbsp;&nbsp;"
-    document.getElementById("onlineCourseContainer").innerHTML = ""
     
 
-    sendCourses();  
-}
 
-function parseCRNs(crnString) {
-    crnArray = crnString.split(",");   
-
-
-    // Iterate over the CRN's 
-    for (var i = 0; i < crnArray.length; i++) {
-        getTimes(crnArray[i]); // probably need to return more than times from this
-
-
-    }
-
-   
-}
-
-
-
-
-
-
-
-
-        //////////////////////// ALL AJAX CALLS ARE BEYOND THIS LINE /////////////////////////////////////////
-
-
-        $(document).ready(function () {
-
-            $('select').change(function () {
-
-
-                //alert("works");
-                var elementID = this.id
-
-
-                if (elementID.length == 9) {
-                    //alert(id);
-                    var optionSelected = $('#' + elementID + ' option:selected').val();
-                    //alert(data);
-                    $.ajax({
-
-
-                        type: 'POST',
-                        url: "WebForm1.aspx/getCourses",
-                        data: "{course:'" + optionSelected + "', select:'" + elementID + "' }",
-                        contentType: "application/json; charset=utf-8",
-                        dataType: "json",
-                        success: function (data) {
-                            populateCourseSelect(data.d)
-                            //alert(data.d);
-
-                        },
-
-                        failure: function (response) {
-                            alert("broken")
-                        }
-
-
-                    });
-
-                }
-            })
-
-
-
-
-            function populateCourseSelect(str) {
-
-                var listOfCourse = str.substring(9);
-
-                var tempSelect = str.substring(0, 9);
-                var select = tempSelect + tempSelect[8]
-
-                var num = "";
-
-                $('#' + select + '')
-                    .empty()
-                    ;
-
-                for (var i = 0; i < listOfCourse.length; i++) {
-
-                    var tempNum = listOfCourse[i];
-
-                    if (tempNum != ",") {
-                        num += tempNum;
-
-                    } else {
-                        var x = document.getElementById("" + select + "");
-                        var option = document.createElement("option");
-                        option.text = num;
-                        x.add(option);
-                        num = "";
-                    }
-
-                }
-
-            }
-
-
-            $("#btn1").click(function (e) {
-
-
-                var newItem = '<div class="item2">CSC 315</div>';
-                newItem.id = "first";
-
-                $("#testc").prepend(newItem);
-                var item = document.getElementById("first").id;
-                alert(item);
-                $('#first').css('color', 'blue');
-                e.preventDefault();
-
-            });
-
-            $(document).on('click', 'a[href^="#"]', function (event) {
-                event.preventDefault();
-
-                $('html, body').animate({
-                    scrollTop: $($.attr(this, 'href')).offset().top - 40
-                }, 500);
-            });
-
-
-
-            $("#M").on('click', '.courseItem', function (event) {
-
-                
-                $.ajax({
-
-
-                    type: 'POST',
-                    url: "WebForm1.aspx/DisplayCourse",
-                    data: "{crn:'" + this.id + "' }",
-                    contentType: "application/json; charset=utf-8",
-                    dataType: "json",
-                    success: OnSuccess,
-
-                    failure: function (response) {
-                        alert("broken")
-                    }
-
-
-                });
-            });
-
-            $("#T").on('click', '.courseItem', function (event) {
-
-                $.ajax({
-
-
-                    type: 'POST',
-                    url: "WebForm1.aspx/DisplayCourse",
-                    data: "{crn:'" + this.id + "' }",
-                    contentType: "application/json; charset=utf-8",
-                    dataType: "json",
-                    success: OnSuccess,
-
-                    failure: function (response) {
-                        alert("broken")
-                    }
-
-
-                });
-            });
-
-            $("#W").on('click', '.courseItem', function (event) {
-
-                
-                $.ajax({
-
-
-                    type: 'POST',
-                    url: "WebForm1.aspx/DisplayCourse",
-                    data: "{crn:'" + this.id + "' }",
-                    contentType: "application/json; charset=utf-8",
-                    dataType: "json",
-                    success: OnSuccess,
-
-                    failure: function (response) {
-                        alert("broken")
-                    }
-
-
-                });
-            });
-
-            $("#R").on('click', '.courseItem', function (event) {
-
-                
-                $.ajax({
-
-
-                    type: 'POST',
-                    url: "WebForm1.aspx/DisplayCourse",
-                    data: "{crn:'" + this.id + "' }",
-                    contentType: "application/json; charset=utf-8",
-                    dataType: "json",
-                    success: OnSuccess,
-
-                    failure: function (response) {
-                        alert("broken")
-                    }
-
-
-                });
-            });
-
-            $("#F").on('click', '.courseItem', function (event) {
-
-                
-                $.ajax({
-
-
-                    type: 'POST',
-                    url: "WebForm1.aspx/DisplayCourse",
-                    data: "{crn:'" + this.id + "' }",
-                    contentType: "application/json; charset=utf-8",
-                    dataType: "json",
-                    success: OnSuccess,
-
-                    failure: function (response) {
-                        alert("broken")
-                    }
-
-
-                });
-            });
-
-            $("#S").on('click', '.courseItem', function (event) {
-
-                
-                $.ajax({
-
-
-                    type: 'POST',
-                    url: "WebForm1.aspx/DisplayCourse",
-                    data: "{crn:'" + this.id + "' }",
-                    contentType: "application/json; charset=utf-8",
-                    dataType: "json",
-                    success: OnSuccess,
-
-                    failure: function (response) {
-                        alert("broken")
-                    }
-
-
-                });
-            });
-
-            $("#U").on('click', '.courseItem', function (event) {
-
-               
-                $.ajax({
-
-
-                    type: 'POST',
-                    url: "WebForm1.aspx/DisplayCourse",
-                    data: "{crn:'" + this.id + "' }",
-                    contentType: "application/json; charset=utf-8",
-                    dataType: "json",
-                    success: OnSuccess,
-
-                    failure: function (response) {
-                        alert("broken")
-                    }
-
-
-                });
-            });
-
-
-            $("#onlineCourseContainer").on('click', '.courseItem2', function (event) {
-
-                
-                $.ajax({
-
-
-                    type: 'POST',
-                    url: "WebForm1.aspx/DisplayCourse",
-                    data: "{crn:'" + this.id + "' }",
-                    contentType: "application/json; charset=utf-8",
-                    dataType: "json",
-                    success: OnSuccess,
-
-                    failure: function (response) {
-                        alert("broken")
-                    }
-
-
-                });
-            });
-
-
-        });
-
-        function OnSuccess(response) {
-            var course = response.d;
-            document.getElementById("title").innerHTML = course.Title;
-            document.getElementById("subj").innerHTML = course.Subject;
-            document.getElementById("crse").innerHTML = course.Crse;
-            document.getElementById("sec").innerHTML = course.Sec;
-            document.getElementById("crn").innerHTML = course.CRN;
-
-            var x = course.Time;
-            if (x.includes("*")) {
-                var tempDays = course.Days;
-                var tempLocation = course.Location;
-                var tempTimes = course.Time;
-
-                tempDays = tempDays.replace(/\*/g, "<br>");
-                tempLocation = tempLocation.replace(/\*/g, "<br>");
-                tempTimes = tempTimes.replace(/\*/g, "<br>");
-
-                document.getElementById("days").innerHTML = tempDays;
-                document.getElementById("location").innerHTML = tempLocation;
-                document.getElementById("times").innerHTML = tempTime;
-            } else {
-                document.getElementById("days").innerHTML = course.Days;
-                document.getElementById("location").innerHTML = course.Location;
-                document.getElementById("times").innerHTML = course.Time;
-            }
-        }
-
-
-        function sendCourses() {
-            if ($('#preferedOnline').prop('checked')) {
-                var pref = "T";        
-            } else {
-                var pref = "F";
-            }
-
-            //alert("Pref = " + pref);
-            $.ajax({
-
-                type: 'POST',
-                url: "WebForm1.aspx/algorithm",
-                data: "{course1:'" + course1.concatStr + "', course2:'" + course2.concatStr + "', course3:'" + course3.concatStr + "', course4:'" + course4.concatStr + "', course5:'" + course5.concatStr + "', course6:'" + course6.concatStr + "', prefOnline:'" + pref + "'}",                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (data) {
-                    parseCRNs(data.d);
-                    // may need to do something here
-                },
-
-                failure: function (response) {
-                    alert("broken")
-                }
-            });
-        }
-
-        function getTimes(crn) {
-            var times = "";
-            $.ajax({
-
-                type: 'POST',
-                url: "WebForm1.aspx/getTimes",
-                data: "{crn:'" + crn + "'}",
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (data) {
-                    // MUST CALL A DIFFERENT FUNCTION IN AJAX, CANT RETURN 
-                    displayTime(crn, data.d);
-                },
-
-                failure: function (response) {
-                    alert("broken")
-                }
-
-            });
-
-            return times;
-        }
-
-        function displayTime(crn, time) {
-            // here is where we need to use the jquery to actually display the time and information on the front end. 
-            // will need the days as well 
-            //alert("CRN" + crn);
-            //alert("time" + time);
-            var timeDay = time.split(",");
-
-
-            var day = timeDay[0];
-            var times = timeDay[1];
-
-            if (day.length == 1 && day != "M" && day != "T" && day != "W" && day != "R" && day != "F" && day != "S" && day != "U") //Determines if class is online
-                day = "ONLINE"
-
-            if (day != "ONLINE") {
-                var idCOUNTER = 0;
-                var timeCOUNTER = 0;
-
-
-                if (day.includes("*")) {
-                    //alert("DEBUGGING: " + crn);
-                    var differentTimes = times.split("*")
-                    for (var i = 0; i < day.length; i++) {
-                        var tempDay = day.charAt(i);
-                        //alert("timeCOUNTER: " + timeCOUNTER)
-                        //alert("idCOUNTER: " + idCOUNTER)
-                        //alert("Current tempDay: " + tempDay)
-                        var tempTime = differentTimes[timeCOUNTER]
-                        tempcrn = crn + idCOUNTER
-                        if (tempDay != "*") {
-                            var newDiv = document.createElement("div");
-                            newDiv.setAttribute("id", tempcrn);
-                            newDiv.setAttribute("class", "courseItem");
-                            $('#' + tempDay).prepend(newDiv);
-                            document.getElementById(tempcrn).innerHTML = "<p>" + crn + "</p>"
-
-                            if (tempTime != "TBA") {
-                                var x = tempTime.split("-")
-                                var startTime = x[0];
-                                var endTime = x[1];
-
-                                startTime = timeConvertor(startTime);
-                                endTime = timeConvertor(endTime);
-
-                                var duration = endTime - startTime;
-                                var helper = startTime;
-
-                                //alert("Start time for "+tempDay +" is "+ startTime);
-                                if (startTime >= 1300) {
-                                    startTime = startTime - 1200
-                                }
-                                //alert("2: " + startTime);
-
-                                if (startTime.length == 4)
-                                    startTime = startTime.toString().substring(0, 2)
-                                else
-                                    startTime = startTime.toString().substring(0, 1)
-
-                                var tempTop = 60;
-
-
-
-                                //if (startTime != 8) {
-                                var temp = helper.toString().substring(0, 2);
-                                var temp2 = helper.toString().substring(2, 4);
-
-                                temp = temp - 8;
-                                temp2 = temp2 * 1
-                                tempTop = (60 * temp) + tempTop;
-                                //alert(crn + "'s top is: " + tempTop)
-                                tempTop = tempTop + temp2;
-
-                                duration = duration * .7;
-
-                                //}
-
-
-
-                                $('#' + tempcrn).css('top', '' + tempTop + 'px');
-                                $('#' + tempcrn).css('height', '' + duration + 'px');
-                                idCOUNTER = idCOUNTER + 1;
-                            }
-
-
-
-
-                        } else {
-
-                            timeCOUNTER = timeCOUNTER + 1
-                        }
-                    }
-                } else {
-                    //alert("hit: " + crn);
-                    for (var i = 0; i < day.length; i++) {
-                        var tempDay = day.charAt(i);
-                        tempcrn = crn + idCOUNTER
-
-                        var newDiv = document.createElement("div");
-                        newDiv.setAttribute("id", tempcrn);
-                        newDiv.setAttribute("class", "courseItem");
-                        $('#' + tempDay).prepend(newDiv);
-                        document.getElementById(tempcrn).innerHTML = "<p>" + crn + "</p>";
-
-                        if (time != "TBA") {
-                            var x = times.split("-")
-                            var startTime = x[0];
-                            var endTime = x[1];
-
-                            startTime = timeConvertor(startTime);
-                            endTime = timeConvertor(endTime);
-
-                            var duration = endTime - startTime;
-                            var helper = startTime;
-
-                            //alert("1: " + startTime);
-                            if (startTime >= 1300) {
-                                startTime = startTime - 1200
-                            }
-                            //alert("2: " + startTime);
-
-                            if (startTime.length == 4)
-                                startTime = startTime.toString().substring(0, 2);
-                            else
-                                startTime = startTime.toString().substring(0, 1);
-
-                            var tempTop = 60;
-
-
-
-                            //if (startTime != 8) {
-                            var temp = helper.toString().substring(0, 2);
-                            var temp2 = helper.toString().substring(2, 4);
-
-                            temp = temp - 8;
-                            temp2 = temp2 * 1
-                            tempTop = (60 * temp) + tempTop;
-                            //alert(crn + "'s top is: " + tempTop)
-                            tempTop = tempTop + temp2;
-
-
-                            if (duration > 60) 
-                                duration = duration * .63;
- 
-                                
-
-                            //
-                            //}
-
-
-
-                            
-                            $('#' + tempcrn).css('top', '' + tempTop + 'px');
-                            $('#' + tempcrn).css('height', '' + duration + 'px');
-                            idCOUNTER = idCOUNTER + 1;
-
-                        }
-
-                    }
-                }
-                //if (time != "TBA") {
-                //    var x = times.split("-")
-                //    var startTime = x[0];
-                //    var endTime = x[1];
-
-                //    startTime = timeConvertor(startTime);
-                //    endTime = timeConvertor(endTime);
-
-                //    var duration = endTime - startTime;
-
-                //    alert("1: " + startTime);
-                //    if (startTime >= 1300) {
-                //        startTime = startTime - 1200
-                //    }
-                //    alert("2: " + startTime);
-
-                //    if (startTime.length == 4)
-                //        startTime = startTime.toString().substring(0, 2)
-                //    else
-                //        startTime = startTime.toString().substring(0, 1)
-
-
-                //    alert(times);
-
-
-
-
-
-                //    alert("Start point: " + startTime)
-                //    alert("Duration: " + duration);
-
-            } else {
-                //alert(crn + " is ONLINE")
-
-                var newDiv = document.createElement("div");
-                newDiv.setAttribute("id", crn);
-                newDiv.setAttribute("class", "courseItem2");
-                $('#onlineCourseContainer').prepend(newDiv);
-                document.getElementById(crn).innerHTML = crn
-            }
-
-            //var differentTimeDay = false;
-
-            //if (times.includes("*")) {
-            //    differentTimes = times.split("*")
-
-            //    var index = 0;
-
-            //    for (var i = 0; i < day.length; i++) {
-            //        var currentTime = differentTimes[index];
-            //        var startTime = currentTime.substring(0, 8);
-            //        var endTime = currentTime.substring(10, 17);
-            //        tempDay = day.charAt(i);
-            //        tempcrn = crn + idCOUNTER
-            //        if (tempDay != "*") {
-            //            tempStart = startTime.chaAt(0)
-            //            if (!(startTime.includes("00"))) {
-            //               tempStart = tempStart + ".5"
-            //            }
-            //            tempEnd 
-
-
-            //        } else {
-            //            index = index + 1
-
-            //        }
-
-            //    }
-
-
-
-
-
-
-            //}
-
-            //alert(day);
-
-
-
-
-        }
-
-        function timeConvertor(time) {
-            var pm = false;
-            var min = time.substring(3, 5);
-            if (time.includes("pm"))
-                pm = true
-
-            //if (time.includes("00"))
-            //    min = "00"
-            //else
-            //    min = "30"
-
-
-            if (pm && !(time.includes("12"))) {
-                var hour = 12 + parseInt(time.substring(0, 2), 10)
-
-            } else {
-                var hour = time.substring(0, 2)
-            }
-
-            time = hour.toString() + min.toString();
-            return time
-        }
-
-
-
-    </script>
-
-    <style type="text/css">
-        .schedule-wrapper {
-            margin-left: 50px;
-            height:100%;
-            display: flex;
-            width:50%;
-
-
-        }
-
-.time {
-    /*margin-top: 50px;*/
-    height:60px;
-    vertical-align: middle;
-
-}
-
-.timeGroup{
-    margin-top:50px;
-}
-
-.dayGroup {
-    position: relative;
-    margin-left: 50px;
-    width: 15%;
-    text-align: center;
-    font-weight: bold;
-    font: inherit;
-    font-size: 2.0rem;
-
-
-
-}
-
-        .courseItem {
-            /*margin-top: 175px;*/
-            /*top: 120px;*/
-            position: absolute;
-            padding-top: 10px;
-            display: flex;
-            height: 100px;
-            width: 100%;
-            border: 1px solid;
-            border-color: black;
-            box-shadow: 5px 5px 20px #888888;
-            background-color: #74a2ff;
-            border-radius: 20px;
-            font-weight: bold;
-            font: inherit;
-            font-size: 1rem;
-            color: white;
-
-
-        }
-
-            .courseItem p {
-                margin: auto; 
-                text-align: center;
-            }
-
-            .courseItem:hover {
-                opacity: .9;
-                cursor: pointer;
-            }
-
-        .courseItem2 {
-            padding-top: 10px;
-            display: inline-block;
-            vertical-align: middle;
-            height: 75px;
-            width: 100px;
-            margin:15px;
-            border: 1px solid;
-            border-color: black;
-            box-shadow: 5px 5px 20px #888888;
-            background-color: #74a2ff;
-            border-radius: 20px;
-            font-weight: bold;
-            font: inherit;
-            font-size: 1rem;
-            color: white;
-
-        }
-
-            .courseItem2:hover {
-                opacity: .9;
-                cursor: pointer;
-            }
-
-        .line {
-            position: absolute;
-            height: 1px;
-            content: "";
-            width: 42%;
-            display: block;
-            border-bottom: double;
-            left: 25%;
-            opacity: .25;
-            z-index: -1;
-            margin-top: -10px;
-            margin-left:15px;
-        }
-    </style>
-
-
-    <form id="form1" runat="server">
-
+    <form id="form1" runat="server" autocomplete="off">
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary" style="position: sticky; top: 0; z-index: 2;">
             <a class="navbar-brand" href="#">UNC-Scheduler</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
@@ -1033,47 +57,72 @@ function parseCRNs(crnString) {
 
         <div id="main" class="main-wrapper" style="display: flex;height:80%">
 
-
             <div class="card text-white bg-primary mb-3" style="max-width: 20rem; height: 100%; z-index: 0; margin: 15px; width: 25%">
                 <div class="card-header">Select Courses</div>
-
                 <div class="card-body">
 
-                    <div id="courseSelection" style="display: flex; width: 100%; border-bottom: double">
-                        <div style="display: grid; width: 30%; margin: 5px">
-                            <h5>Subject</h5>
-                            <%--                            <div style="position:relative">
-                            <input id="myInput" type="text" name="myCountry" placeholder="Subject" style="width:100%"/>
-                            </div>--%>
-                            <select id="myselect1" runat="server" onchange="jsfunction(this)" size="2"></select>
-                            <select id="myselect2" runat="server" onchange="jsfunction(this)" size="2"></select>
-                            <select id="myselect3" runat="server" onchange="jsfunction(this)" size="2"></select>
-                            <select id="myselect4" runat="server" onchange="jsfunction(this)" size="2"></select>
-                            <select id="myselect5" runat="server" onchange="jsfunction(this)" size="2"></select>
-                            <select id="myselect6" runat="server" onchange="jsfunction(this)" size="2"></select>
+
+                    <div id="selectedCourses" style="height: 200px">
+                        <div id="1" style="display: flex">
+                            <p class="desiredCourse">CSC 360</p>
+                            <button type="button" class="close">&times;</button>
                         </div>
-                        <div style="display: grid; width: 30%; margin: 5px">
-                            <h5>Course</h5>
-                            <select id="myselect11" name="myselect11" runat="server" class="selectCourse" onchange="jsfunction(this)" size="2"></select>
-                            <select id="myselect22" name="myselect22" runat="server" class="selectCourse" onchange="jsfunction(this)" size="2"></select>
-                            <select id="myselect33" name="myselect33" runat="server" class="selectCourse" onchange="jsfunction(this)" size="2"></select>
-                            <select id="myselect44" name="myselect44" runat="server" class="selectCourse" onchange="jsfunction(this)" size="2"></select>
-                            <select id="myselect55" name="myselect55" runat="server" class="selectCourse" onchange="jsfunction(this)" size="2"></select>
-                            <select id="myselect66" name="myselect66" runat="server" class="selectCourse" onchange="jsfunction(this)" size="2"></select>
+                        <div id="2" style="display: flex">
+                            <p class="desiredCourse">CSC 315</p>
+                            <button type="button" class="close">&times;</button>
                         </div>
-                        <div style="display: grid; width: 30%; margin: 5px">
-                            <h5>Section</h5>
-                            <select class="selectCourse"></select>
-                            <select class="selectCourse"></select>
-                            <select class="selectCourse"></select>
-                            <select class="selectCourse"></select>
-                            <select class="selectCourse"></select>
-                            <select class="selectCourse"></select>
+                        <div id="3" style="display: flex">
+                            <p class="desiredCourse">CSC 450</p>
+                            <button type="button" class="close">&times;</button>
+                        </div>
+                        <div id="4" style="display: flex">
+                            <p class="desiredCourse">CSC 455</p>
+                            <button type="button" class="close">&times;</button>
+                        </div>
+                        <div id="5" style="display: flex">
+                            <p class="desiredCourse">CSC 331</p>
+                            <button type="button" class="close">&times;</button>
                         </div>
                     </div>
+
+
+                    <div id="courseSelection" style="display: flex; width: 100%; border-bottom: double;">
+
+
+                        <div>
+
+                            <p style="margin-bottom: 0; color: red; font-size: 13px; text-align: center; visibility: hidden" id="addErr">Must provide Subject and Course Number</p>
+                            <p style="margin-bottom: 0; color: red; font-size: 13px; text-align: center; visibility: hidden" id="toManyErr">You already have 6 courses!</p>
+
+                            <div style="display: flex; width: 100%;">
+                                <div class="autocomplete" style="width: 25%; margin: 5px;">
+                                    <input id="subjInput" type="text" placeholder="Subject" />
+                                </div>
+                                <div class="autocomplete" style="width: 25%; margin: 5px;">
+                                    <input id="crseInput" type="text" placeholder="Course" />
+                                </div>
+                                <div class="autocomplete" style="width: 25%; margin: 5px;">
+                                    <input id="secInput" type="text" placeholder="Section" />
+                                </div>
+
+                                <div style="display: flex; align-items: center; justify-content: center">
+                                    <button style="margin-top: 10px" onclick="addClass();return false">Add</button>
+                                </div>
+
+                            </div>
+
+                            <p style="font-size: 12px; margin-bottom: 25px;">*Section is optional</p>
+                        </div>
+
+
+                    </div>
+
+
+
+                    <script src="Scripts/AutoComplete.js"></script>
+
+
                     <div id="courseCriteria" style="display: block; width: 100%; border-bottom: double; margin-top: 5px">
-
-
                         <div style="display: inline-flex">
                             <p style="margin-right: 0">Consider Online</p>
                             <input id="preferedOnline" style="text-align: center; vertical-align: middle; margin-left: 10px; margin-top: 5px" type="checkbox" checked="checked" />
@@ -1160,6 +209,7 @@ function parseCRNs(crnString) {
                     </div>
 
                     <div style="margin-top: 15px; height: 100%;">
+                        <p style="margin-bottom: 0; color: red; font-size: 15px; text-align: center; visibility: hidden" id="searchErr">You need at least 4 courses!</p>
                         <button id="searchBtn" style="width: 100%;" onclick="searchFunction(); return false;">Search</button>
                     </div>
 
@@ -1188,14 +238,18 @@ function parseCRNs(crnString) {
                         <div class="time">8:00<span class="line"></span></div>
                     </div>
 
-                    <div class="dayGroup" id="M">Mon
-                        <div class="courseItem"><p>CSC 450</p></div>
+                    <div class="dayGroup" id="M">
+                        Mon
+                        <div class="courseItem">
+                            <p>CSC 450</p>
+                        </div>
                     </div>
-                    <div class="dayGroup" id="T">Tues<div class="courseItem">CSC 450</div>
+                    <div class="dayGroup" id="T">
+                        Tues<div class="courseItem">CSC 450</div>
                     </div>
                     <div class="dayGroup" id="W">&nbsp;Wed&nbsp;</div>
                     <div class="dayGroup" id="R">&nbsp;Thur&nbsp;</div>
-                    <div class="dayGroup" id="F" >&nbsp;&nbsp;Fri&nbsp;&nbsp;</div>
+                    <div class="dayGroup" id="F">&nbsp;&nbsp;Fri&nbsp;&nbsp;</div>
                     <div class="dayGroup" id="S">&nbsp;&nbsp;Sat&nbsp;&nbsp;</div>
                     <div class="dayGroup" id="U">&nbsp;&nbsp;Sun&nbsp;&nbsp;</div>
 
@@ -1203,10 +257,10 @@ function parseCRNs(crnString) {
 
             </div>
 
-            <div class="extra-wrapper" style="height: 100% ; width: 25%; margin: 15px">
-                 <h5 style="text-align: center">ONLINE COURSES</h5>
-                <div id="onlineCourseContainer" style="text-align:center; height: 150px !important;">
-                   
+            <div class="extra-wrapper" style="height: 100%; width: 25%; margin: 15px">
+                <h5 style="text-align: center">ONLINE COURSES</h5>
+                <div id="onlineCourseContainer" style="text-align: center; height: 150px !important;">
+
                     <div class="courseItem2" style="">
                         <p>CSC 450</p>
                     </div>
@@ -1216,9 +270,9 @@ function parseCRNs(crnString) {
                     </div>
                 </div>
 
-                <div id="courseInformation" style="width:100%;height:100%; margin-top:15px; border:inset">
+                <div id="courseInformation" style="width: 100%; height: 100%; margin-top: 15px; border: inset">
                     <div class="info-wrapper" style="">
-   <%--                     <div id="title" style="width:100%; text-align:center; font-size:25px;">Computer Science</div>
+                        <%--                     <div id="title" style="width:100%; text-align:center; font-size:25px;">Computer Science</div>
                         <div style="width:100%; text-align:center; display:flex; margin-top:15px;">
                             <div id="subj" style="width:100%; text-align:right; font-size:20px">CSC</div>
                             <div id="crse" style="width:100%; text-align:center; font-size:20px">131</div>
@@ -1237,7 +291,8 @@ function parseCRNs(crnString) {
                             <tr>
                                 <td id="title" style="text-align: center;" colspan="3"></td>
                             </tr>
-                            <tr style="height: 20px !important;"> <%--adds in blank row--%>
+                            <tr style="height: 20px !important;">
+                                <%--adds in blank row--%>
                                 <td></td>
                             </tr>
                             <tr>
@@ -1271,7 +326,7 @@ function parseCRNs(crnString) {
                             <tr>
                                 <th style="text-align: center;">Days</th>
                                 <th style="text-align: center;">Times</th>
-                                <th style="text-align: center;" >Location</th>
+                                <th style="text-align: center;">Location</th>
                             </tr>
                             <tr>
                                 <td id="days" style="text-align: center;"></td>

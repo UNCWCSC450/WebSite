@@ -10,8 +10,8 @@
     using IronPython.Hosting;
     using IronPython.Modules;
     using Microsoft.Scripting.Hosting;
+    using System.Web.Configuration;
 
-   
     public partial class WebForm1 : Page
 
 
@@ -19,17 +19,22 @@
 
         public static Dictionary<string, ArrayList> mappy = new Dictionary<string, ArrayList>();
 
+        public static string connectionString = "";
+
+        
         public static Boolean debug = true;
 
 
         public static string strGlobal = "before";
 
-
+       
 
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack)
             {
+
+                connectionString = WebConfigurationManager.ConnectionStrings["CourseTable"].ConnectionString;
                 Course tempCourse;
                 // Create HashMap
                 ArrayList tempList = new ArrayList();
@@ -37,7 +42,7 @@
 
 
                 string queryStr = "Select * FROM course_table;";
-                string ConnectionStr = "server=localhost; uid=root; pwd=12345; database=Courses";
+                string ConnectionStr = connectionString;
                 using (MySqlConnection connection = new MySqlConnection(ConnectionStr))
                 {
                     MySqlCommand command = new MySqlCommand(queryStr, connection);
@@ -94,43 +99,6 @@
 
                 }
 
-                queryStr = "SELECT DISTINCT subj FROM course_table ORDER BY subj asc;";
-                ConnectionStr = "server=localhost; uid=root; pwd=12345; database=Courses";
-                using (MySqlConnection connection = new MySqlConnection(ConnectionStr))
-                {
-                    MySqlCommand command = new MySqlCommand(queryStr, connection);
-                    connection.Open();
-                    try
-                    {
-                        MySqlDataReader reader = command.ExecuteReader();
-                        string str = "...";
-                        myselect1.Items.Add(str);
-                        myselect2.Items.Add(str);
-                        myselect3.Items.Add(str);
-                        myselect4.Items.Add(str);
-                        myselect5.Items.Add(str);
-                        myselect6.Items.Add(str);
-
-                        while (reader.Read())
-                        {
-                            str = (string)reader.GetValue(0);
-                            myselect1.Items.Add(str);
-                            myselect2.Items.Add(str);
-                            myselect3.Items.Add(str);
-                            myselect4.Items.Add(str);
-                            myselect5.Items.Add(str);
-                            myselect6.Items.Add(str);
-
-                        }
-
-                    }
-                    finally
-                    {
-                        // Always call Close when done reading.
-                        connection.Close();
-                    }
-
-                }
 
                 //algorithm();
 
@@ -140,7 +108,7 @@
 
 
         [System.Web.Services.WebMethod]
-        public static string algorithm(string course1, string course2, string course3, string course4, string course5, string course6, string prefOnline)
+        public static string algorithm(string courses, string prefOnline)
         {
             ArrayList crns = new ArrayList();
 
@@ -162,11 +130,11 @@
 
             while (!foundSchedule)
             {
-                string [] result = getRandomSchedule(course1, course2, course3, course4, course5, course6, threshHold, considerOnline);
+                string[] result = getRandomSchedule(courses, threshHold, considerOnline);
 
                 if (result[0] != "")
                 {
-                    for(int j = 0; j < result.Length; j++)
+                    for (int j = 0; j < result.Length; j++)
                     {
                         crns.Add(result[j]);
                     }
@@ -208,24 +176,31 @@
         }
 
 
-        public static string[] getRandomSchedule(string c1,string c2, string c3, string c4, string c5, string c6, int threshold, bool considerOnline)
+        public static string[] getRandomSchedule(string course, int threshold, bool considerOnline)
         {
             ArrayList courses = new ArrayList(); // need a way to undo this operation of adding to a arraylist
 
-            courses.Add(c1);
-            courses.Add(c2);
-            courses.Add(c3);
-            courses.Add(c4);
+            course = course.TrimEnd(',');
+            string[] temp = course.Split(',');
 
-            if(c5 != "")
-            {
-                courses.Add(c5);
+            foreach(string c in temp){
+                courses.Add(c.Replace(" ", ""));
             }
-            if(c6 != "")
-            {
-                courses.Add(c6);
-            }
-            
+
+            //courses.Add(c1);
+            //courses.Add(c2);
+            //courses.Add(c3);
+            //courses.Add(c4);
+
+            //if (c5 != "")
+            //{
+            //    courses.Add(c5);
+            //}
+            //if (c6 != "")
+            //{
+            //    courses.Add(c6);
+            //}
+
 
 
             string[] returnArray = new string[courses.Count];
@@ -425,7 +400,7 @@
         {
             string strTimeDay = "";
             string queryStr = $"Select courses.course_table.Days, time FROM course_table where CRN={crn};";
-            string ConnectionStr = "server=localhost; uid=root; pwd=12345; database=Courses";
+            string ConnectionStr = connectionString;
             using (MySqlConnection connection = new MySqlConnection(ConnectionStr))
             {
                 MySqlCommand command = new MySqlCommand(queryStr, connection);
@@ -458,7 +433,7 @@
             crn = crn.Substring(0, 5);
             Course tempCourse = null;
             string queryStr = $"Select * FROM course_table where CRN={crn};";
-            string ConnectionStr = "server=localhost; uid=root; pwd=12345; database=Courses";
+            string ConnectionStr = connectionString;
             using (MySqlConnection connection = new MySqlConnection(ConnectionStr))
             {
                 MySqlCommand command = new MySqlCommand(queryStr, connection);
@@ -486,13 +461,13 @@
             return tempCourse;
         }
 
-
         [System.Web.Services.WebMethod]
-        public static string getCourses(string course, string select)
+        public static string getSections(string course, string subject)
         {
-            string courseNums = select;
-            string queryStr = "select distinct crse from courses.course_table where courses.course_table.subj Like '" + course + "' order by crse asc;";
-            string ConnectionStr = "server=localhost; uid=root; pwd=12345; database=Courses";
+            string courseNums = "";
+            string queryStr = "select distinct Sec from courses.course_table where courses.course_table.subj = '"+ subject +"' and courses.course_table.crse = '"+course+"' order by crse asc";
+
+            string ConnectionStr = connectionString;
             using (MySqlConnection connection = new MySqlConnection(ConnectionStr))
             {
                 MySqlCommand command = new MySqlCommand(queryStr, connection);
@@ -520,6 +495,70 @@
             return courseNums;
         }
 
+        [System.Web.Services.WebMethod]
+        public static string getCourses(string course)
+        {
+            string courseNums = "";
+            string queryStr = "select distinct crse from courses.course_table where courses.course_table.subj Like '" + course + "' order by crse asc;";
+            string ConnectionStr = connectionString;
+            using (MySqlConnection connection = new MySqlConnection(ConnectionStr))
+            {
+                MySqlCommand command = new MySqlCommand(queryStr, connection);
+                connection.Open();
+                try
+                {
+                    MySqlDataReader reader = command.ExecuteReader();
+
+
+                    while (reader.Read())
+                    {
+                        courseNums += reader.GetValue(0).ToString() + ",";
+
+                    }
+                }
+
+                finally
+                {
+                    // Always call Close when done reading.
+                    connection.Close();
+                }
+
+            }
+
+            return courseNums;
+        }
+
+        [System.Web.Services.WebMethod]
+        public static string getSubjects()
+        {
+            string str = "";
+            string queryStr = "SELECT DISTINCT subj FROM course_table ORDER BY subj asc;";
+            string ConnectionStr = connectionString;
+            using (MySqlConnection connection = new MySqlConnection(ConnectionStr))
+            {
+                MySqlCommand command = new MySqlCommand(queryStr, connection);
+                connection.Open();
+                try
+                {
+                    MySqlDataReader reader = command.ExecuteReader();
+
+
+                    while (reader.Read())
+                    {
+                        str += (string)reader.GetValue(0) + ",";
+
+                    }
+
+                }
+                finally
+                {
+                    // Always call Close when done reading.
+                    connection.Close();
+                }
+
+            }
+            return str;
+        }
 
 
 
