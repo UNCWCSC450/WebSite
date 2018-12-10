@@ -47,16 +47,20 @@ function searchFunction() {
 }
 
 function parseCRNs(crnString) {
-    crnArray = crnString.split(",");
+    if (crnString.length == 0) {
+        alert("No Possible Schedules")
+        }
+      else {
+        crnArray = crnString.split(",");
 
 
-    // Iterate over the CRN's 
-    for (var i = 0; i < crnArray.length; i++) {
-        getTimes(crnArray[i]); // probably need to return more than times from this
+        // Iterate over the CRN's 
+        for (var i = 0; i < crnArray.length; i++) {
+            getTimes(crnArray[i]); // probably need to return more than times from this
 
 
+        }
     }
-
 
 }
 

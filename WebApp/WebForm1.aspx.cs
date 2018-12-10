@@ -124,10 +124,12 @@
 
             bool foundSchedule = false;
 
+            bool noPossibleSchedule = false;
+
             int attempts = 0;
             int i = 0;
 
-
+            var watch = System.Diagnostics.Stopwatch.StartNew();
             while (!foundSchedule)
             {
                 string[] result = getRandomSchedule(courses, threshHold, considerOnline);
@@ -145,6 +147,14 @@
                 {
                     threshHold += 1;
                 }
+
+                if(watch.ElapsedMilliseconds > 5000)
+                {
+                    noPossibleSchedule = true;
+                    return "";
+                }
+
+
 
                 attempts += 1;
 
@@ -164,7 +174,6 @@
                     crnConCat += crns[i] + ",";
                 }
             }
-
             return crnConCat;
         }
 
