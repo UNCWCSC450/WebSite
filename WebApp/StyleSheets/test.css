@@ -32,18 +32,15 @@
 }
 
 .courseItem {
-    /*margin-top: 175px;*/
-    /*top: 120px;*/
-    position: absolute;
     padding-top: 10px;
-    display: flex;
-    height: 100px;
-    width: 100%;
+    display: inline-block;
+    height: 75px;
+    width: 100px;
     border: 1px solid;
     border-color: black;
     box-shadow: 5px 5px 20px #888888;
     background-color: #74a2ff;
-    border-radius: 20px;
+    border-radius: 10px;
     font-weight: bold;
     font: inherit;
     font-size: 1rem;
@@ -52,7 +49,7 @@
 
     .courseItem p {
         margin: auto;
-        text-align: center;
+        /*text-align: center;*/
     }
 
     .courseItem:hover {
@@ -61,17 +58,17 @@
     }
 
 .courseItem2 {
-    padding-top: 10px;
+    position:absolute;
+    padding: 10px;
     display: inline-block;
     vertical-align: middle;
-    height: 75px;
-    width: 100px;
-    margin: 15px;
+    height: 100px;
+    width: 100%;
     border: 1px solid;
     border-color: black;
     box-shadow: 5px 5px 20px #888888;
     background-color: #74a2ff;
-    border-radius: 20px;
+    border-radius: 10px;
     font-weight: bold;
     font: inherit;
     font-size: 1rem;

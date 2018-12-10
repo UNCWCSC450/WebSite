@@ -21,23 +21,29 @@ function searchFunction() {
 
     var x = $("#selectedCourses > div").length
     if (x < 4) { // check if there are already 6 courses
-        document.getElementById("searchErr").style.visibility = "visible"
-        return
+       document.getElementById("searchErr").style.visibility = "visible"
+       return
     }
 
     document.getElementById("searchErr").style.visibility = "hidden"
 
-    document.getElementById("M").innerHTML = "Mon"
-    document.getElementById("T").innerHTML = "Tues"
-    document.getElementById("W").innerHTML = "&nbsp;Wed&nbsp;"
-    document.getElementById("R").innerHTML = "&nbsp;Thur&nbsp;"
-    document.getElementById("F").innerHTML = "&nbsp;&nbsp;Fri&nbsp;&nbsp;"
-    document.getElementById("S").innerHTML = "&nbsp;&nbsp;Sat&nbsp;&nbsp;"
-    document.getElementById("U").innerHTML = "&nbsp;&nbsp;Sun&nbsp;&nbsp;"
+
+
+
+
+
+    document.getElementById("M").innerHTML = ""
+    document.getElementById("T").innerHTML = ""
+    document.getElementById("W").innerHTML = ""
+    document.getElementById("R").innerHTML = ""
+    document.getElementById("F").innerHTML = ""
+    document.getElementById("S").innerHTML = ""
+    document.getElementById("U").innerHTML = ""
     document.getElementById("onlineCourseContainer").innerHTML = ""
+    document.getElementById("MiscCourseContainer").innerHTML = ""
+    document.getElementById("CRNContainer").innerHTML = ""
 
-
-    sendCourses();
+   sendCourses();
 }
 
 function parseCRNs(crnString) {
@@ -256,7 +262,7 @@ $(document).ready(function () {
 
 
 
-    $("#M").on('click', '.courseItem', function (event) {
+    $("#M").on('click', '.courseItem2', function (event) {
 
 
         $.ajax({
@@ -277,7 +283,7 @@ $(document).ready(function () {
         });
     });
 
-    $("#T").on('click', '.courseItem', function (event) {
+    $("#T").on('click', '.courseItem2', function (event) {
 
         $.ajax({
 
@@ -297,7 +303,7 @@ $(document).ready(function () {
         });
     });
 
-    $("#W").on('click', '.courseItem', function (event) {
+    $("#W").on('click', '.courseItem2', function (event) {
 
 
         $.ajax({
@@ -318,7 +324,7 @@ $(document).ready(function () {
         });
     });
 
-    $("#R").on('click', '.courseItem', function (event) {
+    $("#R").on('click', '.courseItem2', function (event) {
 
 
         $.ajax({
@@ -339,7 +345,7 @@ $(document).ready(function () {
         });
     });
 
-    $("#F").on('click', '.courseItem', function (event) {
+    $("#F").on('click', '.courseItem2', function (event) {
 
 
         $.ajax({
@@ -360,7 +366,7 @@ $(document).ready(function () {
         });
     });
 
-    $("#S").on('click', '.courseItem', function (event) {
+    $("#S").on('click', '.courseItem2', function (event) {
 
 
         $.ajax({
@@ -381,7 +387,7 @@ $(document).ready(function () {
         });
     });
 
-    $("#U").on('click', '.courseItem', function (event) {
+    $("#U").on('click', '.courseItem2', function (event) {
 
 
         $.ajax({
@@ -403,7 +409,7 @@ $(document).ready(function () {
     });
 
 
-    $("#onlineCourseContainer").on('click', '.courseItem2', function (event) {
+    $("#onlineCourseContainer").on('click', '.courseItem', function (event) {
 
 
         $.ajax({
@@ -424,6 +430,26 @@ $(document).ready(function () {
         });
     });
 
+    $("#MiscCourseContainer").on('click', '.courseItem', function (event) {
+
+
+        $.ajax({
+
+
+            type: 'POST',
+            url: "WebForm1.aspx/DisplayCourse",
+            data: "{crn:'" + this.id + "' }",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: OnSuccess,
+
+            failure: function (response) {
+                alert("broken")
+            }
+
+
+        });
+    });
 
 
 });
@@ -518,14 +544,52 @@ function displayTime(crn, time) {
     // will need the days as well 
     //alert("CRN" + crn);
     //alert("time" + time);
+
+    document.getElementById("CRNContainer").innerHTML += crn + "<br/>" ;
+
+
+
     var timeDay = time.split(",");
 
 
     var day = timeDay[0];
     var times = timeDay[1];
+    var dates = timeDay[2];
+    var subj = timeDay[3];
+    var crse = timeDay[4];
+
+
+
+
 
     if (day.length == 1 && day != "M" && day != "T" && day != "W" && day != "R" && day != "F" && day != "S" && day != "U") //Determines if class is online
         day = "ONLINE"
+
+    if (dates.includes("*")) {
+        var tempDates = dates.split("*")
+
+        var firstDate = tempDates[0];
+        for (var i = 0; i < tempDates.length; i++) {
+
+            if (firstDate != tempDates[i]) {
+
+                var newDiv = document.createElement("div");
+                newDiv.setAttribute("id", crn);
+                newDiv.setAttribute("class", "courseItem");
+                $('#MiscCourseContainer').prepend(newDiv);
+
+                var tempCourse = subj + " " + crse;
+
+                document.getElementById(crn).innerHTML = "<p>" + tempCourse + "</p>";
+                return 
+            }
+
+        }
+
+    }
+
+
+
 
     if (day != "ONLINE") {
         var idCOUNTER = 0;
@@ -543,11 +607,27 @@ function displayTime(crn, time) {
                 var tempTime = differentTimes[timeCOUNTER]
                 tempcrn = crn + idCOUNTER
                 if (tempDay != "*") {
+
+                    //var newLI = document.createElement("li")
+
+                    //newLI.setAttribute("id", tempcrn);
+                    //newLI.setAttribute("class", "single-event");
+                    //newLI.setAttribute("data-event", "event-4")
+
+                    //$('#' + tempDay).prepend(newLI);
+
+
+
+
+
+
                     var newDiv = document.createElement("div");
                     newDiv.setAttribute("id", tempcrn);
-                    newDiv.setAttribute("class", "courseItem");
+                    newDiv.setAttribute("class", "courseItem2");
                     $('#' + tempDay).prepend(newDiv);
-                    document.getElementById(tempcrn).innerHTML = "<p>" + crn + "</p>"
+                    var tempCourse = subj + " " + crse;
+
+                    document.getElementById(tempcrn).innerHTML = "<p>" + tempCourse + "</p>";
 
                     if (tempTime != "TBA") {
                         var x = tempTime.split("-")
@@ -571,7 +651,7 @@ function displayTime(crn, time) {
                         else
                             startTime = startTime.toString().substring(0, 1)
 
-                        var tempTop = 60;
+                        var tempTop = 0;
 
 
 
@@ -612,9 +692,13 @@ function displayTime(crn, time) {
 
                 var newDiv = document.createElement("div");
                 newDiv.setAttribute("id", tempcrn);
-                newDiv.setAttribute("class", "courseItem");
+                newDiv.setAttribute("class", "courseItem2");
                 $('#' + tempDay).prepend(newDiv);
-                document.getElementById(tempcrn).innerHTML = "<p>" + crn + "</p>";
+
+
+                var tempCourse = subj + " " + crse;
+
+                document.getElementById(tempcrn).innerHTML = "<p>" + tempCourse + "</p>";
 
                 if (time != "TBA") {
                     var x = times.split("-")
@@ -638,7 +722,7 @@ function displayTime(crn, time) {
                     else
                         startTime = startTime.toString().substring(0, 1);
 
-                    var tempTop = 60;
+                    var tempTop = 0;
 
 
 
@@ -708,9 +792,12 @@ function displayTime(crn, time) {
 
         var newDiv = document.createElement("div");
         newDiv.setAttribute("id", crn);
-        newDiv.setAttribute("class", "courseItem2");
+        newDiv.setAttribute("class", "courseItem");
         $('#onlineCourseContainer').prepend(newDiv);
-        document.getElementById(crn).innerHTML = crn
+
+        var tempCourse = subj + " " + crse;
+
+        document.getElementById(crn).innerHTML = "<p>" + tempCourse + "</p>";
     }
 
     //var differentTimeDay = false;

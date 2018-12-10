@@ -14,7 +14,9 @@
     <link href="StyleSheets/test.css" rel="stylesheet" />
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
     <script src="Scripts/JavaScript.js"></script>
+    <link href="StyleSheets/CodyHouse.css" rel="stylesheet" />
 
+   
 <%--    <script src="Scripts/Ajax.js"></script>--%>
 
     
@@ -76,13 +78,10 @@
                             <button type="button" class="close">&times;</button>
                         </div>
                         <div id="4" style="display: flex">
-                            <p class="desiredCourse">CSC 455</p>
+                            <p class="desiredCourse">MGT 359</p>
                             <button type="button" class="close">&times;</button>
                         </div>
-                        <div id="5" style="display: flex">
-                            <p class="desiredCourse">CSC 331</p>
-                            <button type="button" class="close">&times;</button>
-                        </div>
+
                     </div>
 
 
@@ -218,59 +217,93 @@
                 </div>
             </div>
 
-            <div class="schedule" style="height: 100%; width: 50%;">
+          <div class="schedule" style="height: 100%; width: 50%;">
+              <div class="cd-schedule" style="margin-top:0">
+                  <div class="timeline">
+                      <ul>
+                          
+                          <li><span>8:00</span></li>
+                          <li><span>8:30</span></li>
+                          <li><span>9:00</span></li>
+                          <li><span>9:30</span></li>
+                          <li><span>10:00</span></li>
+                          <li><span>10:30</span></li>
+                          <li><span>11:00</span></li>
+                          <li><span>11:30</span></li>
+                          <li><span>12:00</span></li>
+                          <li><span>12:30</span></li>
+                          <li><span>1:00</span></li>
+                          <li><span>1:30</span></li>
+                          <li><span>2:00</span></li>
+                          <li><span>2:30</span></li>
+                          <li><span>3:00</span></li>
+                          <li><span>3:30</span></li>
+                          <li><span>4:00</span></li>
+                          <li><span>4:30</span></li>
+                          <li><span>5:00</span></li>
+                          <li><span>5:30</span></li>
+                          <li><span>6:00</span></li>
+                          <li><span>6:30</span></li>
+                          <li><span>7:00</span></li>
+                          <li><span>7:30</span></li>
+                          <li><span>8:00</span></li>
+                      </ul>
+                  </div>
 
-                <div class="schedule-wrapper">
-                    <div class="timeGroup">
-                        <%--                    <div class="time"></div>--%>
-                        <div class="time">8:00<span class="line"></span></div>
-                        <div class="time">9:00<span class="line"></span></div>
-                        <div class="time">10:00<span class="line"></span></div>
-                        <div class="time">11:00<span class="line"></span></div>
-                        <div class="time">12:00<span class="line"></span></div>
-                        <div class="time">1:00<span class="line"></span></div>
-                        <div class="time">2:00<span class="line"></span></div>
-                        <div class="time">3:00<span class="line"></span></div>
-                        <div class="time">4:00<span class="line"></span></div>
-                        <div class="time">5:00<span class="line"></span></div>
-                        <div class="time">6:00<span class="line"></span></div>
-                        <div class="time">7:00<span class="line"></span></div>
-                        <div class="time">8:00<span class="line"></span></div>
-                    </div>
+                  <div class="events">
+                      <ul>
+                          <li class="events-group">
+                              <div class="top-info"><span>Mon</span></div>
+                              <ul id="M"></ul>
+                          </li>
+                          <li class="events-group">
+                              <div class="top-info"><span>Tues</span></div>
 
-                    <div class="dayGroup" id="M">
-                        Mon
-                        <div class="courseItem">
-                            <p>CSC 450</p>
-                        </div>
-                    </div>
-                    <div class="dayGroup" id="T">
-                        Tues<div class="courseItem">CSC 450</div>
-                    </div>
-                    <div class="dayGroup" id="W">&nbsp;Wed&nbsp;</div>
-                    <div class="dayGroup" id="R">&nbsp;Thur&nbsp;</div>
-                    <div class="dayGroup" id="F">&nbsp;&nbsp;Fri&nbsp;&nbsp;</div>
-                    <div class="dayGroup" id="S">&nbsp;&nbsp;Sat&nbsp;&nbsp;</div>
-                    <div class="dayGroup" id="U">&nbsp;&nbsp;Sun&nbsp;&nbsp;</div>
 
-                </div>
-
-            </div>
-
-            <div class="extra-wrapper" style="height: 100%; width: 25%; margin: 15px">
-                <h5 style="text-align: center">ONLINE COURSES</h5>
-                <div id="onlineCourseContainer" style="text-align: center; height: 150px !important;">
-
-                    <div class="courseItem2" style="">
+                              <ul id="T">
+                                  <li class="single-event" style="top: 30px; height: 100px;" data-event="event-4">
+                                      <em class="event-name">CSC 450</em>
+                                      <em class="event-name" style="font-size: 1.0em; margin-top: 10px; opacity: .9">10:00 am
+                                          <br />
+                                          11:45 am</em>
+                                  </li>
+                              </ul>
+                          </li>
+                          <li class="events-group">
+                              <div class="top-info"><span>Wed</span></div>
+                              <ul id="W">
+                                    <div class="courseItem" style="font-size:100%">
                         <p>CSC 450</p>
                     </div>
-
-                    <div class="courseItem2" style="">
-                        <p>CSC 450</p>
-                    </div>
+                              </ul>
+                          </li>
+                          <li class="events-group">
+                              <div class="top-info"><span>Thur</span></div>
+                              <ul id="R"></ul>
+                          </li>
+                          <li class="events-group">
+                              <div class="top-info"><span>Fri</span></div>
+                              <ul id="F"></ul>
+                          </li>
+                          <li class="events-group">
+                              <div class="top-info"><span>Sat</span></div>
+                              <ul id="S"></ul>
+                          </li>
+                          <li class="events-group">
+                              <div class="top-info"><span>Sun</span></div>
+                              <ul id="U"></ul>
+                          </li>
+                      </ul>
+                  </div>
                 </div>
 
-                <div id="courseInformation" style="width: 100%; height: 100%; margin-top: 15px; border: inset">
+          </div>
+
+
+            <script src="Scripts/CodyHouse.js"></script>
+
+            <div class="extra-wrapper" style="height: 100%; width: 25%; margin: 15px; ">
+                <div id="courseInformation" style="width: 100%; height: 100%; margin-bottom: 15px; border: inset">
                     <div class="info-wrapper" style="">
                         <%--                     <div id="title" style="width:100%; text-align:center; font-size:25px;">Computer Science</div>
                         <div style="width:100%; text-align:center; display:flex; margin-top:15px;">
@@ -336,6 +369,30 @@
                         </table>
                     </div>
                 </div>
+
+                <h5 style="text-align: center">ONLINE COURSES</h5>
+                <div id="onlineCourseContainer" style="text-align: center; height: 150px !important;">
+
+                    <%--                    <div class="courseItem2" style="">
+                        <p>CSC 450</p>
+                    </div>
+
+                    <div class="courseItem2" style="">
+                        <p>CSC 450</p>
+                    </div>--%>
+                </div>
+
+                <h5 style="text-align: center">MISC COURSES</h5>
+                <div id="MiscCourseContainer" style="text-align: center; height: 150px !important;">
+                </div>
+
+                <h5 style="text-align: center">CRN's</h5>
+                <div id="CRNContainer" style="text-align: center; height: 150px !important;">
+                    
+                </div>
+
+
+
             </div>
 
         </div>

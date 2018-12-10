@@ -399,7 +399,7 @@
         public static string getTimes(string crn)
         {
             string strTimeDay = "";
-            string queryStr = $"Select courses.course_table.Days, time FROM course_table where CRN={crn};";
+            string queryStr = $"Select Days,Time, Dates, Subj, Crse FROM courses.course_table where CRN={crn};";
             string ConnectionStr = connectionString;
             using (MySqlConnection connection = new MySqlConnection(ConnectionStr))
             {
@@ -414,6 +414,13 @@
                         strTimeDay = reader.GetValue(0).ToString();
                         strTimeDay += ",";
                         strTimeDay += reader.GetValue(1).ToString();
+                        strTimeDay += ",";
+                        strTimeDay += reader.GetValue(2).ToString();
+                        strTimeDay += ",";
+                        strTimeDay += reader.GetValue(3).ToString();
+                        strTimeDay += ",";
+                        strTimeDay += reader.GetValue(4).ToString();
+                        
 
                     }
 
