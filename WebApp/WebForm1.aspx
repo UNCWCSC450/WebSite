@@ -66,19 +66,23 @@
 
                     <div id="selectedCourses" style="height: 200px">
                         <div id="1" style="display: flex">
-                            <p class="desiredCourse">CSC 360</p>
+                            <p class="desiredCourse">BIO 201</p>
                             <button type="button" class="close">&times;</button>
                         </div>
                         <div id="2" style="display: flex">
-                            <p class="desiredCourse">CSC 315</p>
+                            <p class="desiredCourse">CSC 131</p>
                             <button type="button" class="close">&times;</button>
                         </div>
                         <div id="3" style="display: flex">
-                            <p class="desiredCourse">CSC 450</p>
+                            <p class="desiredCourse">ENG 111</p>
                             <button type="button" class="close">&times;</button>
                         </div>
                         <div id="4" style="display: flex">
-                            <p class="desiredCourse">MGT 359</p>
+                            <p class="desiredCourse">MAT 161</p>
+                            <button type="button" class="close">&times;</button>
+                        </div>
+                        <div id="5" style="display: flex">
+                            <p class="desiredCourse">CSC 133</p>
                             <button type="button" class="close">&times;</button>
                         </div>
 
@@ -101,7 +105,7 @@
                                     <input id="crseInput" type="text" placeholder="Course" />
                                 </div>
                                 <div class="autocomplete" style="width: 25%; margin: 5px;">
-                                    <input id="secInput" type="text" placeholder="Section" />
+                                    <input id="secInput" type="text" placeholder="Section" readonly="true" style="opacity:.5;" />
                                 </div>
 
                                 <div style="display: flex; align-items: center; justify-content: center">
@@ -258,24 +262,11 @@
                           </li>
                           <li class="events-group">
                               <div class="top-info"><span>Tues</span></div>
-
-
-                              <ul id="T">
-                                  <li class="single-event" style="top: 30px; height: 100px;" data-event="event-4">
-                                      <em class="event-name">CSC 450</em>
-                                      <em class="event-name" style="font-size: 1.0em; margin-top: 10px; opacity: .9">10:00 am
-                                          <br />
-                                          11:45 am</em>
-                                  </li>
-                              </ul>
+                              <ul id="T"></ul>
                           </li>
                           <li class="events-group">
                               <div class="top-info"><span>Wed</span></div>
-                              <ul id="W">
-                                    <div class="courseItem" style="font-size:100%">
-                        <p>CSC 450</p>
-                    </div>
-                              </ul>
+                              <ul id="W"></ul>
                           </li>
                           <li class="events-group">
                               <div class="top-info"><span>Thur</span></div>
@@ -295,7 +286,7 @@
                           </li>
                       </ul>
                   </div>
-                </div>
+              </div>
 
           </div>
 

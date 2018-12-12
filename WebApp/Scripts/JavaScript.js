@@ -43,7 +43,7 @@ function searchFunction() {
     document.getElementById("MiscCourseContainer").innerHTML = ""
     document.getElementById("CRNContainer").innerHTML = ""
 
-   sendCourses();
+    sendCourses();
 }
 
 function parseCRNs(crnString) {
@@ -68,6 +68,11 @@ function addClass() {
     var subj = document.getElementById("subjInput").value
     var crse = document.getElementById("crseInput").value
     var sec = document.getElementById("secInput").value
+
+    //reset values
+    document.getElementById("subjInput").value = ""
+    document.getElementById("crseInput").value = ""
+
 
     if (sec != "") { // format section number
         if (sec.length == 1)
@@ -99,6 +104,8 @@ function addClass() {
 
         }
     }
+
+
     //document.getElementById("tooManyErr").style.visibility = "visible"
 
 }
@@ -163,7 +170,6 @@ $(document).ready(function () {
     });
 
     $("#secInput").click(function () {
-        alert("in")
         var subj = $('#subjInput').val();
         var crse = $('#crseInput').val();
         $.ajax({
@@ -549,7 +555,7 @@ function displayTime(crn, time) {
     //alert("CRN" + crn);
     //alert("time" + time);
 
-    document.getElementById("CRNContainer").innerHTML += crn + "<br/>" ;
+    document.getElementById("CRNContainer").innerHTML += crn + " " ;
 
 
 
@@ -620,20 +626,18 @@ function displayTime(crn, time) {
 
                     //$('#' + tempDay).prepend(newLI);
 
-
-
-
-
-
-                    var newDiv = document.createElement("div");
-                    newDiv.setAttribute("id", tempcrn);
-                    newDiv.setAttribute("class", "courseItem2");
-                    $('#' + tempDay).prepend(newDiv);
-                    var tempCourse = subj + " " + crse;
-
-                    document.getElementById(tempcrn).innerHTML = "<p>" + tempCourse + "</p>";
-
                     if (tempTime != "TBA") {
+
+                        var newDiv = document.createElement("div");
+                        newDiv.setAttribute("id", tempcrn);
+                        newDiv.setAttribute("class", "courseItem2");
+                        $('#' + tempDay).prepend(newDiv);
+                        var tempCourse = subj + " " + crse;
+
+                        document.getElementById(tempcrn).innerHTML = "<p>" + tempCourse + "</p>";
+
+
+
                         var x = tempTime.split("-")
                         var startTime = x[0];
                         var endTime = x[1];
@@ -657,8 +661,6 @@ function displayTime(crn, time) {
 
                         var tempTop = 0;
 
-
-
                         //if (startTime != 8) {
                         var temp = helper.toString().substring(0, 2);
                         var temp2 = helper.toString().substring(2, 4);
@@ -669,14 +671,36 @@ function displayTime(crn, time) {
                         //alert(crn + "'s top is: " + tempTop)
                         tempTop = tempTop + temp2;
 
-                        duration = duration * .7;
+                        //duration set below
+                        if (helper.toString().length == 4) {
+                            var startHR = helper.toString().substring(0, 2);
+                            var startMIN = helper.toString().substring(2, 4);
+                        } else {
+                            var startHR = helper.toString().substring(0, 1);
+                            var startMIN = helper.toString().substring(1, 3);
+                        }
+                        if (endTime.toString().length == 4) {
+                            var endHR = endTime.toString().substring(0, 2);
+                            var endMIN = endTime.toString().substring(2, 4);
+                        } else {
+                            var endHR = endTime.toString().substring(0, 1);
+                            var endMIN = endTime.toString().substring(1, 3);
+                        }
+
+                        startHR *= 60;
+                        startMIN *= 1;
+                        endHR *= 60;
+                        endMIN *= 1;
+
+                        tempDuration = (endHR + endMIN) - (startHR + startMIN)
+
 
                         //}
 
 
 
                         $('#' + tempcrn).css('top', '' + tempTop + 'px');
-                        $('#' + tempcrn).css('height', '' + duration + 'px');
+                        $('#' + tempcrn).css('height', '' + tempDuration + 'px');
                         idCOUNTER = idCOUNTER + 1;
                     }
 
@@ -711,15 +735,16 @@ function displayTime(crn, time) {
 
                     startTime = timeConvertor(startTime);
                     endTime = timeConvertor(endTime);
+                    //Big mess below...
 
                     var duration = endTime - startTime;
                     var helper = startTime;
 
-                    //alert("1: " + startTime);
+
                     if (startTime >= 1300) {
                         startTime = startTime - 1200
                     }
-                    //alert("2: " + startTime);
+
 
                     if (startTime.length == 4)
                         startTime = startTime.toString().substring(0, 2);
@@ -741,10 +766,35 @@ function displayTime(crn, time) {
                     tempTop = tempTop + temp2;
 
 
-                    if (duration > 60)
-                        duration = duration * .63;
+                     //duration set below
+                    if (helper.toString().length == 4) {
+                        var startHR = helper.toString().substring(0, 2);
+                        var startMIN = helper.toString().substring(2, 4);
+                    } else {
+                        var startHR = helper.toString().substring(0, 1);
+                        var startMIN = helper.toString().substring(1, 3);
+                    }
+                    if (endTime.toString().length == 4) {
+                        var endHR = endTime.toString().substring(0, 2);
+                        var endMIN = endTime.toString().substring(2, 4);
+                    } else {
+                        var endHR = endTime.toString().substring(0, 1);
+                        var endMIN = endTime.toString().substring(1, 3);
+                    }
+
+                    startHR *= 60;
+                    startMIN *= 1;
+                    endHR *= 60;
+                    endMIN *= 1;
+
+                    tempDuration = (endHR + endMIN)-(startHR + startMIN)
 
 
+
+                    //if (duration > 60) { //sets durations...needs work
+                    //    tempDuration = duration * .7
+
+                    //}
 
                     //
                     //}
@@ -753,7 +803,7 @@ function displayTime(crn, time) {
 
 
                     $('#' + tempcrn).css('top', '' + tempTop + 'px');
-                    $('#' + tempcrn).css('height', '' + duration + 'px');
+                    $('#' + tempcrn).css('height', '' + tempDuration + 'px');
                     idCOUNTER = idCOUNTER + 1;
 
                 }
